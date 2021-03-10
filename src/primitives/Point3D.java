@@ -29,17 +29,19 @@ public class Point3D {
 		Point3D other = (Point3D) obj;
 		return this.x.equals(other.x) && this.y.equals(other.y) && this.z.equals(other.z);
 	}
+
 	@Override
 	public String toString() {
 		return "x=" + x + ", y=" + y + ", z=" + z;
 	}
+
 	public Vector subtract(Point3D other) {
 		return new Vector(this.x.coord - other.x.coord, this.y.coord - other.y.coord, this.z.coord - other.z.coord);
 	}
 
 	public Point3D add(Vector vector) {
-		return new Point3D(this.x.coord + vector.head.x.coord, this.y.coord + vector.head.y.coord,
-				this.z.coord + vector.head.z.coord);
+		return new Point3D(this.x.coord + vector.getHead().x.coord, this.y.coord + vector.getHead().y.coord,
+				this.z.coord + vector.getHead().z.coord);
 	}
 
 	public double distanceSquared(Point3D other) {
@@ -48,8 +50,6 @@ public class Point3D {
 		double c = (this.z.coord - other.z.coord) * (this.z.coord - other.z.coord);
 		return a + b + c;
 	}
-
-	
 
 	public double distance(Point3D other) {
 		return Math.sqrt(distanceSquared(other));
