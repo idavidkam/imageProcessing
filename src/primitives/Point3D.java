@@ -16,7 +16,7 @@ public class Point3D {
 		this(new Coordinate(x), new Coordinate(y), new Coordinate(z));
 	}
 
-	final static Point3D ZERO = new Point3D(0, 0, 0);
+	public final static Point3D ZERO = new Point3D(0, 0, 0);
 
 	@Override
 	public boolean equals(Object obj) {

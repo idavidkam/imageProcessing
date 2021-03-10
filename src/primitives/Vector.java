@@ -87,14 +87,14 @@ public class Vector {
 		return new Vector(head.x.coord * num, head.y.coord * num, head.z.coord * num);
 	}
 
-	public Point3D dotProduct(Vector other) {
-		return new Point3D(head.x.coord * other.head.x.coord, head.y.coord * other.head.y.coord,
-				head.z.coord * other.head.z.coord);
+	public double dotProduct(Vector other) {
+		return head.x.coord * other.head.x.coord + head.y.coord * other.head.y.coord +
+				head.z.coord * other.head.z.coord;
 	}
 
 	public Vector crossProduct(Vector other) {
 		return new Vector(head.y.coord * other.head.z.coord - head.z.coord * other.head.y.coord,
-				head.x.coord * other.head.z.coord - head.z.coord * other.head.x.coord,
+				head.z.coord * other.head.x.coord - head.x.coord * other.head.z.coord,
 				head.x.coord * other.head.y.coord - head.y.coord * other.head.x.coord);
 	}
 
