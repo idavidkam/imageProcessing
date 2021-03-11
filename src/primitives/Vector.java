@@ -73,39 +73,74 @@ public class Vector {
 		return "Vector [head=" + head + "]";
 	}
 
+	/**
+	 * 
+	 * @param other - a other vector to add
+	 * @return new vector
+	 */
 	public Vector add(Vector other) {
 		return new Vector(head.add(other));
 	}
 
-	public Vector subtruct(Vector other) {
+	/**
+	 * 
+	 * @param other - a other vector to subtract
+	 * @return new vector
+	 */
+	public Vector subtract(Vector other) {
 		return head.subtract(other.head);
 	}
 
+	/**
+	 * 
+	 * @param num - a scale number
+	 * @return new vector that mult in this scale
+	 */
 	public Vector scale(double num) {
-		if (num == 0)
-			throw new IllegalArgumentException("The vector can not be zero and this number is zero");
 		return new Vector(head.x.coord * num, head.y.coord * num, head.z.coord * num);
 	}
 
+	/**
+	 * 
+	 * @param other - a other vector for dotProduct
+	 * @return real number
+	 */
 	public double dotProduct(Vector other) {
 		return head.x.coord * other.head.x.coord + head.y.coord * other.head.y.coord
 				+ head.z.coord * other.head.z.coord;
 	}
 
+	/**
+	 * 
+	 * @param other - a other vector for crossProduct
+	 * @return new vector
+	 */
 	public Vector crossProduct(Vector other) {
 		return new Vector(head.y.coord * other.head.z.coord - head.z.coord * other.head.y.coord,
 				head.z.coord * other.head.x.coord - head.x.coord * other.head.z.coord,
 				head.x.coord * other.head.y.coord - head.y.coord * other.head.x.coord);
 	}
 
+	/**
+	 * 
+	 * @return real positive number that represents length squared
+	 */
 	public double lengthSquared() {
 		return head.x.coord * head.x.coord + head.y.coord * head.y.coord + head.z.coord * head.z.coord;
 	}
 
+	/**
+	 * 
+	 * @return real positive number that represents length
+	 */
 	public double length() {
 		return Math.sqrt(lengthSquared());
 	}
 
+	/**
+	 * 
+	 * @return the same vector but normalized
+	 */
 	public Vector normalize() {
 		double norma = length();
 		head.x = new Coordinate(head.x.coord * (1 / norma));
@@ -114,6 +149,10 @@ public class Vector {
 		return this;
 	}
 
+	/**
+	 * 
+	 * @return new vector normalized
+	 */
 	public Vector normalized() {
 		return new Vector(head).normalize();
 	}

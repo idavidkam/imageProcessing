@@ -1,5 +1,12 @@
 package primitives;
 
+/**
+ * Class Ray is the basic class representing a Ray for Cartesian coordinate
+ * system.
+ * 
+ * @author david and matan
+ *
+ */
 public class Ray {
 
 	private Point3D p0;
@@ -12,7 +19,7 @@ public class Ray {
 	public Vector getDir() {
 		return dir;
 	}
-
+	
 	public Ray(Point3D p0, Vector dir) {
 		if (dir.length() != 1)
 			dir.normalize();
