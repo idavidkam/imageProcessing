@@ -88,8 +88,8 @@ public class Vector {
 	}
 
 	public double dotProduct(Vector other) {
-		return head.x.coord * other.head.x.coord + head.y.coord * other.head.y.coord +
-				head.z.coord * other.head.z.coord;
+		return head.x.coord * other.head.x.coord + head.y.coord * other.head.y.coord
+				+ head.z.coord * other.head.z.coord;
 	}
 
 	public Vector crossProduct(Vector other) {
@@ -107,13 +107,15 @@ public class Vector {
 	}
 
 	public Vector normalize() {
-		head = this.normalized().head;
+		double norma = length();
+		head.x = new Coordinate(head.x.coord * (1 / norma));
+		head.y = new Coordinate(head.y.coord * (1 / norma));
+		head.z = new Coordinate(head.z.coord * (1 / norma));
 		return this;
 	}
 
 	public Vector normalized() {
-		double norma = length();
-		return new Vector(head.x.coord * (1 / norma), head.y.coord * (1 / norma), head.z.coord * (1 / norma));
+		return new Vector(head).normalize();
 	}
 
 }
