@@ -5,7 +5,7 @@ import static primitives.Util.*;
 /**
  * Test program for the 1st stage
  *
- * @author david and matan
+ * @author David and Matan
  */
 public final class Main {
 
