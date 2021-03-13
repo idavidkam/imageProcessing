@@ -143,9 +143,8 @@ public class Vector {
 	 */
 	public Vector normalize() {
 		double norma = length();
-		head.x = new Coordinate(head.x.coord * (1 / norma));
-		head.y = new Coordinate(head.y.coord * (1 / norma));
-		head.z = new Coordinate(head.z.coord * (1 / norma));
+		head = new Point3D(new Coordinate(head.x.coord * (1 / norma)), new Coordinate(head.y.coord * (1 / norma)),
+				new Coordinate(head.z.coord * (1 / norma)));
 		return this;
 	}
 

@@ -9,10 +9,9 @@ package primitives;
  *
  */
 public class Point3D {
-
-	Coordinate x;
-	Coordinate y;
-	Coordinate z;
+	final Coordinate x;
+	final Coordinate y;
+	final Coordinate z;
 
 	/**
 	 * Point3D constructor receiving a three Coordinates value
