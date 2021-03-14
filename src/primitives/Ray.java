@@ -12,19 +12,32 @@ public class Ray {
 	private Point3D p0;
 	private Vector dir;
 
+	/**
+	 * getter point of ray
+	 * 
+	 * @return a point of ray
+	 */
 	public Point3D getP0() {
 		return p0;
 	}
 
+	/**
+	 * getter direction of ray 
+	 * @return a direction of ray 
+	 */
 	public Vector getDir() {
 		return dir;
 	}
-	
+
+	/**
+	 * Ray constructor receiving a Point3d value and vector of direction 
+	 * @param p0-a point of ray 
+	 * @param dir-a direction of ray 
+	 */
 	public Ray(Point3D p0, Vector dir) {
-		if (dir.length() != 1)
-			dir.normalize();
 		this.p0 = p0;
 		this.dir = dir;
+		dir.normalize();
 	}
 
 	@Override

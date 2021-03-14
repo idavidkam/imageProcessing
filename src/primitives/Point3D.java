@@ -9,8 +9,18 @@ package primitives;
  *
  */
 public class Point3D {
+	
+	/**
+	 * x represents the coordinate along the x-axis
+	 */
 	final Coordinate x;
+	/**
+	 * y represents the coordinate along the y-axis
+	 */
 	final Coordinate y;
+	/**
+	 * z represents the coordinate along the z-axis
+	 */
 	final Coordinate z;
 
 	/**
@@ -37,6 +47,9 @@ public class Point3D {
 		this(new Coordinate(x), new Coordinate(y), new Coordinate(z));
 	}
 
+	/**
+	 * Represents the beginning of the axes
+	 */
 	public final static Point3D ZERO = new Point3D(0, 0, 0);
 
 	@Override
@@ -53,7 +66,7 @@ public class Point3D {
 
 	@Override
 	public String toString() {
-		return "x=" + x + ", y=" + y + ", z=" + z;
+		return "(" + x + "," + y + "," + z + ")";
 	}
 
 	/**
@@ -67,7 +80,7 @@ public class Point3D {
 	}
 
 	/**
-	 * 
+	 * add new vector to point- moves the point according to the vector  
 	 * @param vector - for add to point
 	 * @return new point3D
 	 */
@@ -77,9 +90,9 @@ public class Point3D {
 	}
 
 	/**
-	 * 
+	 * Calculates the distance squared between two points
 	 * @param other - a other point
-	 * @return real positive number for distance squared
+	 * @return distance squared between two points
 	 */
 	public double distanceSquared(Point3D other) {
 		double a = (this.x.coord - other.x.coord) * (this.x.coord - other.x.coord);
@@ -89,9 +102,9 @@ public class Point3D {
 	}
 
 	/**
-	 * 
+	 * Calculates the distance between two points
 	 * @param other - a other point
-	 * @return real positive number for distance
+	 * @return distance between two points
 	 */
 	public double distance(Point3D other) {
 		return Math.sqrt(distanceSquared(other));

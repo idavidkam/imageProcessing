@@ -10,6 +10,10 @@ public class Vector {
 
 	private Point3D head;
 
+	/**
+	 * getter head
+	 * @return the head of vector 
+	 */
 	public Point3D getHead() {
 		return head;
 	}
@@ -35,10 +39,9 @@ public class Vector {
 	 * @throws IllegalArgumentException when the vector is equal to zero
 	 */
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
-		Point3D tmp = new Point3D(x, y, z);
-		if (tmp.equals(Point3D.ZERO))
+		head = new Point3D(x, y, z);
+		if (head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The vector can not be zero!");
-		head = tmp;
 	}
 
 	/**
@@ -50,10 +53,9 @@ public class Vector {
 	 * @throws IllegalArgumentException when the vector is equal to zero
 	 */
 	public Vector(double x, double y, double z) {
-		Point3D tmp = new Point3D(x, y, z);
-		if (tmp.equals(Point3D.ZERO))
+		head = new Point3D(x, y, z);
+		if (head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The vector can not be zero!");
-		head = tmp;
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class Vector {
 	}
 
 	/**
-	 * 
+	 * Calculates new vector by adding two vectors
 	 * @param other - a other vector to add
 	 * @return new vector
 	 */
@@ -83,7 +85,7 @@ public class Vector {
 	}
 
 	/**
-	 * 
+	 * Calculates new vector by subtracting two vectors
 	 * @param other - a other vector to subtract
 	 * @return new vector
 	 */
@@ -92,18 +94,18 @@ public class Vector {
 	}
 
 	/**
-	 * 
-	 * @param num - a scale number
-	 * @return new vector that mult in this scale
+	 * Calculates new vector by multiply vector in scalar
+	 * @param num - a scalar number
+	 * @return new vector that multiply in this scalar
 	 */
 	public Vector scale(double num) {
 		return new Vector(head.x.coord * num, head.y.coord * num, head.z.coord * num);
 	}
 
 	/**
-	 * 
+	 * Calculates dotProduct between two vectors
 	 * @param other - a other vector for dotProduct
-	 * @return real number
+	 * @return scalar number
 	 */
 	public double dotProduct(Vector other) {
 		return head.x.coord * other.head.x.coord + head.y.coord * other.head.y.coord
@@ -111,9 +113,9 @@ public class Vector {
 	}
 
 	/**
-	 * 
+	 * Calculates crossProduct between two vectors
 	 * @param other - a other vector for crossProduct
-	 * @return new vector
+	 * @return a new vertical vector to two other vectors 
 	 */
 	public Vector crossProduct(Vector other) {
 		return new Vector(head.y.coord * other.head.z.coord - head.z.coord * other.head.y.coord,
@@ -122,7 +124,7 @@ public class Vector {
 	}
 
 	/**
-	 * 
+	 * Calculates the length squared of the vector
 	 * @return real positive number that represents length squared
 	 */
 	public double lengthSquared() {
@@ -130,7 +132,7 @@ public class Vector {
 	}
 
 	/**
-	 * 
+	 * Calculates the length of the vector
 	 * @return real positive number that represents length
 	 */
 	public double length() {
@@ -138,18 +140,17 @@ public class Vector {
 	}
 
 	/**
-	 * 
+	 * Normalizes the vector
 	 * @return the same vector but normalized
 	 */
 	public Vector normalize() {
 		double norma = length();
-		head = new Point3D(new Coordinate(head.x.coord * (1 / norma)), new Coordinate(head.y.coord * (1 / norma)),
-				new Coordinate(head.z.coord * (1 / norma)));
+		head = new Point3D(head.x.coord /norma, head.y.coord /norma,head.z.coord  / norma);
 		return this;
 	}
 
 	/**
-	 * 
+	 * creates new vector that normalize 
 	 * @return new vector normalized
 	 */
 	public Vector normalized() {
