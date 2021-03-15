@@ -2,6 +2,11 @@ package geometries;
 
 import primitives.*;
 
+/**
+ * A class representing a Tube in a three-dimensional Cartesian system
+ * @author david and matan
+ *
+ */
 public class Tube implements Geometry {
 
 	protected Ray axisRay;

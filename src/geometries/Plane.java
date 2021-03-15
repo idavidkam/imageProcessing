@@ -3,6 +3,11 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
+/**
+ * A class representing a Plane in a three-dimensional Cartesian system
+ * @author david and matan
+ *
+ */
 public class Plane implements Geometry {
 
 	private Point3D p0;

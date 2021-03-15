@@ -115,7 +115,7 @@ public class Vector {
 	/**
 	 * Calculates crossProduct between two vectors
 	 * @param other - a other vector for crossProduct
-	 * @return a new vertical vector to two other vectors 
+	 * @return a new orthogonal vector to two other vectors 
 	 */
 	public Vector crossProduct(Vector other) {
 		return new Vector(head.y.coord * other.head.z.coord - head.z.coord * other.head.y.coord,
