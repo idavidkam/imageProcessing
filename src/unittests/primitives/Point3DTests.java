@@ -26,7 +26,7 @@ public class Point3DTests {
 		var p1 = new Point3D(2, 2, 2);
 
 		// ============ Equivalence Partitions Tests ==============
-		
+
 		// Test that subtract is proper
 		assertTrue("subtract() Point - Point does not work correctly",
 				new Vector(1, 1, 1).equals(p1.subtract(new Point3D(1, 1, 1))));
@@ -51,9 +51,12 @@ public class Point3DTests {
 	 */
 	@Test
 	public void testDistanceSquared() {
-		// ============ Equivalence Partitions Tests ==============
+		var p1 = new Point3D(4, 0, 0);
+		var p2 = new Point3D(0, 3, 0);
 
-		fail("Not yet implemented");
+		// ============ Equivalence Partitions Tests ==============
+		// Test that Distance Squared is proper
+		assertEquals("distanceSquared() the distance squared is not proper", 25, p1.distanceSquared(p2), 0.000001);
 	}
 
 	/**
@@ -61,9 +64,11 @@ public class Point3DTests {
 	 */
 	@Test
 	public void testDistance() {
+		var p1 = new Point3D(1, 2, 3);
+		var p2 = new Point3D(1, 2, 3);
+		
 		// ============ Equivalence Partitions Tests ==============
-
-		fail("Not yet implemented");
+		// Test that Distance is proper
+		assertEquals("distance() the distance squared is not proper", 0, p1.distance(p2), 0.000001);
 	}
-
 }
