@@ -26,11 +26,7 @@ public class VectorTests {
 		// ============ Equivalence Partitions Tests ==============
 
 		// Test that add is proper
-		try {
-			Vector tmp = v.add(new Vector(-1, -2, -3));
-		} catch (IllegalArgumentException e) {
-			fail("add() Vector + Vector does not work correctly");
-		}
+		assertThrows("add() Vector + Vector does not work correctly", IllegalArgumentException.class,()->v.add(new Vector(-1,-2,-3)));
 	}
 
 	/**
@@ -42,11 +38,7 @@ public class VectorTests {
 		// ============ Equivalence Partitions Tests ==============
 
 		// Test that subtract is proper
-		try {
-			Vector tmp = v.subtract(new Vector(1, 2, 3));
-		} catch (IllegalArgumentException e) {
-			fail("subtract() Vector - Vector does not work correctly");
-		}
+		assertThrows("subtract() Vector - Vector does not work correctly", IllegalArgumentException.class,()->v.subtract(new Vector(1,2,3)));
 	}
 
 	/**
@@ -74,7 +66,7 @@ public class VectorTests {
 		Vector v3 = new Vector(0, 3, -2);
 
 		assertTrue("dotProduct() for orthogonal vectors is not zero", isZero(v1.dotProduct(v3)));
-		assertTrue(" dotProduct() wrong value", isZero(v1.dotProduct(v2) + 28));
+		assertTrue("dotProduct() wrong value", isZero(v1.dotProduct(v2) + 28));
 	}
 
 	/**
@@ -99,11 +91,7 @@ public class VectorTests {
 
 		// =============== Boundary Values Tests ==================
 		// test zero vector from cross-productof co-lined vectors
-		try {
-			v1.crossProduct(v2);
-			fail("crossProduct() for parallel vectors does not throw an exception");
-		} catch (Exception e) {
-		}
+		assertThrows("crossProduct() for parallel vectors does not throw an exception", IllegalArgumentException.class,()->v1.crossProduct(v2));
 	}
 
 	/**
@@ -159,7 +147,7 @@ public class VectorTests {
 		Vector u = v.normalized();
 
 		// Test that normalized create a new vector
-		assertTrue("normalized() function does not create a new vector", u == v);
+		assertTrue("normalized() function does not create a new vector", u != v);
 
 		// Test that normalized create a unit vector
 		assertTrue("normalized() result is not a unit vector", isZero(u.length() - 1));
