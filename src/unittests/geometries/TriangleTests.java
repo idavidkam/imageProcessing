@@ -13,8 +13,9 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * @author m.n.y.1234
- *
+ * Unit tests for geometries.Triangle class
+ * 
+ * @author david and matan
  */
 public class TriangleTests {
 
