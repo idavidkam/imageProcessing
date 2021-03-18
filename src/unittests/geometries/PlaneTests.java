@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import geometries.Plane;
 import primitives.Point3D;
+import primitives.Util;
 import primitives.Vector;
 
 /**
@@ -50,13 +51,13 @@ public class PlaneTests {
 	@Test
 	public void testGetNormalPoint3D() {
 		// ============ Equivalence Partitions Tests ==============
-		var pl = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
+		var pl = new Plane(new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 0));
         
 		//Test that the length of the normal vector is equal to 1
 		assertTrue("getNormal(Point3D) faild - the vector no normalizes", pl.getNormal(new Point3D(1, 0, 0)).length() == 1);
 		
 		//Test that vectors are orthogonal
-		assertTrue("getNormal(Point3D) faild - the vector not orthogonal",pl.getNormal().dotProduct(new Vector(0,1,0))==0);
+		assertTrue("getNormal(Point3D) faild - the vector not orthogonal",Util.isZero(pl.getNormal(new Point3D(1, 0, 0)).dotProduct(new Vector(1, 0, 0))));
 	}
 
 }

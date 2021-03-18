@@ -9,7 +9,7 @@ package primitives;
  *
  */
 public class Point3D {
-	
+
 	/**
 	 * x represents the coordinate along the x-axis
 	 */
@@ -23,6 +23,7 @@ public class Point3D {
 	 */
 	final Coordinate z;
 
+	
 	/**
 	 * Point3D constructor receiving a three Coordinates value
 	 * 
@@ -80,7 +81,8 @@ public class Point3D {
 	}
 
 	/**
-	 * add new vector to point- moves the point according to the vector  
+	 * add new vector to point- moves the point according to the vector
+	 * 
 	 * @param vector - for add to point
 	 * @return new point3D
 	 */
@@ -91,6 +93,7 @@ public class Point3D {
 
 	/**
 	 * Calculates the distance squared between two points
+	 * 
 	 * @param other - a other point
 	 * @return distance squared between two points
 	 */
@@ -103,6 +106,7 @@ public class Point3D {
 
 	/**
 	 * Calculates the distance between two points
+	 * 
 	 * @param other - a other point
 	 * @return distance between two points
 	 */

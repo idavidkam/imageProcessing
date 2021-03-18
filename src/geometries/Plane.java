@@ -13,29 +13,53 @@ public class Plane implements Geometry {
 	private Point3D p0;
 	private Vector normal;
 	
+	/**
+	 * getter point on plane
+	 * @return point on plane
+	 */
 	public Point3D getP0() {
 		return p0;
 	}
-
+	/**
+	 * getter normal of plane
+	 * @return a vector normal to plane
+	 */
 	public Vector getNormal() {
 		return normal;
 	}
 
+	/**
+	 * Plane constructor receiving a Point3d value and vector normal to plane 
+	 * @param p0 - point on plane
+	 * @param normal - vector normal to plane
+	 */
 	public Plane(Point3D p0, Vector normal) {
 		this.p0 = p0;
 		this.normal = normal;
 	}
-	
+	/**
+	 * 
+	 * @param p0 - point on plane
+	 * @param p1 - point on plane
+	 * @param p2 - point on plane
+	 * @throws IllegalArgumentException 
+	 * <li>When one of the points is similar to the other <li>When they are on the same straight line
+	 */
 	public Plane(Point3D p0, Point3D p1, Point3D p2) {
+		if(p0.equals(p2)||p0.equals(p1)||p1.equals(p2)){
+			throw new IllegalArgumentException("There are at least two merging points, Check them again!");
+		}
+		var v1=p1.subtract(p0);
+		var v2=p2.subtract(p0);
+		normal=v1.crossProduct(v2).normalize();
 		this.p0 = p0;
-		this.normal = getNormal(p1); // TODO 
+		
 	}
 
 	
 	@Override
 	public Vector getNormal(Point3D point) {
-		// TODO Auto-generated method stub
-		return null;
+		return normal;
 	}
 
 	

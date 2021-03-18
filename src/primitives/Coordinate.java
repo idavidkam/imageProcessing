@@ -15,7 +15,7 @@ public final class Coordinate {
      * constraints
      */
     final double coord;
-
+   
     /**
      * Coordinate constructor receiving a coordinate value
      * 
