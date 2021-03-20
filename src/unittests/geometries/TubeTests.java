@@ -30,7 +30,7 @@ public class TubeTests {
 		// Check that the normal is correct
 		double sqrt10 = Math.sqrt(10);
 		assertEquals("getNormal(Point3D) -The normal to the Tube is not correct ",
-				new Vector(new Point3D(0, 1 / sqrt10, 3 / sqrt10)), tube.getNormal(new Point3D(0, 1, 3)));
+				new Vector(new Point3D(1, 0, 0)).normalize(), tube.getNormal(new Point3D(1, 0, 6)));
 		// =============== Boundary Values Tests ==================
 		// Check when the point is in front of the head Ray
 		assertThrows("getNormal() faild - point is in front of the head Ray!", IllegalArgumentException.class,
