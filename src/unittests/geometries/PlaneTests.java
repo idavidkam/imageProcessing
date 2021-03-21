@@ -53,4 +53,11 @@ public class PlaneTests {
 				|| new Vector(-sqrt3, -sqrt3, -sqrt3).equals(pla.getNormal(new Point3D(0, 0, 1))));
 	}
 
+	/**
+	 * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.
+	 */
+	@Test
+	public void testFindIntsersectionsRay() {
+		fail("no implement yet");
+	}
 }

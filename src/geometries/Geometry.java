@@ -13,4 +13,5 @@ public interface Geometry extends Intersectable{
 	 * @return A vector orthogonal to the body at a given point
 	 */
 	 Vector getNormal(Point3D point);
+	 
 }

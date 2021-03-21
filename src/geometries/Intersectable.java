@@ -15,5 +15,5 @@ public interface Intersectable {
 	 * @param ray //TODO after finish with all implementations
 	 * @return the points that cut between bodies
 	 */
-	List<Point3D> findIntsersections(Ray ray);
+	List<Point3D> findIntersections(Ray ray);
 }
