@@ -6,7 +6,6 @@ package unittests.geometries;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
 import geometries.Tube;
 import primitives.Point3D;
 import primitives.Ray;
@@ -33,7 +32,8 @@ public class TubeTests {
 				new Vector(new Point3D(1, 0, 0)).normalize(), tube.getNormal(new Point3D(1, 0, 6)));
 		// =============== Boundary Values Tests ==================
 		// Check when the point is in front of the head Ray
-		assertThrows("getNormal() faild - point is in front of the head Ray!", IllegalArgumentException.class,
-				() -> tube.getNormal(new Point3D(0, 1, 1)));
+		assertEquals("getNormal() faild - point is in front of the head Ray!", 
+				new Vector(new Point3D(0,1,0)) , tube.getNormal(new Point3D(0, 1, 1)));
 	}
+	
 }

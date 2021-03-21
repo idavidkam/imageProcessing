@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 import static primitives.Util.isZero;
 import org.junit.Test;
 
-
 /**
  * Unit tests for primitives.Vector class
  * 
@@ -26,7 +25,8 @@ public class VectorTests {
 		// ============ Equivalence Partitions Tests ==============
 
 		// Test that add is proper
-		assertThrows("add() Vector + Vector does not work correctly", IllegalArgumentException.class,()->v.add(new Vector(-1,-2,-3)));
+		assertThrows("add() Vector + Vector does not work correctly", IllegalArgumentException.class,
+				() -> v.add(new Vector(-1, -2, -3)));
 	}
 
 	/**
@@ -38,7 +38,8 @@ public class VectorTests {
 		// ============ Equivalence Partitions Tests ==============
 
 		// Test that subtract is proper
-		assertThrows("subtract() Vector - Vector does not work correctly", IllegalArgumentException.class,()->v.subtract(new Vector(1,2,3)));
+		assertThrows("subtract() Vector - Vector does not work correctly", IllegalArgumentException.class,
+				() -> v.subtract(new Vector(1, 2, 3)));
 	}
 
 	/**
@@ -51,7 +52,7 @@ public class VectorTests {
 		// ============ Equivalence Partitions Tests ==============
 
 		// Test that scale is proper
-		assertEquals("scale() ", new Vector(2,4,6), v.scale(2));
+		assertEquals("scale() ", new Vector(2, 4, 6), v.scale(2));
 	}
 
 	/**
@@ -90,8 +91,9 @@ public class VectorTests {
 		assertTrue("crossProduct() result is not orthogonal to 2nd operand", isZero(vr.dotProduct(v3)));
 
 		// =============== Boundary Values Tests ==================
-		// test zero vector from cross-productof co-lined vectors
-		assertThrows("crossProduct() for parallel vectors does not throw an exception", IllegalArgumentException.class,()->v1.crossProduct(v2));
+		// test zero vector from cross-product of co-lined vectors
+		assertThrows("crossProduct() for parallel vectors does not throw an exception", IllegalArgumentException.class,
+				() -> v1.crossProduct(v2));
 	}
 
 	/**

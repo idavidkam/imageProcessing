@@ -71,4 +71,5 @@ public class Point3DTests {
 		// Test that Distance is proper
 		assertEquals("distance() the distance squared is not proper", 0, p1.distance(p2), 0.000001);
 	}
+	
 }

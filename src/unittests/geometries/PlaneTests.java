@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import geometries.Plane;
+import geometries.Triangle;
 import primitives.Point3D;
 import primitives.Util;
 import primitives.Vector;
@@ -31,18 +32,12 @@ public class PlaneTests {
 		// =============== Boundary Values Tests ==================
 
 		// Test for 2 similar points
-		try {
-			var pl = new Plane(new Point3D(1, 2, 3), new Point3D(1, 2, 3), new Point3D(0, 0, 0));
-			fail("Constructed a Plane with same points not valid");
-		} catch (Exception e) {
-		}
+		assertThrows("Constructed a Plane with same points not valid",IllegalArgumentException.class, 
+				()->new Plane(new Point3D(1, 2, 3), new Point3D(1, 2, 3), new Point3D(0, 0, 0)));
 
 		// Check for 3 points on one straight line
-		try {
-			var pl = new Plane(new Point3D(1, 1, 1), new Point3D(2, 2, 2), new Point3D(3, 3, 3));
-			fail("Constructed a Plane with points on one straight line is not valid");
-		} catch (Exception e) {
-		}
+		assertThrows("Constructed a Plane with points on one straight line is not valid",IllegalArgumentException.class, 
+				()->new Plane(new Point3D(1, 1, 1), new Point3D(2, 2, 2), new Point3D(3, 3, 3)));
 	}
 
 	/**
@@ -51,13 +46,11 @@ public class PlaneTests {
 	@Test
 	public void testGetNormalPoint3D() {
 		// ============ Equivalence Partitions Tests ==============
-		var pl = new Plane(new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 0));
-        
-		//Test that the length of the normal vector is equal to 1
-		assertTrue("getNormal(Point3D) faild - the vector no normalizes", pl.getNormal(new Point3D(1, 0, 0)).length() == 1);
-		
-		//Test that vectors are orthogonal
-		assertTrue("getNormal(Point3D) faild - the vector not orthogonal",Util.isZero(pl.getNormal(new Point3D(1, 0, 0)).dotProduct(new Vector(1, 0, 0))));
+		// There is a simple single test here
+		var pla = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
+		double sqrt3 = Math.sqrt(1d / 3);
+		assertTrue("Bad normal to plane", new Vector(sqrt3, sqrt3, sqrt3).equals(pla.getNormal(new Point3D(0, 0, 1)))
+				|| new Vector(-sqrt3, -sqrt3, -sqrt3).equals(pla.getNormal(new Point3D(0, 0, 1))));
 	}
 
 }

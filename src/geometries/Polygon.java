@@ -99,5 +99,11 @@ public class Polygon implements Geometry {
 		return "vertices=" + vertices + ", plane=" + plane;
 	}
 
+	@Override
+	public List<Point3D> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

@@ -1,11 +1,13 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
  * A class representing a Tube in a three-dimensional Cartesian system
  * 
- * @author david and matan
+ * @author David and Matan
  *
  */
 public class Tube implements Geometry {
@@ -44,10 +46,13 @@ public class Tube implements Geometry {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		var t = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));
+		Vector dir = axisRay.getDir();
+		Point3D p0 = axisRay.getP0();
+		
+		var t = dir.dotProduct(point.subtract(p0));
 		if(Util.isZero(t))
-			throw new IllegalArgumentException("point is in front of the head Ray"); 
-		var o = axisRay.getP0().add(axisRay.getDir().scale(t));
+			return point.subtract(p0).normalize();
+		var o = p0.add(dir.scale(t));
 		return point.subtract(o).normalize();
 	}
 
@@ -56,4 +61,9 @@ public class Tube implements Geometry {
 		return "Ray= " + axisRay + ", radius= " + radius;
 	}
 
+	@Override
+	public List<Point3D> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

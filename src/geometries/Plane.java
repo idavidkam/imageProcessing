@@ -1,6 +1,9 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -20,6 +23,7 @@ public class Plane implements Geometry {
 	public Point3D getP0() {
 		return p0;
 	}
+	
 	/**
 	 * getter normal of plane
 	 * @return a vector normal to plane
@@ -35,10 +39,11 @@ public class Plane implements Geometry {
 	 */
 	public Plane(Point3D p0, Vector normal) {
 		this.p0 = p0;
-		this.normal = normal;
+		this.normal = normal.normalized();
 	}
+	
 	/**
-	 * 
+	 * Plane constructor receiving a tree Point3d value
 	 * @param p0 - point on plane
 	 * @param p1 - point on plane
 	 * @param p2 - point on plane
@@ -46,29 +51,25 @@ public class Plane implements Geometry {
 	 * <li>When one of the points is similar to the other <li>When they are on the same straight line
 	 */
 	public Plane(Point3D p0, Point3D p1, Point3D p2) {
-		if(p0.equals(p2)||p0.equals(p1)||p1.equals(p2)){
-			throw new IllegalArgumentException("There are at least two merging points, Check them again!");
-		}
 		var v1=p1.subtract(p0);
 		var v2=p2.subtract(p0);
 		normal=v1.crossProduct(v2).normalize();
 		this.p0 = p0;
-		
 	}
 
-	
 	@Override
 	public Vector getNormal(Point3D point) {
 		return normal;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Point3D= " + p0 + ", Normal= " + normal;
 	}
-
 	
-
-
+	@Override
+	public List<Point3D> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

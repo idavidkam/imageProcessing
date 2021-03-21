@@ -56,5 +56,4 @@ public class Ray {
 		Ray other = (Ray) obj;
 		return this.p0.equals(other.p0) && this.dir.equals(other.dir);
 	}
-
 }
