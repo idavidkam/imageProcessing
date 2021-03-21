@@ -25,7 +25,7 @@ public class TubeTests {
 	@Test
 	public void testGetNormal() {
 		// ============ Equivalence Partitions Tests ==============
-		var tube = new Tube(new Ray(new Point3D(0, 0, 0), new Vector(0, 0, 1)), 1);
+		var tube = new Tube(new Ray(new Point3D(0, 0, 1), new Vector(0, 0, 1)), 1);
 
 		// Check that the normal is correct
 		double sqrt10 = Math.sqrt(10);
@@ -34,6 +34,6 @@ public class TubeTests {
 		// =============== Boundary Values Tests ==================
 		// Check when the point is in front of the head Ray
 		assertThrows("getNormal() faild - point is in front of the head Ray!", IllegalArgumentException.class,
-				() -> tube.getNormal(new Point3D(0, 1, 0)));
+				() -> tube.getNormal(new Point3D(0, 1, 1)));
 	}
 }

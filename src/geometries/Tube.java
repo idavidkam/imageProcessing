@@ -45,6 +45,8 @@ public class Tube implements Geometry {
 	@Override
 	public Vector getNormal(Point3D point) {
 		var t = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));
+		if(Util.isZero(t))
+			throw new IllegalArgumentException("point is in front of the head Ray"); 
 		var o = axisRay.getP0().add(axisRay.getDir().scale(t));
 		return point.subtract(o).normalize();
 	}
