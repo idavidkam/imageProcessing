@@ -2,21 +2,14 @@
  * 
  */
 package unittests.geometries;
-
 import static org.junit.Assert.*;
-
 import java.util.List;
-
 import org.junit.Test;
-
-import com.sun.net.httpserver.Authenticator.Result;
-
 import geometries.Sphere;
 import primitives.*;
 
 /**
- * Unit tests for geometries.Sphere class
- * 
+ * Unit tests for geometries.Sphere classs
  * @author david and matan
  */
 public class SphereTests {
@@ -61,6 +54,8 @@ public class SphereTests {
 		assertEquals("Ray crosses sphere", List.of(p1, p2), result);
 
         // TC03: Ray starts inside the sphere (1 point)
+		Point3D point1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
+		Point3D point2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
         
         // TC04: Ray starts after the sphere (0 points)
         
