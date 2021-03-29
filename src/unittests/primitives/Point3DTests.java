@@ -53,7 +53,6 @@ public class Point3DTests {
 	public void testDistanceSquared() {
 		var p1 = new Point3D(4, 0, 0);
 		var p2 = new Point3D(0, 3, 0);
-
 		// ============ Equivalence Partitions Tests ==============
 		// Test that Distance Squared is proper
 		assertEquals("distanceSquared() the distance squared is not proper", 25, p1.distanceSquared(p2), 0.000001);
