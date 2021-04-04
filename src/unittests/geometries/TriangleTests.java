@@ -49,5 +49,4 @@ public class TriangleTests {
 		assertTrue("Bad normal to trinagle", new Vector(sqrt3, sqrt3, sqrt3).equals(tri.getNormal(new Point3D(0, 0, 1)))
 				|| new Vector(-sqrt3, -sqrt3, -sqrt3).equals(tri.getNormal(new Point3D(0, 0, 1))));
 	}
-
 }

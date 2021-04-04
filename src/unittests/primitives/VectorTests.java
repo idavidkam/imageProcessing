@@ -154,5 +154,4 @@ public class VectorTests {
 		// Test that normalized create a unit vector
 		assertTrue("normalized() result is not a unit vector", isZero(u.length() - 1));
 	}
-
 }

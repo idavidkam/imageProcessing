@@ -32,12 +32,13 @@ public class PlaneTests {
 		// =============== Boundary Values Tests ==================
 
 		// Test for 2 similar points
-		assertThrows("Constructed a Plane with same points not valid",IllegalArgumentException.class, 
-				()->new Plane(new Point3D(1, 2, 3), new Point3D(1, 2, 3), new Point3D(0, 0, 0)));
+		assertThrows("Constructed a Plane with same points not valid", IllegalArgumentException.class,
+				() -> new Plane(new Point3D(1, 2, 3), new Point3D(1, 2, 3), new Point3D(0, 0, 0)));
 
 		// Check for 3 points on one straight line
-		assertThrows("Constructed a Plane with points on one straight line is not valid",IllegalArgumentException.class, 
-				()->new Plane(new Point3D(1, 1, 1), new Point3D(2, 2, 2), new Point3D(3, 3, 3)));
+		assertThrows("Constructed a Plane with points on one straight line is not valid",
+				IllegalArgumentException.class,
+				() -> new Plane(new Point3D(1, 1, 1), new Point3D(2, 2, 2), new Point3D(3, 3, 3)));
 	}
 
 	/**
