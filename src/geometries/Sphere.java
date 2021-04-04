@@ -65,12 +65,12 @@ public class Sphere implements Geometry {
 			var u = center.subtract(ray.getP0());
 			tm = ray.getDir().dotProduct(u);
 			d = Math.sqrt(u.lengthSquared() - (tm * tm));
+			if (d >= radius)
+				return null;
 		} catch (Exception e) {
 			d = 0;
 			tm = 0;
 		}
-		if (d >= radius)
-			return null;
 		double th = Math.sqrt(radius * radius - (d * d));
 		double t1 = tm + th;
 		double t2 = tm - th;
