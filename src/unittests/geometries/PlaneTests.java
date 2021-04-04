@@ -59,6 +59,30 @@ public class PlaneTests {
 	 */
 	@Test
 	public void testFindIntsersectionsRay() {
-		fail("no implement yet");
+		fail("no implement yet");		
+		// ============ Equivalence Partitions Tests ==============
+		var plane=new Plane(new Point3D(1,0,0), new Vector(new Point3D(0, 0, 1)));
+		//TC01: Ray intersects the plane
+		
+		//TC02: Ray does not intersect the plane
+		
+		// =============== Boundary Values Tests ==================
+		
+		//TC03: Ray is parallel to the plane (not included in the plane)
+		
+		//TC04: Ray is parallel to the plane (included in the plane)
+		
+		//TC05: Ray is orthogonal to the plane (P0 before the plane)
+		
+		//TC06: Ray is orthogonal to the plane (P0 in the plane)
+		
+		//TC07: Ray is orthogonal to the plane (P0 after the plane)
+		
+		//TC08: Ray is neither orthogonal nor parallel to and begins at the plane 
+		//(P0 is in the plane , but not the ray)
+		
+		//TC09: Ray is neither orthogonal nor parallel to the plane and begins in
+		//the same point which appears as reference point in the plane Q
+		
 	}
 }
