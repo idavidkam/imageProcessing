@@ -4,12 +4,10 @@
 package unittests.geometries;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-import geometries.Polygon;
 import geometries.Triangle;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -54,16 +52,30 @@ public class TriangleTests {
 	 */
 	@Test
 	public void testFindIntsersectionsRay() {
+		
+		Triangle triangle = new Triangle(new Point3D(0, 0, 2), new Point3D(2, 0, 0), Point3D.ZERO);
+		
 		// ============ Equivalence Partitions Tests ==============
-		//TC01:
-		//TC02:
-		//TC03:
+		//TC01: Inside triangle
+		assertEquals("the Ray not cross inside triangle ",new Point3D(1,0,1), 
+				triangle.findIntersections(new Ray(new Point3D(1, -1, 1), new Vector(0, 1, 0))).get(0));
+		//TC02: Outside against edge
+		assertNull("the Ray not cross outside against edge",
+				triangle.findIntersections(new Ray(new Point3D(-1, -1, 1), new Vector(0, 1, 0))));
+		//TC03: Outside against vertex
+		assertNull("the Ray not cross outside against vertex",
+				triangle.findIntersections(new Ray(new Point3D(-1, -1, -1), new Vector(0, 1, 0))));
 		
 		// =============== Boundary Values Tests ==================
-
-		//TC04:
-		//TC05:
-		//TC06:
+		//TC04: the ray begins "before" the plane (On edge)
+		assertNull("the ray begins before the plane and not cross on edge",
+				triangle.findIntersections(new Ray(new Point3D(0, -1, -1), new Vector(0, 1, 0))));
+		//TC05: the ray begins "before" the plane (In vertex)
+		assertNull("the ray begins before the plane and not cross in vertex",
+				triangle.findIntersections(new Ray(new Point3D(0, -1, 0), new Vector(0, 1, 0))));
+		//TC06: the ray begins "before" the plane (On edge's continuation)
+		assertNull("the ray begins before the plane and not cross on edge's continuation",
+				triangle.findIntersections(new Ray(new Point3D(0, -1, 3.5), new Vector(0, 1, 0))));
 	}
 	
 }
