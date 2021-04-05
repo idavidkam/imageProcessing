@@ -53,7 +53,7 @@ public class TriangleTests {
 	@Test
 	public void testFindIntsersectionsRay() {
 		
-		Triangle triangle = new Triangle(new Point3D(0, 0, 2), new Point3D(2, 0, 0), Point3D.ZERO);
+		Triangle triangle = new Triangle(new Point3D(0, 0, 3), new Point3D(3, 0, 0), Point3D.ZERO);
 		
 		// ============ Equivalence Partitions Tests ==============
 		//TC01: Inside triangle
