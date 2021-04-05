@@ -58,6 +58,7 @@ public class PlaneTests {
 	@Test
 	public void testFindIntsersectionsRay() {
 		// ============ Equivalence Partitions Tests ==============
+		
 		var plane = new Plane(new Point3D(1, 0, 0), new Vector(new Point3D(0, 0, 1)));
 		// TC01: Ray intersects the plane
 		assertEquals("Ray should intersects the plane", Point3D.ZERO,
@@ -65,6 +66,7 @@ public class PlaneTests {
 		// TC02: Ray does not intersect the plane
 		assertNull("Ray not should intersects the plane",
 				plane.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(1, 1, 1))));
+		
 		// =============== Boundary Values Tests ==================
 
 		// TC03: Ray is parallel to the plane (not included in the plane)

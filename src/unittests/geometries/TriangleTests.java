@@ -49,4 +49,21 @@ public class TriangleTests {
 		assertTrue("Bad normal to trinagle", new Vector(sqrt3, sqrt3, sqrt3).equals(tri.getNormal(new Point3D(0, 0, 1)))
 				|| new Vector(-sqrt3, -sqrt3, -sqrt3).equals(tri.getNormal(new Point3D(0, 0, 1))));
 	}
+	/**
+	 * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
+	 */
+	@Test
+	public void testFindIntsersectionsRay() {
+		// ============ Equivalence Partitions Tests ==============
+		//TC01:
+		//TC02:
+		//TC03:
+		
+		// =============== Boundary Values Tests ==================
+
+		//TC04:
+		//TC05:
+		//TC06:
+	}
+	
 }
