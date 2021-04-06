@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import primitives.*;
 import static primitives.Util.*;
@@ -27,7 +29,7 @@ public class Polygon implements Geometry {
 	public Plane getPlane() {
 		return plane;
 	}
-	
+
 	/**
 	 * Polygon constructor based on vertices list. The list must be ordered by edge
 	 * path. The polygon must be convex.
@@ -102,8 +104,34 @@ public class Polygon implements Geometry {
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
+		var myList = plane.findIntersections(ray);
+		if (myList == null)
+			return null;
+		var vectors = new LinkedList<Vector>();
+		for (Iterator<Point3D> iterator = vertices.iterator(); iterator.hasNext();) {
+			var vertice = iterator.next();
+			vectors.add(vertice.subtract(ray.getP0()));
+		}
+		var normals = new LinkedList<Vector>();
+		for (int i = 0; i < vectors.size() - 1; i++) {
+			normals.add(vectors.get(i).crossProduct(vectors.get(i + 1)));
+		}
+		normals.add(vectors.getLast().crossProduct(vectors.getFirst()));
+		Boolean allPositive = false, allNegative = true;
+		for (Iterator<Vector> iterator = normals.iterator(); iterator.hasNext();) {
+			var normal = iterator.next();
+			var result = alignZero(normal.dotProduct(ray.getDir()));
+			if (result != 0)
+				if (result > 0)
+					allPositive = true;
+				else
+					allNegative = true;
+			else
+				return null;
+		}
+		if (allNegative != allPositive)
+			return myList;
 		return null;
 	}
 
-	
 }
