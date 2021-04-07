@@ -133,5 +133,4 @@ public class Polygon implements Geometry {
 			return myList;
 		return null;
 	}
-
 }

@@ -3,6 +3,7 @@
  */
 package geometries;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,8 +43,19 @@ public class Geometries implements Intersectable {
 	}
 	
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Point3D> findIntersections(Ray ray) {	
+		List<Point3D> points=null;
+		if(bodies!=null) {			
+			for (Iterator<Intersectable> iterator = bodies.iterator(); iterator.hasNext();) {
+				var body =  iterator.next();
+				var result=body.findIntersections(ray);
+				if(result!=null)
+					if(points==null)
+						points=new LinkedList<Point3D>(result);
+					else
+						points.addAll(result);
+			}
+		}
+		return points;
 	}
 }
