@@ -28,6 +28,17 @@ public class Ray {
 	public Vector getDir() {
 		return dir;
 	}
+	
+	/**
+	 * return - cross point with the geometry body by getting the length 
+	 * from the start of the ray
+	 * @param t length from the start of the ray
+	 * @return point on the ray by get length from the start of the ray
+	 * 
+	 */
+	public Point3D getPoint(double t) {
+		return getP0().add(getDir().scale(t));
+	}
 
 	/**
 	 * Ray constructor receiving a Point3d value and vector of direction 

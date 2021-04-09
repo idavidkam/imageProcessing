@@ -156,5 +156,4 @@ public class Vector {
 	public Vector normalized() {
 		return new Vector(head).normalize();
 	}
-
 }

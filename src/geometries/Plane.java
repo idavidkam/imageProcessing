@@ -83,7 +83,7 @@ public class Plane implements Geometry {
 			double numer = getNormal().dotProduct(getQ0().subtract(ray.getP0()));
 			double t = alignZero(numer / nv);
 			if (t > 0) {
-				var p1 = ray.getP0().add(ray.getDir().scale(t));
+				var p1 = ray.getPoint(t);
 				return List.of(p1);
 			}
 		} catch (Exception e) {
