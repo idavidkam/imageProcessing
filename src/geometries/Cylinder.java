@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 /**
@@ -37,8 +38,17 @@ public class Cylinder extends Tube {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		// TODO Auto-generated method stub
-		return super.getNormal(point);
+		Vector dir = axisRay.getDir();
+		Point3D p0 = axisRay.getP0();
+		try {
+			var t = dir.dotProduct(point.subtract(p0));
+			if (Util.isZero(t) || Util.isZero(t - height))
+				return dir;
+			var o = p0.add(dir.scale(t));
+			return point.subtract(o).normalize();
+		} catch (Exception e) {
+			return dir;
+		}
 	}
 
 	@Override
