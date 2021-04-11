@@ -103,24 +103,25 @@ public class Polygon implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
 		var myList = plane.findIntersections(ray);
 		if (myList == null)
 			return null;
+		var dir=ray.getDir();
+		var p0=ray.getP0();
 		var vectors = new LinkedList<Vector>();
 		for (Iterator<Point3D> iterator = vertices.iterator(); iterator.hasNext();) {
 			var vertice = iterator.next();
-			vectors.add(vertice.subtract(ray.getP0()));
+			vectors.add(vertice.subtract(p0));
 		}
 		var normals = new LinkedList<Vector>();
 		for (int i = 0; i < vectors.size() - 1; i++) {
 			normals.add(vectors.get(i).crossProduct(vectors.get(i + 1)));
 		}
 		normals.add(vectors.getLast().crossProduct(vectors.getFirst()));
-		Boolean allPositive = false, allNegative = true;
+		Boolean allPositive = false, allNegative = false;
 		for (Iterator<Vector> iterator = normals.iterator(); iterator.hasNext();) {
 			var normal = iterator.next();
-			var result = alignZero(normal.dotProduct(ray.getDir()));
+			var result = alignZero(normal.dotProduct(dir));
 			if (result != 0)
 				if (result > 0)
 					allPositive = true;

@@ -61,8 +61,9 @@ public class Sphere implements Geometry {
 		// TODO Auto-generated method stub
 		double tm;
 		double d;
+		var p0=ray.getP0();
 		try {
-			var u = center.subtract(ray.getP0());
+			var u = center.subtract(p0);
 			tm = ray.getDir().dotProduct(u);
 			d = Math.sqrt(u.lengthSquared() - (tm * tm));
 			if (d >= radius)
@@ -79,12 +80,12 @@ public class Sphere implements Geometry {
 			List<Point3D> myList = new LinkedList<Point3D>();
 			if (t1 > 0) {
 				p1 = ray.getPoint(t1);
-				if (!p1.equals(ray.getP0()))
+				if (!p1.equals(p0))
 					myList.add(p1);
 			}
 			if (t2 > 0) {
 				p2 = ray.getPoint(t2);
-				if (!p2.equals(ray.getP0()))
+				if (!p2.equals(p0))
 					myList.add(p2);
 			}
 			return myList;
