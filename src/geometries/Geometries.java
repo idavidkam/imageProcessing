@@ -46,8 +46,7 @@ public class Geometries implements Intersectable {
 	public List<Point3D> findIntersections(Ray ray) {	
 		List<Point3D> points=null;
 		if(bodies!=null) {			
-			for (Iterator<Intersectable> iterator = bodies.iterator(); iterator.hasNext();) {
-				var body =  iterator.next();
+			for (var body: bodies) {
 				var result=body.findIntersections(ray);
 				if(result!=null)
 					if(points==null)
