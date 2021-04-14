@@ -6,8 +6,6 @@ package unittests;
 import static org.junit.Assert.*;
 
 import java.util.LinkedList;
-import java.util.List;
-
 import geometries.*;
 import primitives.*;
 import org.junit.Test;
@@ -26,7 +24,7 @@ public class IntegrationTests {
 	@Test
 	public void testIntegrationWithSphere() {
 		Sphere sphere = new Sphere(new Point3D(0, 0, -3), 1);
-		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 1, 0), new Vector(0, 0, -1));
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1),new Vector(0, 1, 0));
 		camera.setViewPlaneDistance(1).setViewPlaneSize(3, 3);
 
 		// TC01: Two intersection points
@@ -34,7 +32,7 @@ public class IntegrationTests {
 
 		// TC02: 18 intersection points
 		sphere = new Sphere(new Point3D(0, 0, -2.5), 2.5);
-		camera = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 1, 0), new Vector(0, 0, -1));
+		camera = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 0, -1),new Vector(0, 1, 0));
 		camera.setViewPlaneDistance(1).setViewPlaneSize(3, 3);
 		assertEquals("Second test case: should be 18 intersection points", 18,
 				calcSumIntersection(camera, sphere, 3, 3));
@@ -59,7 +57,7 @@ public class IntegrationTests {
 	@Test
 	public void testIntegrationWithPlane() {
 		Plane plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 1, 0));
-		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 1, 0), new Vector(0, 0, -1));
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1),  new Vector(0, 1, 0));
 		camera.setViewPlaneDistance(1).setViewPlaneSize(3, 3);
 
 		// TC01: 9 intersection points
@@ -81,7 +79,7 @@ public class IntegrationTests {
 	@Test
 	public void testIntegrationWithTriangle() {
 		Triangle tri = new Triangle(new Point3D(1, -1, -2), new Point3D(0, 1, -2), new Point3D(-1, -1, -2));
-		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 1, 0), new Vector(0, 0, -1));
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setViewPlaneDistance(1).setViewPlaneSize(3, 3);
 		
 		// TC01: 1 intersection point
