@@ -3,7 +3,8 @@ package elements;
 import primitives.*;
 
 /**
- * 
+ * Shoot rays from the center of projection through the view plane pixels
+ * for "see" objects in the this 3D world 
  * @author David and Matan
  *
  */
@@ -125,9 +126,4 @@ public class Camera {
 		return new Ray(p0, vij);
 	}
 
-	
-	
-	
-	
-	
 }
