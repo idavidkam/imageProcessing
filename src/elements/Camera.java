@@ -111,8 +111,8 @@ public class Camera {
 		var ry = height / nY;
 		var rx = width / nX;
 		// pixel(i,j) center
-		var yi = (i - (nY - 1) / 2) * ry;
-		var xj = (j - (nX - 1) / 2) * rx;
+		var yi = (i - (nY - 1) / 2.0) * ry;
+		var xj = (j - (nX - 1) / 2.0) * rx;
 
 		Point3D pij = pc;
 		if(xj != 0)

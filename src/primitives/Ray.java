@@ -48,7 +48,7 @@ public class Ray {
 	public Ray(Point3D p0, Vector dir) {
 		this.p0 = p0;
 		this.dir = dir;
-		dir.normalize();
+		this.dir.normalize();
 	}
 
 	@Override

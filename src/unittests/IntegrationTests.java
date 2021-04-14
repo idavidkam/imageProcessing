@@ -56,7 +56,7 @@ public class IntegrationTests {
 	 */
 	@Test
 	public void testIntegrationWithPlane() {
-		Plane plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 1, 0));
+		Plane plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 0, 1));
 		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1),  new Vector(0, 1, 0));
 		camera.setViewPlaneDistance(1).setViewPlaneSize(3, 3);
 
@@ -64,11 +64,11 @@ public class IntegrationTests {
 		assertEquals("First test case: should be 9 intersection points", 9, calcSumIntersection(camera, plane, 3, 3));
 
 		// TC02: 9 intersection points
-		plane = new Plane(new Point3D(0, 0, -2.5), new Vector(0, 1, 0.1));
+		plane = new Plane(new Point3D(0, 0, -2.5), new Vector(0, -0.9, 1));
 		assertEquals("Second test case: should be 9 intersection points", 9, calcSumIntersection(camera, plane, 3, 3));
 
 		// TC03: 6 intersection points
-		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, 1, 0.9));
+		plane = new Plane(new Point3D(0, 0, -3), new Vector(0, -1, 1));
 		assertEquals("Third test case: should be 6 intersection points", 6, calcSumIntersection(camera, plane, 3, 3));
 
 	}
