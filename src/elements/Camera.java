@@ -3,8 +3,9 @@ package elements;
 import primitives.*;
 
 /**
- * Shoot rays from the center of projection through the view plane pixels
- * for "see" objects in the this 3D world 
+ * Shoot rays from the center of projection through the view plane pixels for
+ * "see" objects in the this 3D world
+ * 
  * @author David and Matan
  *
  */
@@ -116,14 +117,69 @@ public class Camera {
 		var xj = (j - (nX - 1) / 2.0) * rx;
 
 		Point3D pij = pc;
-		if(xj != 0)
+		if (xj != 0)
 			pij = pij.add(vRight.scale(xj));
-		if (yi != 0) 
+		if (yi != 0)
 			pij = pij.add(vUp.scale(-yi));
-		
+
 		Vector vij = pij.subtract(p0);
-		
+
 		return new Ray(p0, vij);
 	}
 
+	/**
+	 * Moves the camera to a new position the directions do not change (see
+	 * {@link #rotationTransformation(double, int)})
+	 * 
+	 * @param other - new position to camera value of pont3D.
+	 * @return the camera himself
+	 */
+	public Camera TranslationTransformation(Point3D other) {
+		this.p0 = other;
+		return this;
+	}
+
+	/**
+	 * Moves the camera direction({@link #vTo}) in the desired axis as follows
+	 * 
+	 * @param teta -Size of the angle to rotate in radians
+	 * @param dir  -Rotation direction of the camera
+	 *             <li>0 for axis x
+	 *             <li>1 for axis y
+	 *             <li>2 for axis z
+	 * @return the camera himself
+	 */
+	public Camera rotationTransformation(double teta, int dir) {
+		if (dir > 2 || dir < 0)
+			throw new IllegalArgumentException("");
+		if (dir == 0) {
+			vTo = new Vector(new Vector(1, 0, 0).dotProduct(vTo),
+					new Vector(0, Math.cos(teta), -Math.sin(teta)).dotProduct(vTo),
+					new Vector(0, Math.sin(teta), Math.cos(teta)).dotProduct(vTo));
+		}
+		if (dir == 1) {
+			vTo = new Vector(new Vector(Math.cos(teta), 0, Math.sin(teta)).dotProduct(vTo),
+					new Vector(0, 1, 0).dotProduct(vTo),
+					new Vector(-Math.sin(teta), 0, Math.cos(teta)).dotProduct(vTo));
+		}
+		if (dir == 2) {
+			vTo = new Vector(new Vector(Math.cos(teta), -Math.sin(teta), 0).dotProduct(vTo),
+					new Vector(Math.sin(teta), Math.cos(teta), 0).dotProduct(vTo), new Vector(0, 0, 1).dotProduct(vTo));
+		}
+		// --Check the other directions of the camera vectors if the right hand rule is
+		// observed--
+		if (vTo.dotProduct(vRight) == 0) {
+			vUp = vRight.crossProduct(vTo);
+			return this;
+		}
+		if (vTo.dotProduct(vUp) == 0) {
+			vRight = vTo.crossProduct(vUp);
+			return this;
+		}
+		if (vRight.dotProduct(vUp) == 0) {
+			vTo = vUp.crossProduct(vRight);
+			return this;
+		}
+		return this;
+	}
 }

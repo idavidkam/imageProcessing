@@ -1,6 +1,9 @@
 package unittests;
 
 import static org.junit.Assert.*;
+
+import java.awt.Point;
+
 import org.junit.Test;
 import elements.Camera;
 import primitives.*;
@@ -27,8 +30,8 @@ public class CameraTest {
 				camera.setViewPlaneSize(6, 6).constructRayThroughPixel(3, 3, 0, 0));
 
 		// TC02: 4X4 Corner (0,0)
-	    assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-3, -3, 10)),
-			camera.setViewPlaneSize(8, 8).constructRayThroughPixel(4, 4, 0, 0));
+		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-3, -3, 10)),
+				camera.setViewPlaneSize(8, 8).constructRayThroughPixel(4, 4, 0, 0));
 
 		// TC03: 4X4 Side (0,1)
 		assertEquals("Bad ray", new Ray(Point3D.ZERO, new Vector(-1, -3, 10)),
@@ -52,4 +55,33 @@ public class CameraTest {
 				camera.setViewPlaneSize(6, 6).constructRayThroughPixel(3, 3, 0, 1));
 	}
 
+	/**
+	 * Test method for {@link elements.Camera#rotationTransformation(double, int)}.
+	 */
+	@Test
+	public void testRotationTransformation() {
+		Camera camera = new Camera(Point3D.ZERO, new Vector(1, 0, 0), new Vector(0, 0, 1));
+
+		// TC01: Rotate camera on x-axis
+		assertEquals("rotationTransformation() the vecrtor should be same", new Vector(1, 0, 0),
+				camera.rotationTransformation(Math.PI / 2.0, 0).getvTo());
+
+		// TC02: Rotate camera on y-axis
+		assertEquals("rotationTransformation() vector not correct", new Vector(0, 0, -1),
+				camera.rotationTransformation(Math.PI / 2.0, 1).getvTo());
+
+		// TC03: Rotate camera on z-axis
+		assertEquals("rotationTransformation() the vecrtor should be same", new Vector(0, 0, -1),
+				camera.rotationTransformation(Math.PI / 2.0, 2).getvTo());
+	}
+
+	/**
+	 * est method for {@link elements.Camera#TranslationTransformation(Point3D)}
+	 */
+	@Test
+	public void testTranslationTransformation() {
+		Camera camera = new Camera(Point3D.ZERO, new Vector(1, 0, 0), new Vector(0, 0, 1));
+		// TC01: Rotate camera on x-axis
+		assertEquals(null, new Point3D(20, 0, 20), camera.TranslationTransformation(new Point3D(20, 0, 20)).getP0());
+	}
 }
