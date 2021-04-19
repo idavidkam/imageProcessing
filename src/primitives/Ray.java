@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * Class Ray is the basic class representing a Ray for Cartesian coordinate
  * system.
@@ -51,6 +53,16 @@ public class Ray {
 		this.dir.normalize();
 	}
 
+	/**
+	 * search from list of points what is the closest point to the ray
+	 * and return is back
+	 * @param intersections - list of points we want to scan
+	 * @return the closest point to the ray
+	 */
+	public Point3D findClosestPoint(List<Point3D> intersections) {
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return "Ray [p0=" + p0 + ", dir=" + dir + "]";
