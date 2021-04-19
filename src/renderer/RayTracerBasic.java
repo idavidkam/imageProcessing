@@ -9,8 +9,9 @@ import primitives.Ray;
 import scene.Scene;
 
 /**
- * 
- * @author David and matan
+ * A basic class responsible for tracking the ray 
+ * that inherits from RayTracerBase
+ * @author David and Matan
  *
  */
 public class RayTracerBasic extends RayTracerBase {
@@ -34,7 +35,7 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * 
 	 * @param point
-	 * @return
+	 * @return the color in this point
 	 */
 	private Color calcColor(Point3D point) {
 		return null; // TODO 

@@ -7,9 +7,8 @@ import primitives.*;
 import scene.Scene;
 
 /**
- * 
+ * An abstract base class responsible for tracking the ray
  * @author David and matan
- *
  */
 public abstract class RayTracerBase {
 	
@@ -26,7 +25,7 @@ public abstract class RayTracerBase {
 	/**
 	 * 
 	 * @param ray
-	 * @return
+	 * @return the color of pixel in current tracing ray
 	 */
 	public abstract Color traceRay(Ray ray); 
 	
