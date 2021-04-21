@@ -16,15 +16,15 @@ public abstract class RayTracerBase {
 
 	/**
 	 * Ctor - get scene and set it
-	 * @param scene 
+	 * @param scene - body that build from geometries bodies and color and ambientLight(strong of the color)
 	 */
 	public RayTracerBase(Scene scene) {
 		this.scene = scene;
 	}
 	
 	/**
-	 * 
-	 * @param ray
+	 * returns color of pixel in current tracing ray
+	 * @param ray - ray on tracing
 	 * @return the color of pixel in current tracing ray
 	 */
 	public abstract Color traceRay(Ray ray); 

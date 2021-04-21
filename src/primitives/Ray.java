@@ -60,7 +60,14 @@ public class Ray {
 	 * @return the closest point to the ray
 	 */
 	public Point3D findClosestPoint(List<Point3D> intersections) {
-		return null;
+		if(intersections==null||intersections.size()==0)
+			return null;
+		var minPoint=intersections.get(0);
+		for(var item: intersections) {
+		     if(item.distance(p0)<minPoint.distance(p0))
+		    	 minPoint=item;
+		}
+		return minPoint;
 	}
 	
 	@Override
