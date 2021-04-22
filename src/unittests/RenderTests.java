@@ -7,6 +7,7 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+import scene.SceneBuilder;
 
 /**
  * Test rendering a basic image
@@ -50,13 +51,14 @@ public class RenderTests {
 	 *
 	 * /**
 	 * Test for XML based scene - for bonus
-	 
+	 */
 	@Test
 	public void basicRenderXml() {
 		Scene scene = new Scene("XML Test scene");
 		// enter XML file name and parse from XML file into scene object
 		// ...
-		
+		SceneBuilder sceneBuilder=new SceneBuilder(scene);
+		sceneBuilder.loadSceneFromFile("basicRenderTestTwoColors.xml");
 		ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
@@ -68,8 +70,4 @@ public class RenderTests {
 		render.printGrid(100, new Color(java.awt.Color.YELLOW));
 		render.writeToImage();
 	}
-	 */
-	
-
-	
 }
