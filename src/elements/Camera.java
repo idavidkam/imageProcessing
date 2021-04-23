@@ -126,4 +126,57 @@ public class Camera {
 
 		return new Ray(p0, vij);
 	}
+
+	/**
+	 * Moves the camera to a new position the directions do not change (see
+	 * {@link #rotationTransformation(double, int)})
+	 * 
+	 * @param trans - new position to camera by vector "trans".
+	 * @return the camera himself
+	 */
+	public Camera translationTransformation(Vector trans) {
+		p0 = p0.add(trans);
+		return this;
+	}
+
+	/**
+	 * Moves the camera direction({@link #vTo}) in the desired axis as follows
+	 * 
+	 * @param teta -Size of the angle to rotate in radians
+	 * @param dir  -Rotation direction of the camera
+	 *             <li>0 for axis x
+	 *             <li>1 for axis y
+	 *             <li>2 for axis z
+	 * @return the camera himself
+	 */
+	public Camera rotationTransformation(double teta, int axis) {
+		if (axis > 2 || axis < 0)
+			throw new IllegalArgumentException("illergal argument");
+		if (axis == 0) {
+			vTo = new Vector(new Vector(1, 0, 0).dotProduct(vTo),
+					new Vector(0, Math.cos(teta), -Math.sin(teta)).dotProduct(vTo),
+					new Vector(0, Math.sin(teta), Math.cos(teta)).dotProduct(vTo));
+		}
+		if (axis == 1) {
+			vTo = new Vector(new Vector(Math.cos(teta), 0, Math.sin(teta)).dotProduct(vTo),
+					new Vector(0, 1, 0).dotProduct(vTo),
+					new Vector(-Math.sin(teta), 0, Math.cos(teta)).dotProduct(vTo));
+		}
+		if (axis == 2) {
+			vTo = new Vector(new Vector(Math.cos(teta), -Math.sin(teta), 0).dotProduct(vTo),
+					new Vector(Math.sin(teta), Math.cos(teta), 0).dotProduct(vTo), new Vector(0, 0, 1).dotProduct(vTo));
+		}
+		// --Check the other directions of the camera vectors if the right hand rule is
+		// observed--
+		if (Util.alignZero(vTo.dotProduct(vRight)) == 0) {
+			vUp = vRight.crossProduct(vTo);
+			return this;
+		}
+		if (Util.alignZero(vTo.dotProduct(vUp)) == 0) {
+			vRight = vTo.crossProduct(vUp);
+			return this;
+		} else
+			vRight = vRight.equals(vTo.crossProduct(vUp)) ? vRight : vRight.scale(-1);
+		return this;
+	}
 }

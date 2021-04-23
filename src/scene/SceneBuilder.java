@@ -21,8 +21,10 @@ import geometries.*;
 import primitives.*;
 
 /**
- * @author m.n.y.1234
- *
+ * A class responsible for constructing a scene from an xml file using API of
+ * DOM
+ * 
+ * @author david and matan
  */
 public class SceneBuilder {
 
@@ -30,6 +32,8 @@ public class SceneBuilder {
 	private static final String filePath = System.getProperty("user.dir") + "/xml/";
 
 	/**
+	 * Ctor responsible for initializing the scene
+	 * 
 	 * @param scene - scene to Builder
 	 */
 	public SceneBuilder(Scene scene) {
@@ -37,8 +41,9 @@ public class SceneBuilder {
 	}
 
 	/**
+	 * load Scene From xml File
 	 * 
-	 * @param nameFile
+	 * @param nameFile - name of xml file
 	 */
 	public void loadSceneFromFile(String nameFile) {
 		File xmlFile = new File(filePath + nameFile);
@@ -60,6 +65,11 @@ public class SceneBuilder {
 		}
 	}
 
+	/**
+	 * setter background color of scene
+	 * 
+	 * @param node - node that contain background color
+	 */
 	private void setBackgroundColor(Node node) {
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
 			Element element = (Element) node;
@@ -70,6 +80,11 @@ public class SceneBuilder {
 		}
 	}
 
+	/**
+	 * setter ambientLight color of scene
+	 * 
+	 * @param node -node that contain ambient-light color
+	 */
 	private void setAmbientLight(Node node) {
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
 			Element element = (Element) node;
@@ -80,18 +95,23 @@ public class SceneBuilder {
 		}
 	}
 
+	/**
+	 * setter geometries of scene
+	 * 
+	 * @param lst-list of nodes that contain geometries bodies
+	 */
 	private void setGeometries(NodeList lst) {
 		Geometries geometries = new Geometries();
 		for (int i = 0; i < lst.getLength(); i++) {
 			if (lst.item(i).getNodeName() == "sphere") {
-				var result = setSphere(lst.item(i));
+				var result = getSphere(lst.item(i));
 				if (result != null) {
 					geometries.add(result);
 					continue;
 				}
 			}
 			if (lst.item(i).getNodeName() == "triangle") {
-				var result = setTriangle(lst.item(i));
+				var result = getTriangle(lst.item(i));
 				if (result != null) {
 					geometries.add(result);
 					continue;
@@ -101,18 +121,30 @@ public class SceneBuilder {
 		scene.setGeometries(geometries);
 	}
 
-	private Sphere setSphere(Node node) {
+	/**
+	 * getter sphere form xml file
+	 * 
+	 * @param node -node that contain sphere
+	 * @return sphere
+	 */
+	private Sphere getSphere(Node node) {
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
 			Element element = (Element) node;
 			var r = element.getAttributeNode("radius").getValue().toString();
 			var center = element.getAttributeNode("center").getValue().toString().split(" ");
 			return new Sphere(new Point3D(Double.parseDouble(center[0]), Double.parseDouble(center[1]),
-					Double.parseDouble(center[2])), Integer.parseInt(r));
+					Double.parseDouble(center[2])), Double.parseDouble(r));
 		}
 		return null;
 	}
 
-	private Triangle setTriangle(Node node) {
+	/**
+	 * getter triangle form xml file
+	 * 
+	 * @param node-node that contain triangle
+	 * @return triangle
+	 */
+	private Triangle getTriangle(Node node) {
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
 			Element element = (Element) node;
 			var p0 = element.getAttributeNode("p0").getValue().toString().split(" ");
