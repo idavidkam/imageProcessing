@@ -12,7 +12,7 @@ import primitives.Vector;
  * 
  * @author david and matan
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
 	private Point3D center;
 	private double radius;
@@ -57,8 +57,7 @@ public class Sphere implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		double tm;
 		double d;
 		var p0=ray.getP0();
@@ -77,16 +76,16 @@ public class Sphere implements Geometry {
 		double t2 = tm - th;
 		Point3D p1, p2;
 		if (t1 > 0 || t2 > 0) {
-			List<Point3D> myList = new LinkedList<Point3D>();
+			List<GeoPoint> myList = new LinkedList<GeoPoint>();
 			if (t1 > 0) {
 				p1 = ray.getPoint(t1);
 				if (!p1.equals(p0))
-					myList.add(p1);
+					myList.add(new GeoPoint(this, p1));
 			}
 			if (t2 > 0) {
 				p2 = ray.getPoint(t2);
 				if (!p2.equals(p0))
-					myList.add(p2);
+					myList.add(new GeoPoint(this, p2));
 			}
 			return myList;
 		}

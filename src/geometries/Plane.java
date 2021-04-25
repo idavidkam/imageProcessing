@@ -12,7 +12,7 @@ import primitives.Vector;
  * @author david and matan
  *
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
 	private Point3D q0;
 	private Vector normal;
@@ -75,7 +75,7 @@ public class Plane implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		double nv = getNormal().dotProduct(ray.getDir());
 		if (isZero(nv))
 			return null;
@@ -84,7 +84,7 @@ public class Plane implements Geometry {
 			double t = alignZero(numer / nv);
 			if (t > 0) {
 				var p1 = ray.getPoint(t);
-				return List.of(p1);
+				return List.of(new GeoPoint(this, p1));
 			}
 		} catch (Exception e) {
 			return null;

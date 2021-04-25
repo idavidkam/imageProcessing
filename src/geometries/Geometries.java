@@ -39,16 +39,16 @@ public class Geometries implements Intersectable {
 	public void add(Intersectable... geometries) {
 		bodies.addAll(List.of(geometries));
 	}
-	
+
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {	
-		List<Point3D> points=null;
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		List<GeoPoint> points=null;
 		if(bodies!=null) {			
 			for (var body: bodies) {
-				var result=body.findIntersections(ray);
+				var result=body.findGeoIntersections(ray);
 				if(result!=null)
 					if(points==null)
-						points=new LinkedList<Point3D>(result);
+						points=new LinkedList<GeoPoint>(result);
 					else
 						points.addAll(result);
 			}

@@ -1,6 +1,7 @@
 package primitives;
 
 import java.util.List;
+import geometries.Intersectable.GeoPoint;
 
 /**
  * Class Ray is the basic class representing a Ray for Cartesian coordinate
@@ -65,6 +66,23 @@ public class Ray {
 		var minPoint=intersections.get(0);
 		for(var item: intersections) {
 		     if(item.distance(p0)<minPoint.distance(p0))
+		    	 minPoint=item;
+		}
+		return minPoint;
+	}
+	
+	 /**
+	 * search from list of points what is the closest point to the ray
+	 * and return is back
+	 * @param intersections - list of points we want to scan
+	 * @return the closest point to the ray
+	 */
+	public GeoPoint getClosestGeoPoint (List<GeoPoint> intersections) {
+		if(intersections==null||intersections.size()==0)
+			return null;
+		var minPoint=intersections.get(0);
+		for(var item: intersections) {
+		     if(item.point.distance(p0)<minPoint.point.distance(p0))
 		    	 minPoint=item;
 		}
 		return minPoint;

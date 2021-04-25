@@ -11,7 +11,7 @@ import static primitives.Util.*;
  *
  * @author david and matan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
@@ -101,8 +101,8 @@ public class Polygon implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		var myList = plane.findIntersections(ray);
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		var myList = plane.findGeoIntersections(ray);
 		if (myList == null)
 			return null;
 		var dir=ray.getDir();
@@ -136,6 +136,7 @@ public class Polygon implements Geometry {
 			else
 				return null;
 		}
-			return myList;
+		
+		return List.of(new GeoPoint(this, myList.get(0).point));
 	}
 }
