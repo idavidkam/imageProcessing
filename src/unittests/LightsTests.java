@@ -1,4 +1,4 @@
-package unittests.lights;
+package unittests;
 
 import org.junit.Test;
 

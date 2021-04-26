@@ -4,7 +4,6 @@
 package renderer;
 
 import java.util.MissingResourceException;
-import geometries.Intersectable.GeoPoint;
 
 import elements.*;
 import primitives.*;

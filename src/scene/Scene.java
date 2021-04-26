@@ -3,7 +3,10 @@
  */
 package scene;
 
-import elements.AmbientLight;
+import java.util.LinkedList;
+import java.util.List;
+
+import elements.*;
 import geometries.Geometries;
 import primitives.Color;
 
@@ -13,6 +16,7 @@ import primitives.Color;
  */
 public class Scene {
 
+	public List<LightSource> lights;
 	/**
 	 * name of the scene (the body)
 	 */
@@ -42,12 +46,23 @@ public class Scene {
 		background = Color.BLACK;
 		ambientLight = new AmbientLight(background, 1.0);
 		geometries = new Geometries();
+		lights=new LinkedList<LightSource>();
 	}
 
 	/**
 	 * ------------- setter -----------------
+	 * @param lights - list of sources light
+	 * @return itself scene
+	 */
+	public Scene setLights(List<LightSource> lights) {
+		this.lights=lights;
+		return this;
+	}
+	
+	/**
+	 * ------------- setter -----------------
 	 * @param background the background to set
-	 * @return himself scene
+	 * @return itself scene
 	 */
 	public Scene setBackground(Color background) {
 		this.background = background;
@@ -57,7 +72,7 @@ public class Scene {
 	/**
 	 * ------------- setter -----------------
 	 * @param ambientLight the ambientLight to set
-	 * @return himself scene
+	 * @return itself scene
 	 */
 	public Scene setAmbientLight(AmbientLight ambientLight) {
 		this.ambientLight = ambientLight;
@@ -67,7 +82,7 @@ public class Scene {
 	/**
 	 * ------------- setter -----------------
 	 * @param geometries the geometries to set
-	 * @return himself scene
+	 * @return itself scene
 	 * 
 	 */
 	public Scene setGeometries(Geometries geometries) {
