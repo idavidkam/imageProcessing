@@ -18,15 +18,15 @@ public class SpotLight extends PointLight {
 	/**
 	 * A Ctor who gets the color, power of light,position and direction vector.
 	 * @param iA - Fill the light intensity according to RGB
-	 * @param kA - Coefficient of attenuation of filler light
 	 * @param point - position of source light
 	 * @param direction - direction of light
 	 * @param kC - constant coefficient
 	 * @param kL - Linear coefficient
 	 * @param kQ - Quadratic coefficient 
 	 */
-	protected SpotLight(Color iA, double kA, Point3D point,Vector direction,double kC, double kL, double kQ) {
-		super(iA, kA, point,kC,kL,kQ);
+	public SpotLight(Color iA, Point3D point,Vector direction,double kC, double kL, double kQ) {
+		super(iA, point,kC,kL,kQ);
+		dir=direction.normalized();
 	}	
 		
 	@Override

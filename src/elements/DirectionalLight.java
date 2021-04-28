@@ -19,11 +19,11 @@ public class DirectionalLight extends Light implements LightSource {
 	/**
 	 * A Ctor who gets the color, power of light and direction vector.
 	 * @param iA - Fill the light intensity according to RGB
-	 * @param kA - Coefficient of attenuation of filler light
 	 * @param direction - direction of light 
 	 */
-	public DirectionalLight(Color iA ,double kA,Vector direction) {
-		super(iA, kA); 
+	public DirectionalLight(Color iA ,Vector direction) {
+		super(iA, 1); 
+		dir=direction.normalized();
 	}
 	
 	@Override

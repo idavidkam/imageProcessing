@@ -19,14 +19,13 @@ public class PointLight extends Light implements LightSource {
 	 * A Ctor who gets the color, power of light and point(source of light).
 	 * 
 	 * @param iA    - Fill the light intensity according to RGB
-	 * @param kA    - Coefficient of attenuation of filler light
 	 * @param point - position of source light
 	 * @param kC - constant coefficient
 	 * @param kL - Linear coefficient
 	 * @param kQ - Quadratic coefficient
 	 */
-	protected PointLight(Color iA, double kA, Point3D point, double kC, double kL, double kQ) {
-		super(iA, kA);
+	public PointLight(Color iA,Point3D point, double kC, double kL, double kQ) {
+		super(iA, 1);
 		position = point;
 		this.kC=kC;
 		this.kL=kL;
