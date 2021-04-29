@@ -18,10 +18,10 @@ public interface LightSource {
 	public Color getIntensity(Point3D p);
 	
 	/**
-	 * The function calculates a vector from the light source to a point in a geometric body
+	 * The function calculates a unit vector from the light source to a point in a geometric body
 	 * not support to zero vector!
 	 * @param p - point on body geometry
-	 * @return  a vector from the light source to a point in a geometric body
+	 * @return  a unit vector from the light source to a point in a geometric body
 	 */
 	public Vector getL(Point3D p);
 

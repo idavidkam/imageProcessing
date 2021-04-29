@@ -17,6 +17,7 @@ public class SpotLight extends PointLight {
 	
 	/**
 	 * A Ctor who gets the color, power of light,position and direction vector.
+	 * the light source cannot be on a body surface
 	 * @param iA - Fill the light intensity according to RGB
 	 * @param point - position of source light
 	 * @param direction - direction of light
@@ -32,8 +33,9 @@ public class SpotLight extends PointLight {
 	@Override
 	public Color getIntensity(Point3D p) {
 		var result=dir.dotProduct(getL(p));
-		var max=result>0?result:0;
-		return super.getIntensity(p).scale(max);
+		if(result<=0)
+			return Color.BLACK;
+		return super.getIntensity(p).scale(result);
 	}
 
 	@Override

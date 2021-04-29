@@ -19,9 +19,9 @@ public class ImageWriterTest {
 	@Test
 	public void testImageWriter() {
 	    var writer=new ImageWriter("firstImage",800,500);
-	    for (int j = 0; j < 800; j++) {
-			for (int i = 0; i < 500; i++) {
-				if(i % 50 == 0 || j % 50 ==0 || i == 499 || j ==799 )
+	    for (int i = 0; i < 500; i++) {
+			for (int j = 0; j < 800; j++) {
+				if(i % 50 == 0 || j % 50 ==0 || i == 799 || j ==499 )
 					writer.writePixel(j, i, new primitives.Color(Color.black));
 				else writer.writePixel(j, i, new primitives.Color(Color.blue));
 			}

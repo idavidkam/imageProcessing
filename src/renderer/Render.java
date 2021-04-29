@@ -84,8 +84,8 @@ public class Render {
 			throw new MissingResourceException("missing info. about image", null, null);
 		int Nx = imageWriter.getNx();
 		int Ny = imageWriter.getNy();
-		for (int j = 0; j < Nx; j++) {
-			for (int i = 0; i < Ny; i++) {
+		for (int i = 0; i < Ny; i++) {
+			for (int j = 0; j < Nx; j++) {
 				var ray = camera.constructRayThroughPixel(Nx, Ny, j, i);
 				var color = rayTracer.traceRay(ray);
 				imageWriter.writePixel(j, i, color);
@@ -104,8 +104,8 @@ public class Render {
 			throw new MissingResourceException("there is no image ", "imageWriter", null);
 		int Nx = imageWriter.getNx();
 		int Ny = imageWriter.getNy();
-		for (int j = 0; j < Nx; j++) {
-			for (int i = 0; i < Ny; i++) {
+		for (int i = 0; i < Ny; i++) {
+			for (int j = 0; j < Nx; j++) {
 				if (i % interval == 0 || j % interval == 0)
 					imageWriter.writePixel(j, i, color);
 			}

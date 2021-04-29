@@ -17,7 +17,7 @@ public class PointLight extends Light implements LightSource {
 
 	/**
 	 * A Ctor who gets the color, power of light and point(source of light).
-	 * 
+	 * the light source cannot be on a body surface
 	 * @param iA    - Fill the light intensity according to RGB
 	 * @param point - position of source light
 	 * @param kC - constant coefficient
@@ -40,7 +40,7 @@ public class PointLight extends Light implements LightSource {
 
 	@Override
 	public Vector getL(Point3D p) {
-		return p.subtract(position);
+		return p.subtract(position).normalize();
 	}
 
 }
