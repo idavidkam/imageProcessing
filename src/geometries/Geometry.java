@@ -47,4 +47,12 @@ public abstract class Geometry implements Intersectable {
 	 * @return A vector orthogonal to the body at a given point
 	 */
 	public abstract Vector getNormal(Point3D point);
+	
+	/**
+	 * --------------- getter -------------------
+	 * @return the material class
+	 */
+	public Material GetMaterial() {
+		return material;
+	}
 }
