@@ -192,9 +192,9 @@ public class LightsTests {
 	public void trianglesAllLight() {
 		scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)),
 				triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)));
-		scene2.lights.addAll(List.of(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-2, -2, -1), 1,
-				0.0001, 0.000005), new PointLight(new Color(500, 250, 250), new Point3D(10, -60, 0), 1, 0.0005, 0.0005),
-				new DirectionalLight(new Color(300, 150, 150), new Vector(0, -0.1, -2))));
+		scene2.lights.addAll(List.of(new SpotLight(new Color(500, 250, 250), new Point3D(80, 50, -130), new Vector(-2, -2, -1), 1,
+				0.0001, 0.000005), new PointLight(new Color(500, 250, 250), new Point3D(10, -60, -100), 1, 0.0005, 0.0005),
+				new DirectionalLight(new Color(300, 150, 150), new Vector( -0.502518907629606, 0.502518907629606, -0.7035264706814485))));
 
 		ImageWriter imageWriter = new ImageWriter("trianglesAllLight", 500, 500);
 		Render render = new Render()//
@@ -212,9 +212,9 @@ public class LightsTests {
 	@Test
 	public void sphereAllLight() {
 		scene1.geometries.add(sphere);
-		scene1.lights.addAll(List.of(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2), 1,
-				0.000005, 0.00000025),new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, -1)),
-				new PointLight(new Color(500, 250, 250), new Point3D(10, -10, -130), 1, 0.0005, 0.0005) ));
+		scene1.lights.addAll(List.of(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -1.5), 1,
+				0.00000075, 0.000000000025),new DirectionalLight(new Color(300, 150, 150), new Vector(0, -1, -1)),
+				new PointLight(new Color(500, 250, 250), new Point3D(40, -20, 80), 1, 0.005, 0.000025) ));
 
 		ImageWriter imageWriter = new ImageWriter("sphereAllLight", 500, 500);
 		Render render = new Render()//

@@ -2,7 +2,6 @@ package geometries;
 
 import java.util.List;
 
-import geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Util;
