@@ -193,8 +193,8 @@ public class LightsTests {
 		scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)),
 				triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)));
 		scene2.lights.addAll(List.of(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-2, -2, -1), 1,
-				0.0001, 0.000005), new PointLight(new Color(500, 250, 250), new Point3D(10, -10, -130), 1, 0.0005, 0.0005),
-				new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, -1))));
+				0.0001, 0.000005), new PointLight(new Color(500, 250, 250), new Point3D(10, -60, 0), 1, 0.0005, 0.0005),
+				new DirectionalLight(new Color(300, 150, 150), new Vector(0, -0.1, -2))));
 
 		ImageWriter imageWriter = new ImageWriter("trianglesAllLight", 500, 500);
 		Render render = new Render()//
