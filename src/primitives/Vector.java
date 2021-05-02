@@ -32,20 +32,6 @@ public class Vector {
 	}
 
 	/**
-	 * Vector constructor receiving a three Coordinates value
-	 * 
-	 * @param x represents the coordinate along the x-axis
-	 * @param y represents the coordinate along the y-axis
-	 * @param z represents the coordinate along the z-axis
-	 * @throws IllegalArgumentException when the vector is equal to zero
-	 */
-	public Vector(Coordinate x, Coordinate y, Coordinate z) {
-		head = new Point3D(x, y, z);
-		if (head.equals(Point3D.ZERO))
-			throw new IllegalArgumentException("The vector can not be zero!");
-	}
-
-	/**
 	 * Vector constructor receiving a three numbers to Coordinates value
 	 * 
 	 * @param x represents the coordinate along the x-axis

@@ -85,7 +85,6 @@ public class RayTracerBasic extends RayTracerBase {
 	 * 
 	 * @param kd             - Coefficient for diffusive
 	 * @param nl             - is equal to n.dotProduct(l)
-	 * @param n              - normal to the point
 	 * @param lightIntensity - Light intensity
 	 * @return the diffusive light
 	 */
@@ -99,6 +98,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param ks             - Coefficient for specular
 	 * @param l              - vector from light source
 	 * @param n              - normal to the point
+	 * @param nl             - is equal to n.dotProduct(l)
 	 * @param v              - camera vector
 	 * @param nShininess     - exponent
 	 * @param lightIntensity - Light intensity

@@ -36,19 +36,6 @@ public class Point3D {
 	}
 
 	/**
-	 * Point3D constructor receiving a three Coordinates value
-	 * 
-	 * @param x represents the coordinate along the x-axis
-	 * @param y represents the coordinate along the y-axis
-	 * @param z represents the coordinate along the z-axis
-	 */
-	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-
-	/**
 	 * Point3D constructor receiving a three numbers to Coordinates value
 	 * 
 	 * @param x represents the coordinate along the x-axis
@@ -56,7 +43,9 @@ public class Point3D {
 	 * @param z represents the coordinate along the z-axis
 	 */
 	public Point3D(double x, double y, double z) {
-		this(new Coordinate(x), new Coordinate(y), new Coordinate(z));
+		this.x = new Coordinate(x);
+		this.y = new Coordinate(y);
+		this.z = new Coordinate(z);
 	}
 
 	/**
