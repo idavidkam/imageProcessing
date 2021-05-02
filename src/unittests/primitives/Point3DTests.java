@@ -4,9 +4,7 @@
 package unittests.primitives;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import primitives.Point3D;
 import primitives.Vector;
 

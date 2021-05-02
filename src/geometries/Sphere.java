@@ -60,7 +60,7 @@ public class Sphere extends Geometry {
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		double tm;
 		double d;
-		var p0=ray.getP0();
+		var p0 = ray.getP0();
 		try {
 			var u = center.subtract(p0);
 			tm = ray.getDir().dotProduct(u);

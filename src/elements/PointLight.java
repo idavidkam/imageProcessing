@@ -16,26 +16,28 @@ public class PointLight extends Light implements LightSource {
 	private double kC, kL, kQ;
 
 	/**
-	 * A Ctor who gets the color, power of light and point(source of light).
-	 * the light source cannot be on a body surface
-	 * @param iA    - Fill the light intensity according to RGB
+	 * A Ctor who gets the color, power of light and point(source of light). the
+	 * light source cannot be on a body surface
+	 * 
+	 * @param i0    - light intensity according to RGB
 	 * @param point - position of source light
-	 * @param kC - constant coefficient
-	 * @param kL - Linear coefficient
-	 * @param kQ - Quadratic coefficient
+	 * @param kC    - constant coefficient
+	 * @param kL    - Linear coefficient
+	 * @param kQ    - Quadratic coefficient
 	 */
-	public PointLight(Color iA,Point3D point, double kC, double kL, double kQ) {
-		super(iA, 1);
+	public PointLight(Color i0, Point3D point, double kC, double kL, double kQ) {
+		super(i0);
 		position = point;
-		this.kC=kC;
-		this.kL=kL;
-		this.kQ=kQ;
+		this.kC = kC;
+		this.kL = kL;
+		this.kQ = kQ;
 	}
 
 	@Override
 	public Color getIntensity(Point3D p) {
-		var distance=p.distance(position);
-		return super.getIntensity().reduce(kC+kL*distance+kQ*distance*distance);
+		var distSquared = p.distanceSquared(position);
+		var distance = Math.sqrt(distSquared);
+		return intensity.reduce(kC + kL * distance + kQ * distSquared);
 	}
 
 	@Override

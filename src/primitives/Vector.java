@@ -12,7 +12,8 @@ public class Vector {
 
 	/**
 	 * getter head
-	 * @return the head of vector 
+	 * 
+	 * @return the head of vector
 	 */
 	public Point3D getHead() {
 		return head;
@@ -77,6 +78,7 @@ public class Vector {
 
 	/**
 	 * Calculates new vector by adding two vectors
+	 * 
 	 * @param other - a other vector to add
 	 * @return new vector
 	 */
@@ -86,6 +88,7 @@ public class Vector {
 
 	/**
 	 * Calculates new vector by subtracting two vectors
+	 * 
 	 * @param other - a other vector to subtract
 	 * @return new vector
 	 */
@@ -95,6 +98,7 @@ public class Vector {
 
 	/**
 	 * Calculates new vector by multiply vector in scalar
+	 * 
 	 * @param num - a scalar number
 	 * @return new vector that multiply in this scalar
 	 */
@@ -104,6 +108,7 @@ public class Vector {
 
 	/**
 	 * Calculates dotProduct between two vectors
+	 * 
 	 * @param other - a other vector for dotProduct
 	 * @return scalar number
 	 */
@@ -114,8 +119,9 @@ public class Vector {
 
 	/**
 	 * Calculates crossProduct between two vectors
+	 * 
 	 * @param other - a other vector for crossProduct
-	 * @return a new orthogonal vector to two other vectors 
+	 * @return a new orthogonal vector to two other vectors
 	 */
 	public Vector crossProduct(Vector other) {
 		return new Vector(head.y.coord * other.head.z.coord - head.z.coord * other.head.y.coord,
@@ -125,6 +131,7 @@ public class Vector {
 
 	/**
 	 * Calculates the length squared of the vector
+	 * 
 	 * @return real positive number that represents length squared
 	 */
 	public double lengthSquared() {
@@ -133,6 +140,7 @@ public class Vector {
 
 	/**
 	 * Calculates the length of the vector
+	 * 
 	 * @return real positive number that represents length
 	 */
 	public double length() {
@@ -141,16 +149,18 @@ public class Vector {
 
 	/**
 	 * Normalizes the vector
+	 * 
 	 * @return the same vector but normalized
 	 */
 	public Vector normalize() {
 		double norma = length();
-		head = new Point3D(head.x.coord /norma, head.y.coord /norma,head.z.coord  / norma);
+		head = new Point3D(head.x.coord / norma, head.y.coord / norma, head.z.coord / norma);
 		return this;
 	}
 
 	/**
-	 * creates new vector that normalize 
+	 * creates new vector that normalize
+	 * 
 	 * @return new vector normalized
 	 */
 	public Vector normalized() {

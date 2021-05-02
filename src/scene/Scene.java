@@ -11,7 +11,9 @@ import geometries.Geometries;
 import primitives.Color;
 
 /**
- * body that build from geometries bodies and color and ambientLight(strong of the color)
+ * body that build from geometries bodies and color and ambientLight(strong of
+ * the color)
+ * 
  * @author david and matan
  */
 public class Scene {
@@ -21,17 +23,17 @@ public class Scene {
 	 * name of the scene (the body)
 	 */
 	public String name;
-	
+
 	/**
-	 * the background color 
+	 * the background color
 	 */
 	public Color background;
-	
+
 	/**
 	 * strong of the color
 	 */
 	public AmbientLight ambientLight;
-	
+
 	/**
 	 * list of bodies that create our body
 	 */
@@ -39,28 +41,31 @@ public class Scene {
 
 	/**
 	 * ctor: get name and build empty body with color black with the name
-	 * @param name - name of the scene  (the "empty" body)
+	 * 
+	 * @param name - name of the scene (the "empty" body)
 	 */
 	public Scene(String name) {
 		this.name = name;
 		background = Color.BLACK;
 		ambientLight = new AmbientLight(background, 1.0);
 		geometries = new Geometries();
-		lights=new LinkedList<LightSource>();
+		lights = new LinkedList<LightSource>();
 	}
 
 	/**
 	 * ------------- setter -----------------
+	 * 
 	 * @param lights - list of sources light
 	 * @return itself scene
 	 */
 	public Scene setLights(List<LightSource> lights) {
-		this.lights=lights;
+		this.lights = lights;
 		return this;
 	}
-	
+
 	/**
 	 * ------------- setter -----------------
+	 * 
 	 * @param background the background to set
 	 * @return itself scene
 	 */
@@ -71,6 +76,7 @@ public class Scene {
 
 	/**
 	 * ------------- setter -----------------
+	 * 
 	 * @param ambientLight the ambientLight to set
 	 * @return itself scene
 	 */
@@ -81,6 +87,7 @@ public class Scene {
 
 	/**
 	 * ------------- setter -----------------
+	 * 
 	 * @param geometries the geometries to set
 	 * @return itself scene
 	 * 

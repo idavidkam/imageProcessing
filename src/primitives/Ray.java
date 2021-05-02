@@ -1,6 +1,8 @@
 package primitives;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import geometries.Intersectable.GeoPoint;
 
 /**
@@ -25,16 +27,18 @@ public class Ray {
 	}
 
 	/**
-	 * getter direction of ray 
-	 * @return a direction of ray 
+	 * getter direction of ray
+	 * 
+	 * @return a direction of ray
 	 */
 	public Vector getDir() {
 		return dir;
 	}
-	
+
 	/**
-	 * return - cross point with the geometry body by getting the length 
-	 * from the start of the ray
+	 * return - cross point with the geometry body by getting the length from the
+	 * start of the ray
+	 * 
 	 * @param t length from the start of the ray
 	 * @return point on the ray by get length from the start of the ray
 	 * 
@@ -44,9 +48,10 @@ public class Ray {
 	}
 
 	/**
-	 * Ray constructor receiving a Point3d value and vector of direction 
-	 * @param p0-a point of ray 
-	 * @param dir-a direction of ray 
+	 * Ray constructor receiving a Point3d value and vector of direction
+	 * 
+	 * @param p0-a  point of ray
+	 * @param dir-a direction of ray
 	 */
 	public Ray(Point3D p0, Vector dir) {
 		this.p0 = p0;
@@ -55,39 +60,40 @@ public class Ray {
 	}
 
 	/**
-	 * search from list of points what is the closest point to the ray
-	 * and return is back
+	 * search from list of points what is the closest point to the ray and return is
+	 * back
+	 * 
 	 * @param intersections - list of points we want to scan
 	 * @return the closest point to the ray
 	 */
 	public Point3D findClosestPoint(List<Point3D> intersections) {
-		if(intersections==null||intersections.size()==0)
-			return null;
-		var minPoint=intersections.get(0);
-		for(var item: intersections) {
-		     if(item.distance(p0)<minPoint.distance(p0))
-		    	 minPoint=item;
-		}
-		return minPoint;
+		var gp = getClosestGeoPoint(intersections == null ? null
+				: intersections.stream().map(p -> new GeoPoint(null, p)).collect(Collectors.toList()));
+		return gp == null ? null : gp.point;
 	}
-	
-	 /**
-	 * search from list of points what is the closest point to the ray
-	 * and return is back
+
+	/**
+	 * search from list of points what is the closest point to the ray and return is
+	 * back
+	 * 
 	 * @param intersections - list of points we want to scan
 	 * @return the closest point to the ray
 	 */
-	public GeoPoint getClosestGeoPoint (List<GeoPoint> intersections) {
-		if(intersections==null||intersections.size()==0)
+	public GeoPoint getClosestGeoPoint(List<GeoPoint> intersections) {
+		if (intersections == null)
 			return null;
-		var minPoint=intersections.get(0);
-		for(var item: intersections) {
-		     if(item.point.distance(p0)<minPoint.point.distance(p0))
-		    	 minPoint=item;
+		GeoPoint minPoint = null;
+		double minDistance = Double.POSITIVE_INFINITY;
+		for (var item : intersections) {
+			double d = item.point.distance(p0);
+			if (d < minDistance) {
+				minPoint = item;
+				minDistance = d;
+			}
 		}
 		return minPoint;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Ray [p0=" + p0 + ", dir=" + dir + "]";

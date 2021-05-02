@@ -45,16 +45,17 @@ public interface Intersectable {
 			GeoPoint other = (GeoPoint) obj;
 			return this.geometry.equals(other.geometry) && this.point.equals(other.point);
 		}
-		
+
 	}
 
 	/**
 	 * Function for finding intersection points
+	 * 
 	 * @param ray - The ray that crosses the body
 	 * @return the points that cut between a ray and body
 	 */
 	public List<GeoPoint> findGeoIntersections(Ray ray);
-	
+
 	/**
 	 * Function for finding intersection points
 	 * 
@@ -62,9 +63,8 @@ public interface Intersectable {
 	 * @return the points that cut between a ray and body
 	 */
 	default List<Point3D> findIntersections(Ray ray) {
-	    var geoList = findGeoIntersections(ray);
-	    return geoList == null ? null
-	                           : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
+		var geoList = findGeoIntersections(ray);
+		return geoList == null ? null : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
 	}
 
 }

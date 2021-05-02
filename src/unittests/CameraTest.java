@@ -78,6 +78,7 @@ public class CameraTest {
 	public void testTranslationTransformation() {
 		Camera camera = new Camera(Point3D.ZERO, new Vector(1, 0, 0), new Vector(0, 0, 1));
 		// TC01: Translation of camera
-		assertEquals("translationTransformation() position not correct", new Point3D(20, 0, 20), camera.translationTransformation(new Vector(20, 0, 20)).getP0());
+		assertEquals("translationTransformation() position not correct", new Point3D(20, 0, 20),
+				camera.translationTransformation(new Vector(20, 0, 20)).getP0());
 	}
 }

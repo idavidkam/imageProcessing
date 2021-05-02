@@ -105,9 +105,9 @@ public class Polygon extends Geometry {
 		var myList = plane.findGeoIntersections(ray);
 		if (myList == null)
 			return null;
-		var dir=ray.getDir();
+		var dir = ray.getDir();
 
-		var p0=ray.getP0();
+		var p0 = ray.getP0();
 		var vectors = new LinkedList<Vector>();
 		for (var vertice : vertices)
 			vectors.add(vertice.subtract(p0));
@@ -117,26 +117,24 @@ public class Polygon extends Geometry {
 			normals.add(vectors.get(i).crossProduct(vectors.get(i + 1)));
 		}
 		normals.add(vectors.getLast().crossProduct(vectors.getFirst()));
-		
+
 		Boolean isPositive = false, isNegative = false;
-		for (var normal: normals) {
+		for (var normal : normals) {
 			var result = alignZero(normal.dotProduct(dir));
 			if (result != 0) {
 				if (result > 0) {
 					isPositive = true;
-					if(isNegative == true)
+					if (isNegative == true)
 						return null;
-				}
-				else if (result < 0) {
+				} else if (result < 0) {
 					isNegative = true;
-					if( isPositive == true) 
+					if (isPositive == true)
 						return null;
 				}
-			}
-			else
+			} else
 				return null;
 		}
-		
+
 		return List.of(new GeoPoint(this, myList.get(0).point));
 	}
 }

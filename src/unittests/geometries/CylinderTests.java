@@ -10,7 +10,9 @@ import geometries.*;
 import primitives.*;
 
 /**
- * @author m.n.y.1234
+ * Tests for cylinder
+ * 
+ * @author david and matan
  *
  */
 public class CylinderTests {

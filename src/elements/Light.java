@@ -7,14 +7,16 @@ import primitives.Color;
 
 /**
  * The class represents all light sources at an abstract level
+ * 
  * @author david and matan
  */
- abstract class Light {
+abstract class Light {
 
-	private Color intensity;
-	
+	protected Color intensity;
+
 	/**
 	 * get the ambient light source
+	 * 
 	 * @return the intensity - ambient light source
 	 */
 	public Color getIntensity() {
@@ -22,12 +24,12 @@ import primitives.Color;
 	}
 
 	/**
-	 * A Ctor who gets the color and power of light
-	 * @param iA - Fill the light intensity according to RGB
-	 * @param kA - Coefficient of attenuation of filler light
+	 * A Ctor who gets the color and power (intensity) of light
+	 * 
+	 * @param color - light intensity according to RGB
 	 */
-	protected Light(Color iA ,double kA) {
-		intensity=iA.scale(kA);
+	protected Light(Color color) {
+		intensity = color;
 	}
 
 }

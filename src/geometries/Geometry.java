@@ -23,6 +23,7 @@ public abstract class Geometry implements Intersectable {
 
 	/**
 	 * ------ set the emmission ------
+	 * 
 	 * @param newColor - get the new color to set
 	 * @return the Geometry itself
 	 */
@@ -32,14 +33,16 @@ public abstract class Geometry implements Intersectable {
 	}
 
 	/**
-	 * ------ set the material  ------
+	 * ------ set the material ------
+	 * 
 	 * @param material - set material to geometry
 	 * @return itself geometry
 	 */
 	public Geometry setMaterial(Material material) {
-		this.material=material;
+		this.material = material;
 		return this;
-	} 
+	}
+
 	/**
 	 * Calculates the vector orthogonal to the body at a given point
 	 * 
@@ -47,9 +50,10 @@ public abstract class Geometry implements Intersectable {
 	 * @return A vector orthogonal to the body at a given point
 	 */
 	public abstract Vector getNormal(Point3D point);
-	
+
 	/**
 	 * --------------- getter -------------------
+	 * 
 	 * @return the material class
 	 */
 	public Material GetMaterial() {
