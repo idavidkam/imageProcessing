@@ -144,39 +144,65 @@ public class Camera {
 	 * 
 	 * @param teta -Size of the angle to rotate in radians
 	 * @param dir  -Rotation direction of the camera
-	 *             <li>0 for axis x
-	 *             <li>1 for axis y
-	 *             <li>2 for axis z
+	 *             <li>0 for up or down
+	 *             <li>1 for left or right
+	 *             <li>2 for to rotate the camera in place
 	 * @return the camera himself
 	 */
 	public Camera rotationTransformation(double teta, int axis) {
 		if (axis > 2 || axis < 0)
 			throw new IllegalArgumentException("illergal argument");
+
 		if (axis == 0) {
-			vTo = new Vector(new Vector(1, 0, 0).dotProduct(vTo),
-					new Vector(0, Math.cos(teta), -Math.sin(teta)).dotProduct(vTo),
-					new Vector(0, Math.sin(teta), Math.cos(teta)).dotProduct(vTo));
+			vTo = calcRotationMatrix(teta, vRight, vTo);
 		}
 		if (axis == 1) {
-			vTo = new Vector(new Vector(Math.cos(teta), 0, Math.sin(teta)).dotProduct(vTo),
-					new Vector(0, 1, 0).dotProduct(vTo),
-					new Vector(-Math.sin(teta), 0, Math.cos(teta)).dotProduct(vTo));
+			vTo = calcRotationMatrix(teta, vUp, vTo);
 		}
 		if (axis == 2) {
-			vTo = new Vector(new Vector(Math.cos(teta), -Math.sin(teta), 0).dotProduct(vTo),
-					new Vector(Math.sin(teta), Math.cos(teta), 0).dotProduct(vTo), new Vector(0, 0, 1).dotProduct(vTo));
+			vRight = calcRotationMatrix(teta, vTo, vRight);
 		}
+
 		// --Check the other directions of the camera vectors if the right hand rule is
 		// observed--
-		if (Util.alignZero(vTo.dotProduct(vRight)) == 0) {
+		if (axis == 1 && Util.alignZero(vTo.dotProduct(vUp)) == 0) {
+			vRight = vTo.crossProduct(vUp);
+			return this;
+		}
+		if (axis != 1 && Util.alignZero(vTo.dotProduct(vRight)) == 0) {
 			vUp = vRight.crossProduct(vTo);
 			return this;
 		}
-		if (Util.alignZero(vTo.dotProduct(vUp)) == 0) {
-			vRight = vTo.crossProduct(vUp);
-			return this;
-		} else
-			vRight = vRight.equals(vTo.crossProduct(vUp)) ? vRight : vRight.scale(-1);
+
+		/**
+		 * else if (axis!=2) vRight = vRight.equals(vTo.crossProduct(vUp)) ? vRight :
+		 * vRight.scale(-1); else vRight = vRight.equals(vTo.crossProduct(vUp)) ? vRight
+		 * : vRight.scale(-1);
+		 */
 		return this;
+	}
+
+	/**
+	 * Auxiliary function for calculating a rotation matrix
+	 * 
+	 * @param teta       -size of the angle to rotate in radians
+	 * @param axisRotate - a vector representing the axis of rotation
+	 * @param change     = the rotating vector
+	 * @return The rotating vector
+	 */
+	private Vector calcRotationMatrix(double teta, Vector axisRotate, Vector change) {
+		var head = axisRotate.getHead();
+		var cosT = Math.cos(teta);
+		var sinT = Math.sin(teta);
+		return new Vector(
+				new Vector(cosT + head.getX() * head.getX() * (1 - cosT),
+						head.getX() * head.getY() * (1 - cosT) - head.getZ() * sinT,
+						head.getX() * head.getZ() * (1 - cosT) + head.getY() * sinT).dotProduct(change),
+				new Vector(head.getY() * head.getX() * (1 - cosT) + head.getZ() * sinT,
+						cosT + head.getY() * head.getY() * (1 - cosT),
+						head.getY() * head.getZ() * (1 - cosT) - head.getX() * sinT).dotProduct(change),
+				new Vector(head.getZ() * head.getX() * (1 - cosT) - head.getY() * sinT,
+						head.getZ() * head.getY() * (1 - cosT) + head.getX() * sinT,
+						cosT + head.getZ() * head.getZ() * (1 - cosT)).dotProduct(change));
 	}
 }

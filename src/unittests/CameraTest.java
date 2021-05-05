@@ -59,16 +59,16 @@ public class CameraTest {
 	public void testRotationTransformation() {
 		Camera camera = new Camera(Point3D.ZERO, new Vector(1, 0, 0), new Vector(0, 0, 1));
 
-		// TC01: Rotate camera on y-axis
-		assertEquals("rotationTransformation() the vector not correct", new Vector(0, 0, -1),
-				camera.rotationTransformation(Math.PI / 2.0, 1).getvTo());
-		// TC02: Rotate camera on x-axis
-		assertEquals("rotationTransformation() the vector not correct", new Vector(0, 1, 0),
+		// TC01: Rotate camera on up or down
+		assertEquals("rotationTransformation() the vector not correct", new Vector(0, 0, 1),
 				camera.rotationTransformation(Math.PI / 2.0, 0).getvTo());
+		// TC02: Rotate camera on left or right
+		assertEquals("rotationTransformation() the vector not correct", new Vector(0, 1, 0),
+				camera.rotationTransformation(Math.PI / 2.0, 1).getvTo());
 
-		// TC03: Rotate camera on z-axis
-		assertEquals("rotationTransformation() the vector not correct", new Vector(-1, 0, 0),
-				camera.rotationTransformation(Math.PI / 2.0, 2).getvTo());
+		// TC03: Rotate camera on place
+		assertEquals("rotationTransformation() the vector not correct", new Vector(1, 0, 0),
+				camera.rotationTransformation(Math.PI / 2.0, 2).getvRight());
 	}
 
 	/**
