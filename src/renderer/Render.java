@@ -7,8 +7,6 @@ import java.util.MissingResourceException;
 
 import elements.*;
 import primitives.*;
-import scene.*;
-
 /**
  * Whose role is to create from the scene the color matrix of the image
  * 

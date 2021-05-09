@@ -4,6 +4,7 @@
 package renderer;
 
 import primitives.Color;
+import primitives.Point3D;
 import elements.LightSource;
 import geometries.Intersectable.GeoPoint;
 import primitives.Ray;
@@ -20,6 +21,9 @@ import java.lang.Math;
  *
  */
 public class RayTracerBasic extends RayTracerBase {
+
+	// For the size of moving the rays for shading
+	private static final double DELTA = 0.1;
 
 	/**
 	 * Ctor - get scene and set it
@@ -41,9 +45,10 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Calculates the color of a point giving
+	 * Calculates the color of a given point from camera ray
 	 * 
-	 * @param point - point on image
+	 * @param ray - ray from the camera
+	 * @param geo - point on geometry body
 	 * @return the color in this point
 	 */
 	private Color calcColor(GeoPoint geo, Ray ray) {
@@ -54,7 +59,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * help to calculate "calcColor" - calculated light contribution from all light
 	 * sources
 	 * 
-	 * @param intersection - point with light
+	 * @param intersection - point on geometry body
 	 * @param ray          - ray from the camera
 	 * @return calculated light contribution from all light sources
 	 */
@@ -72,9 +77,11 @@ public class RayTracerBasic extends RayTracerBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl = Util.alignZero(n.dotProduct(l));
 			if (nl * nv > 0) { // sign(nl) == sign(nv)
-				Color lightIntensity = lightSource.getIntensity(intersection.point);
-				color = color.add(calcDiffusive(kd, nl, lightIntensity),
-						calcSpecular(ks, n, l, nl, v, nShininess, lightIntensity));
+				if (unshaded(lightSource, l, n, intersection)) {
+					Color lightIntensity = lightSource.getIntensity(intersection.point);
+					color = color.add(calcDiffusive(kd, nl, lightIntensity),
+							calcSpecular(ks, n, l, nl, v, nShininess, lightIntensity));
+				}
 			}
 		}
 		return color;
@@ -112,4 +119,48 @@ public class RayTracerBasic extends RayTracerBase {
 			return Color.BLACK;
 		return lightIntensity.scale(ks * Math.pow(-vr, nShininess));
 	}
+
+	/**
+	 * For shading test between point and light source
+	 * 
+	 * @param light - light source
+	 * @param l     - vector from light
+	 * @param n     - normal of body
+	 * @param gp    - point in geometry body
+	 * @return
+	 *         <li>true - if unshaded
+	 *         <li>false - if shaded
+	 */
+	private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp) {
+
+		Vector lightDirection = l.scale(-1); // from point to light source
+		Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+		Point3D point = gp.point.add(delta);
+		Ray lightRay = new Ray(point, lightDirection);
+
+		var intersections = scene.geometries.findGeoIntersections(lightRay);
+
+		if (intersections == null)
+			return true;
+		double lightDistance = light.getDistance(gp.point);
+		for (GeoPoint geopoint : intersections) {
+			if (Util.alignZero(geopoint.point.distance(gp.point) - lightDistance) <= 0)
+				return false;
+		}
+		return true;
+	}
+
+	/**
+	 * private boolean oldUnshaded(Vector l, Vector n, GeoPoint gp) {
+	 * 
+	 * Vector lightDirection = l.scale(-1); // from point to light source Vector
+	 * delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA); Point3D
+	 * point = gp.point.add(delta); Ray lightRay = new Ray(point, lightDirection);
+	 * 
+	 * var intersections = scene.geometries.findGeoIntersections(lightRay);
+	 * 
+	 * return intersections == null;
+	 * 
+	 * }
+	 */
 }
