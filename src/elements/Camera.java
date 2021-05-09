@@ -173,12 +173,6 @@ public class Camera {
 			vUp = vRight.crossProduct(vTo);
 			return this;
 		}
-
-		/**
-		 * else if (axis!=2) vRight = vRight.equals(vTo.crossProduct(vUp)) ? vRight :
-		 * vRight.scale(-1); else vRight = vRight.equals(vTo.crossProduct(vUp)) ? vRight
-		 * : vRight.scale(-1);
-		 */
 		return this;
 	}
 
@@ -192,17 +186,15 @@ public class Camera {
 	 */
 	private Vector calcRotationMatrix(double teta, Vector axisRotate, Vector change) {
 		var head = axisRotate.getHead();
+		double x = head.getX(), y = head.getY(), z = head.getZ();
 		var cosT = Math.cos(teta);
 		var sinT = Math.sin(teta);
 		return new Vector(
-				new Vector(cosT + head.getX() * head.getX() * (1 - cosT),
-						head.getX() * head.getY() * (1 - cosT) - head.getZ() * sinT,
-						head.getX() * head.getZ() * (1 - cosT) + head.getY() * sinT).dotProduct(change),
-				new Vector(head.getY() * head.getX() * (1 - cosT) + head.getZ() * sinT,
-						cosT + head.getY() * head.getY() * (1 - cosT),
-						head.getY() * head.getZ() * (1 - cosT) - head.getX() * sinT).dotProduct(change),
-				new Vector(head.getZ() * head.getX() * (1 - cosT) - head.getY() * sinT,
-						head.getZ() * head.getY() * (1 - cosT) + head.getX() * sinT,
-						cosT + head.getZ() * head.getZ() * (1 - cosT)).dotProduct(change));
+				new Vector(cosT + x * x * (1 - cosT), x * y * (1 - cosT) - z * sinT, x * z * (1 - cosT) + y * sinT)
+						.dotProduct(change),
+				new Vector(y * x * (1 - cosT) + z * sinT, cosT + y * y * (1 - cosT), y * z * (1 - cosT) - x * sinT)
+						.dotProduct(change),
+				new Vector(z * x * (1 - cosT) - y * sinT, z * y * (1 - cosT) + x * sinT, cosT + z * z * (1 - cosT))
+						.dotProduct(change));
 	}
 }

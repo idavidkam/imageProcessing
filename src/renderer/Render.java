@@ -17,21 +17,9 @@ import scene.*;
  */
 public class Render {
 
-	//private Scene scene;
 	private Camera camera;
 	private ImageWriter imageWriter;
 	private RayTracerBase rayTracer;
-
-	/**
-	 * ------------- setter -----------------
-	 * 
-	 * @param scene the scene to set
-	 * @return the {@link #Render} himself
-	 *
-	public Render setScene(Scene scene) {
-		this.scene = scene;
-		return this;
-	}*/
 
 	/**
 	 * ------------- setter -----------------
@@ -80,7 +68,7 @@ public class Render {
 	 * every pixel.
 	 */
 	public void renderImage() {
-		if (this.camera == null || this.imageWriter == null || this.rayTracer == null )//|| this.scene == null)
+		if (this.camera == null || this.imageWriter == null || this.rayTracer == null)
 			throw new MissingResourceException("missing info. about image", null, null);
 		int Nx = imageWriter.getNx();
 		int Ny = imageWriter.getNy();
