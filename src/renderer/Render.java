@@ -17,7 +17,7 @@ import scene.*;
  */
 public class Render {
 
-	private Scene scene;
+	//private Scene scene;
 	private Camera camera;
 	private ImageWriter imageWriter;
 	private RayTracerBase rayTracer;
@@ -27,17 +27,17 @@ public class Render {
 	 * 
 	 * @param scene the scene to set
 	 * @return the {@link #Render} himself
-	 */
+	 *
 	public Render setScene(Scene scene) {
 		this.scene = scene;
 		return this;
-	}
+	}*/
 
 	/**
 	 * ------------- setter -----------------
 	 * 
 	 * @param camera the camera to set
-	 * @return the {@link #Render} himself
+	 * @return the {@link #Render} itself
 	 */
 	public Render setCamera(Camera camera) {
 		this.camera = camera;
@@ -48,7 +48,7 @@ public class Render {
 	 * ------------- setter -----------------
 	 * 
 	 * @param imageWriter the imageWriter to set
-	 * @return the {@link #Render} himself
+	 * @return the {@link #Render} itself
 	 */
 	public Render setImageWriter(ImageWriter imageWriter) {
 		this.imageWriter = imageWriter;
@@ -59,7 +59,7 @@ public class Render {
 	 * ------------- setter -----------------
 	 * 
 	 * @param rayTracer the rayTracer to set
-	 * @return the {@link #Render} himself
+	 * @return the {@link #Render} itself
 	 */
 	public Render setRayTracer(RayTracerBase rayTracer) {
 		this.rayTracer = rayTracer;
@@ -80,7 +80,7 @@ public class Render {
 	 * every pixel.
 	 */
 	public void renderImage() {
-		if (this.camera == null || this.imageWriter == null || this.rayTracer == null || this.scene == null)
+		if (this.camera == null || this.imageWriter == null || this.rayTracer == null )//|| this.scene == null)
 			throw new MissingResourceException("missing info. about image", null, null);
 		int Nx = imageWriter.getNx();
 		int Ny = imageWriter.getNy();

@@ -19,18 +19,15 @@ public class SpotLight extends PointLight {
 
 	/**
 	 * A Ctor who gets the color, power of light,position and direction vector. the
-	 * light source cannot be on a body surface (narrow - The width of the light
-	 * extending from the light - equals "1")
+	 * light source cannot be on a body surface. Default values for kC,kL,kQ (narrow
+	 * - The width of the light extending from the light - equals "1")
 	 * 
 	 * @param iA        - Fill the light intensity according to RGB
 	 * @param point     - position of source light
 	 * @param direction - direction of light
-	 * @param kC        - constant coefficient
-	 * @param kL        - Linear coefficient
-	 * @param kQ        - Quadratic coefficient
 	 */
-	public SpotLight(Color iA, Point3D point, Vector direction, double kC, double kL, double kQ) {
-		super(iA, point, kC, kL, kQ);
+	public SpotLight(Color iA, Point3D point, Vector direction) {
+		super(iA, point);
 		this.narrow = 1;
 		dir = direction.normalized();
 	}

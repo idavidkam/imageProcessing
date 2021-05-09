@@ -67,7 +67,7 @@ public class Ray {
 	 * @return the closest point to the ray
 	 */
 	public Point3D findClosestPoint(List<Point3D> intersections) {
-		var gp = getClosestGeoPoint(intersections == null ? null
+		var gp = findClosestGeoPoint(intersections == null ? null
 				: intersections.stream().map(p -> new GeoPoint(null, p)).collect(Collectors.toList()));
 		return gp == null ? null : gp.point;
 	}
@@ -79,7 +79,7 @@ public class Ray {
 	 * @param intersections - list of points we want to scan
 	 * @return the closest point to the ray
 	 */
-	public GeoPoint getClosestGeoPoint(List<GeoPoint> intersections) {
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
 		if (intersections == null)
 			return null;
 		GeoPoint minPoint = null;

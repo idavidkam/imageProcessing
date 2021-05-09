@@ -36,7 +36,7 @@ public class RayTracerBasic extends RayTracerBase {
 		var intersections = scene.geometries.findGeoIntersections(ray);
 		if (intersections == null)
 			return scene.background;
-		GeoPoint closestPoint = ray.getClosestGeoPoint(intersections);
+		GeoPoint closestPoint = ray.findClosestGeoPoint(intersections);
 		return calcColor(closestPoint, ray);
 	}
 

@@ -52,7 +52,7 @@ public class RayTests {
 
 	/**
 	 * Test method for
-	 * {@link primitives.Ray#getClosestGeoPoint(primitives.Point3D[])}.
+	 * {@link primitives.Ray#findClosestGeoPoint(primitives.Point3D[])}.
 	 */
 	@Test
 	public void testgetClosestGeoPoint() {
@@ -64,22 +64,22 @@ public class RayTests {
 		// TC01: A point in the middle of the list is closest to the beginning of the
 		// Ray
 		assertEquals("The middle point in the list is closest", new GeoPoint(plane1, new Point3D(1.5, 0, 0)),
-				ray.getClosestGeoPoint(List.of(new GeoPoint(plane1, new Point3D(2, 0, 0)),
+				ray.findClosestGeoPoint(List.of(new GeoPoint(plane1, new Point3D(2, 0, 0)),
 						new GeoPoint(plane1, new Point3D(1.5, 0, 0)), new GeoPoint(plane1, new Point3D(3, 0, 0)))));
 
 		// =============== Boundary Values Tests ==================
 
 		// TC02: empty list
-		assertNull("empty list: expect to return null", ray.getClosestGeoPoint(List.of()));
+		assertNull("empty list: expect to return null", ray.findClosestGeoPoint(List.of()));
 
 		// TC03: The first point is closest to the beginning of the Ray
 		assertEquals("The first point is closest", new GeoPoint(plane1, new Point3D(1.5, 0, 0)),
-				ray.getClosestGeoPoint(List.of(new GeoPoint(plane1, new Point3D(1.5, 0, 0)),
+				ray.findClosestGeoPoint(List.of(new GeoPoint(plane1, new Point3D(1.5, 0, 0)),
 						new GeoPoint(plane1, new Point3D(2, 0, 0)), new GeoPoint(plane1, new Point3D(3, 0, 0)))));
 
 		// TC04: The last point is closest to the beginning of the Ray
 		assertEquals("The last point is closest", new GeoPoint(plane1, new Point3D(1.5, 0, 0)),
-				ray.getClosestGeoPoint(List.of(new GeoPoint(plane1, new Point3D(2, 0, 0)),
+				ray.findClosestGeoPoint(List.of(new GeoPoint(plane1, new Point3D(2, 0, 0)),
 						new GeoPoint(plane1, new Point3D(3, 0, 0)), new GeoPoint(plane1, new Point3D(1.5, 0, 0)))));
 	}
 
