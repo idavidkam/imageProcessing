@@ -22,7 +22,9 @@ import java.lang.Math;
  */
 public class RayTracerBasic extends RayTracerBase {
 
-	// For the size of moving the rays for shading
+	/**
+	 *  For the size of moving the rays for shading
+	 */
 	private static final double DELTA = 0.1;
 
 	/**
