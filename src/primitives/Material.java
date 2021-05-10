@@ -8,8 +8,36 @@ package primitives;
  */
 public class Material {
 
-	public double kD = 0, kS = 0;
+	/**
+	 * @param kD - Diffuse
+	 * @param kS - Specular
+	 * @param kT - transparency
+	 * @param kR - reflection
+	 */
+	public double kD = 0, kS = 0, kT = 0, kR = 0;
 	public int nShininess = 0;
+
+	/**
+	 * ------------- setter -----------------
+	 * 
+	 * @param kR the kR to set
+	 * @return itself material
+	 */
+	public Material setKR(double kR) {
+		this.kR = kR;
+		return this;
+	}
+	
+	/**
+	 * ------------- setter -----------------
+	 * 
+	 * @param kT the kT to set
+	 * @return itself material
+	 */
+	public Material setKT(double kT) {
+		this.kT = kT;
+		return this;
+	}
 
 	/**
 	 * ------------- setter -----------------

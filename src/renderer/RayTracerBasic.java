@@ -26,6 +26,10 @@ public class RayTracerBasic extends RayTracerBase {
 	 *  For the size of moving the rays for shading
 	 */
 	private static final double DELTA = 0.1;
+	
+	private static final int MAX_CALC_COLOR_LEVEL = 10;
+	private static final double MIN_CALC_COLOR_K = 0.001;
+
 
 	/**
 	 * Ctor - get scene and set it
