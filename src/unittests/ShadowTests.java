@@ -43,14 +43,15 @@ public class ShadowTests {
 	}
 
 	/**
-	 * Produce a picture of a sphere and triangle with point light and shade move up and right
+	 * Produce a picture of a sphere and triangle with point light and shade move up
+	 * and right
 	 */
 	@Test
 	public void sphereTriangleMove1() {
 		scene.geometries.add(new Sphere(new Point3D(0, 0, -200), 60) //
 				.setEmission(new Color(java.awt.Color.BLUE)) //
 				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)), //
-				new Triangle(new Point3D(-60,-30,0), new Point3D(-30,-60,0), new Point3D(-58, -58, -4)) //
+				new Triangle(new Point3D(-60, -30, 0), new Point3D(-30, -60, 0), new Point3D(-58, -58, -4)) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
 		);
@@ -67,14 +68,15 @@ public class ShadowTests {
 	}
 
 	/**
-	 * Produce a picture of a sphere and triangle with point light and shade move upper and righter
+	 * Produce a picture of a sphere and triangle with point light and shade move
+	 * upper and righter
 	 */
 	@Test
 	public void sphereTriangleMove2() {
 		scene.geometries.add(new Sphere(new Point3D(0, 0, -200), 60) //
 				.setEmission(new Color(java.awt.Color.BLUE)) //
 				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)), //
-				new Triangle(new Point3D(-50,-20,0), new Point3D(-20,-50,0), new Point3D(-48, -48, -4)) //
+				new Triangle(new Point3D(-50, -20, 0), new Point3D(-20, -50, 0), new Point3D(-48, -48, -4)) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
 		);
@@ -89,7 +91,7 @@ public class ShadowTests {
 		render.renderImage();
 		render.writeToImage();
 	}
-	
+
 	/**
 	 * Produce a picture of a sphere and triangle with point light and shade
 	 */
@@ -98,7 +100,7 @@ public class ShadowTests {
 		scene.geometries.add(new Sphere(new Point3D(0, 0, -200), 60) //
 				.setEmission(new Color(java.awt.Color.BLUE)) //
 				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)), //
-				new Triangle(new Point3D(-30,-70,0), new Point3D(-70,-30,0), new Point3D(-70, -70, -4)) //
+				new Triangle(new Point3D(-30, -70, 0), new Point3D(-70, -30, 0), new Point3D(-70, -70, -4)) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
 		);
@@ -115,14 +117,14 @@ public class ShadowTests {
 	}
 
 	/**
-	 * Produce a picture of a sphere and triangle with point light and shade 
+	 * Produce a picture of a sphere and triangle with point light and shade
 	 */
 	@Test
 	public void sphereTriangleSpot2() {
 		scene.geometries.add(new Sphere(new Point3D(0, 0, -200), 60) //
 				.setEmission(new Color(java.awt.Color.BLUE)) //
 				.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)), //
-				new Triangle(new Point3D(-30,-70,0), new Point3D(-70,-30,0), new Point3D(-70, -70, -4)) //
+				new Triangle(new Point3D(-30, -70, 0), new Point3D(-70, -30, 0), new Point3D(-70, -70, -4)) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(30)) //
 		);
@@ -137,7 +139,7 @@ public class ShadowTests {
 		render.renderImage();
 		render.writeToImage();
 	}
-	
+
 	/**
 	 * Produce a picture of a two triangles lighted by a spot light with a Sphere
 	 * producing a shading
