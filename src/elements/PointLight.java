@@ -36,7 +36,7 @@ public class PointLight extends Light implements LightSource {
 	 * @param kC the constant coefficient to set
 	 * @return the {@link #PointLight(Color, Point3D)} itself
 	 */
-	public PointLight setkC(double kC) {
+	public PointLight setKc(double kC) {
 		this.kC = kC;
 		return this;
 	}
@@ -47,7 +47,7 @@ public class PointLight extends Light implements LightSource {
 	 * @param kL the Linear coefficient to set
 	 * @return the {@link #PointLight(Color, Point3D)} itself
 	 */
-	public PointLight setkL(double kL) {
+	public PointLight setKl(double kL) {
 		this.kL = kL;
 		return this;
 	}
@@ -58,7 +58,7 @@ public class PointLight extends Light implements LightSource {
 	 * @param kQ the Quadratic coefficient to set
 	 * @return the {@link #PointLight(Color, Point3D)} itself
 	 */
-	public PointLight setkQ(double kQ) {
+	public PointLight setKq(double kQ) {
 		this.kQ = kQ;
 		return this;
 	}
