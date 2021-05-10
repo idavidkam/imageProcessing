@@ -23,13 +23,12 @@ import java.lang.Math;
 public class RayTracerBasic extends RayTracerBase {
 
 	/**
-	 *  For the size of moving the rays for shading
+	 * For the size of moving the rays for shading
 	 */
 	private static final double DELTA = 0.1;
-	
+
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
-
 
 	/**
 	 * Ctor - get scene and set it
@@ -93,16 +92,33 @@ public class RayTracerBasic extends RayTracerBase {
 		return color;
 	}
 
-	
-	private Ray clacReflection(double kR, Vector n, Vector l, double nl, Vector v, GeoPoint gp,
-			Color lightIntensity) {
-		Vector r = l.add(n.scale(-2 * nl));
-		double vr = Util.alignZero(v.dotProduct(r));
-		if (vr >= 0)
-			return Color.BLACK;
-		return lightIntensity.scale(kR * Math.pow(-vr, nShininess));
+	/**
+	 * calculate the reflected ray
+	 * @param n  - normal to the point on geometry
+	 * @param v  - camera vector
+	 * @param p  - point on geometry body
+	 * @param nv - equal to n.dotProduct(v)
+	 * @return reflected ray
+	 */
+	private Ray clacRayReflection(Vector n, Vector v, Point3D p, double nv) {
+		Vector r = v.add(n.scale(-2 * nv));
+		Vector delta = n.scale(nv > 0 ? DELTA : -DELTA);
+		Point3D point = p.add(delta);
+		return new Ray(point, r);
 	}
-	
+
+	/**
+	 * calculate the refracted ray
+	 * @param n - normal to the point on geometry
+	 * @param v - camera vector
+	 * @param p - point on geometry body
+	 * @return refracted ray
+	 */
+	private Ray clacRefractionRay(Vector n,Vector v,Point3D p,double nv) {
+		Vector delta = n.scale(nv > 0 ? DELTA : -DELTA);
+		Point3D point = p.add(delta);
+		return new Ray(point, v);
+	}
 	/**
 	 * calculate the diffusive light according to Phong's model
 	 * 
@@ -120,7 +136,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * 
 	 * @param ks             - Coefficient for specular
 	 * @param l              - vector from light source
-	 * @param n              - normal to the point
+	 * @param n              - normal to the point on geometry
 	 * @param nl             - is equal to n.dotProduct(l)
 	 * @param v              - camera vector
 	 * @param nShininess     - exponent
