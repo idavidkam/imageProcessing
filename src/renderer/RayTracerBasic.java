@@ -93,6 +93,16 @@ public class RayTracerBasic extends RayTracerBase {
 		return color;
 	}
 
+	
+	private Ray clacReflection(double kR, Vector n, Vector l, double nl, Vector v, GeoPoint gp,
+			Color lightIntensity) {
+		Vector r = l.add(n.scale(-2 * nl));
+		double vr = Util.alignZero(v.dotProduct(r));
+		if (vr >= 0)
+			return Color.BLACK;
+		return lightIntensity.scale(kR * Math.pow(-vr, nShininess));
+	}
+	
 	/**
 	 * calculate the diffusive light according to Phong's model
 	 * 
