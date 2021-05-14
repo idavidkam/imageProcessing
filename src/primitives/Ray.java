@@ -16,6 +16,10 @@ public class Ray {
 
 	private Point3D p0;
 	private Vector dir;
+	/**
+	 * For the size of moving the rays for shading
+	 */
+	private static final double DELTA = 0.1;
 
 	/**
 	 * getter point of ray
@@ -50,7 +54,7 @@ public class Ray {
 	/**
 	 * Ray constructor receiving a Point3d value and vector of direction
 	 * 
-	 * @param p0-a  point of ray
+	 * @param p0-a point of ray
 	 * @param dir-a direction of ray
 	 */
 	public Ray(Point3D p0, Vector dir) {
@@ -59,6 +63,22 @@ public class Ray {
 		this.dir.normalize();
 	}
 
+	/**
+	 * this constructor is special its create ray but it also move the head point in
+	 * the normal direction in DELTA or -DELTA (depend on the dotProduct)
+	 * 
+	 * @param p0 - a point of ray
+	 * @param dir - a direction of ray
+	 * @param normal -normal to the head point
+	 */
+	public Ray(Point3D p0, Vector dir, Vector normal) {
+		this(p0, dir);
+		double nv = normal.dotProduct(this.dir);
+		if (!Util.isZero(nv)) {
+			Vector delta = normal.scale(nv > 0 ? DELTA : -DELTA);
+			this.p0 = p0.add(delta);
+		}
+	}
 	/**
 	 * search from list of points what is the closest point to the ray and return is
 	 * back

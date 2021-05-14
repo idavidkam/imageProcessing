@@ -23,7 +23,7 @@ public class Material {
 	 * @param kR the kR to set
 	 * @return itself material
 	 */
-	public Material setKR(double kR) {
+	public Material setKr(double kR) {
 		this.kR = kR;
 		return this;
 	}
@@ -34,7 +34,7 @@ public class Material {
 	 * @param kT the kT to set
 	 * @return itself material
 	 */
-	public Material setKT(double kT) {
+	public Material setKt(double kT) {
 		this.kT = kT;
 		return this;
 	}
