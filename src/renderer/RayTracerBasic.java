@@ -26,6 +26,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
+	private static final double INITIAL_K = 1.0;
 
 	/**
 	 * Ctor - get scene and set it
@@ -53,29 +54,34 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the color in this point
 	 */
 	private Color calcColor(GeoPoint geo, Ray ray) {
-		return calcColor(geo, ray, MAX_CALC_COLOR_LEVEL, MIN_CALC_COLOR_K).add(scene.ambientLight.getIntensity());
-		// return
-		// scene.ambientLight.getIntensity().add(geo.geometry.getEmmission()).add(calcLocalEffects(geo,
-		// ray));
+		return calcColor(geo, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
 	}
 
 	/**
 	 * Recursive function to calculates the color of a given point from camera ray
 	 * 
-	 * @param closestPoint-point on geometry body
-	 * @param ray-ray            from the camera
-	 * @param level              - level of Recursion.
-	 * @param k                  - the current attenuation level
+	 * @param closestPoint - point on geometry body
+	 * @param ray          - ray from the camera
+	 * @param level        - level of Recursion.
+	 * @param k            - the current attenuation level
 	 * @return the color in this point
 	 */
 	private Color calcColor(GeoPoint closestPoint, Ray ray, int level, double k) {
-		Color color = closestPoint.geometry.getEmmission().add(calcLocalEffects(closestPoint, ray));
+		if (closestPoint == null)
+			return scene.background;
+		Color color = closestPoint.geometry.getEmmission().add(calcLocalEffects(closestPoint, ray, k));
 		return 1 == level ? color : color.add(calcGlobalEffects(closestPoint, ray, level, k));
 	}
 
 	/**
+	 * calculates light contribution with consideration for transparency and
+	 * reflection
 	 * 
-	 * @return
+	 * @param closestPoint - point on geometry body
+	 * @param ray          - ray from the camera
+	 * @param level        - level of Recursion.
+	 * @param k            - the current attenuation level
+	 * @return with consideration for transparency and reflection
 	 */
 	private Color calcGlobalEffects(GeoPoint geopoint, Ray ray, int level, double k) {
 		Color color = Color.BLACK;
@@ -85,13 +91,13 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
-			var reflectedRay = clacRayReflection(n, v, ray.getP0(), nv);
+			var reflectedRay = clacRayReflection(n, v, geopoint.point, nv);
 			GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
 			color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
-			var refractedRay = clacRayRefraction(n, v, ray.getP0(), nv);
+			var refractedRay = clacRayRefraction(n, v, geopoint.point, nv);
 			GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 			color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
 		}
@@ -104,9 +110,10 @@ public class RayTracerBasic extends RayTracerBase {
 	 * 
 	 * @param intersection - point on geometry body
 	 * @param ray          - ray from the camera
+	 * @param k            - the current attenuation level
 	 * @return calculated light contribution from all light sources
 	 */
-	private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
+	private Color calcLocalEffects(GeoPoint intersection, Ray ray, double k) {
 		Vector v = ray.getDir();
 		Vector n = intersection.geometry.getNormal(intersection.point);
 		double nv = Util.alignZero(n.dotProduct(v));
@@ -120,8 +127,9 @@ public class RayTracerBasic extends RayTracerBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl = Util.alignZero(n.dotProduct(l));
 			if (nl * nv > 0) { // sign(nl) == sign(nv)
-				if (unshaded(lightSource, l, n, intersection)) {
-					Color lightIntensity = lightSource.getIntensity(intersection.point);
+				double ktr = transparency(lightSource, l, n, intersection);
+				if (ktr * k > MIN_CALC_COLOR_K) {
+					Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
 					color = color.add(calcDiffusive(kd, nl, lightIntensity),
 							calcSpecular(ks, n, l, nl, v, nShininess, lightIntensity));
 				}
@@ -202,7 +210,6 @@ public class RayTracerBasic extends RayTracerBase {
 	 *         <li>false - if shaded
 	 */
 	private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp) {
-
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(gp.point, lightDirection, n);
 		var intersections = scene.geometries.findGeoIntersections(lightRay);
@@ -219,16 +226,30 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
+	 * calculates the amount of shadow in the point sometimes we need light shadow
+	 * and sometimes not
 	 * 
-	 * @param light    - light source
-	 * @param l        - vector from light
-	 * @param n        - normal of body
-	 * @param geoPoint - point in geometry body
-	 * @return
+	 * @param light - light source
+	 * @param l     - vector from light
+	 * @param n     - normal of body
+	 * @param gp    - point in geometry body
+	 * @return amount of shadow
 	 */
-	private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geoPoint) {
-		// TODO
-		return 0;
+	private double transparency(LightSource light, Vector l, Vector n, GeoPoint gp) {
+		Vector lightDirection = l.scale(-1); // from point to light source
+		Ray lightRay = new Ray(gp.point, lightDirection, n);
+		var intersections = scene.geometries.findGeoIntersections(lightRay);
+		double lightDistance = light.getDistance(gp.point);
+		if (intersections == null)
+			return 1.0;
+		double ktr = 1.0;
+		for (GeoPoint geopoint : intersections) {
+			if (Util.alignZero(geopoint.point.distance(gp.point) - lightDistance) <= 0)
+				ktr *= geopoint.geometry.GetMaterial().kT;
+			if (ktr < MIN_CALC_COLOR_K)
+				return 0.0;
+		}
+		return ktr;
 	}
 
 	/**
