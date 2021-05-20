@@ -1,7 +1,7 @@
 package unittests;
 
 import static org.junit.Assert.*;
-
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
@@ -32,6 +32,12 @@ public class buildOurImage {
 
 		Camera camera = new Camera(new Point3D(0, 2, 0), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
 				.setViewPlaneSize(10, 10).setViewPlaneDistance(3);
+		
+//		Array<Point3D> cubepoints = new Array<Point3D>();
+//		cubepoints.addAll(List.of(
+//				new Point3D(1,4,-2), new Point3D(1,4,-1),new Point3D(-1,4,-2),new Point3D(-1,4,-1),
+//				new Point3D(1,5,-2), new Point3D(1,5,-1),new Point3D(-1,5,-2),new Point3D(-1,5,-1)
+//				));
 
 		scene.geometries.add( //
 				
@@ -81,18 +87,16 @@ public class buildOurImage {
 				new Polygon(new Point3D(-1.8,4,1),new Point3D(-1.8,4,-1),new Point3D(-1.8,3,-1), new Point3D(-1.8,3,1))
 				.setEmission(new Color(java.awt.Color.BLACK))
 				.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3).setKr(1))
-				
-				// add ...
-				
 				);
-		
-//		scene.lights.addAll(List.of(
-//				new PointLight(new Color(173, 9, 16), new Point3D(1.9 ,5, 0)).setKl(1).setKq(1),
-//				new PointLight(new Color(173, 9, 16), new Point3D(1.9,3.5, 0)).setKl(1).setKq(1),
-//				new PointLight(new Color(173, 9, 16), new Point3D(-1.9,5, 0)).setKl(1).setKq(1),
-//				new PointLight(new Color(173, 9, 16), new Point3D(-1.9,3.5, 0)).setKl(1).setKq(1)
-//				));
-		
+				
+//				// add cube
+//				new Polygon(cubepoints[0], cubepoints[1], cubepoints[2],
+//						cubepoints[3])
+//					.setEmission(new Color(java.awt.Color.BLACK))
+//					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3))
+//					
+					
+			
 		for (double i =2.25; i < 6; i= i+0.25) {
 			scene.geometries.add(
 				new Sphere(new Point3D(0, i, 1.5), 0.04)
