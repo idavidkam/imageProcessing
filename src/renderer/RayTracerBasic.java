@@ -266,18 +266,4 @@ public class RayTracerBasic extends RayTracerBase {
 		}
 		return ray.findClosestGeoPoint(intersections);
 	}
-
-	/**
-	 * private boolean oldUnshaded(Vector l, Vector n, GeoPoint gp) {
-	 * 
-	 * Vector lightDirection = l.scale(-1); // from point to light source Vector
-	 * delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA); Point3D
-	 * point = gp.point.add(delta); Ray lightRay = new Ray(point, lightDirection);
-	 * 
-	 * var intersections = scene.geometries.findGeoIntersections(lightRay);
-	 * 
-	 * return intersections == null;
-	 * 
-	 * }
-	 */
 }
