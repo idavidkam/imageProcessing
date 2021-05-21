@@ -144,7 +144,7 @@ public class buildOurImage {
 				);
 			
 		//add lights in the cube glass
-		scene.lights.addAll((Collection<? extends LightSource>) List.of(
+		scene.lights.addAll(List.of(
 				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
 				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
 				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),

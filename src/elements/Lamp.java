@@ -67,7 +67,7 @@ public class Lamp {
         return lampParts;
     }
 
-    public Light getLightLamp() {
+    public LightSource getLightLamp() {
         return lightLamp;
     }
 }
