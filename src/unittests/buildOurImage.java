@@ -1,9 +1,6 @@
 package unittests;
 
-import static org.junit.Assert.*;
-import java.util.LinkedList;
 import java.util.List;
-
 import org.junit.Test;
 import elements.*;
 import geometries.*;
@@ -33,11 +30,15 @@ public class buildOurImage {
 		Camera camera = new Camera(new Point3D(0, 2, 0), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
 				.setViewPlaneSize(10, 10).setViewPlaneDistance(3);
 		
-//		Array<Point3D> cubepoints = new Array<Point3D>();
-//		cubepoints.addAll(List.of(
-//				new Point3D(1,4,-2), new Point3D(1,4,-1),new Point3D(-1,4,-2),new Point3D(-1,4,-1),
-//				new Point3D(1,5,-2), new Point3D(1,5,-1),new Point3D(-1,5,-2),new Point3D(-1,5,-1)
-//				));
+		Point3D[] cubePoints = {
+			new Point3D(1,4,-2), new Point3D(1,4,-1),new Point3D(-1,4,-1),new Point3D(-1,4,-2),
+				new Point3D(1,5,-2), new Point3D(1,5,-1),new Point3D(-1,5,-1),new Point3D(-1,5,-2)
+		};
+		
+		Point3D[] cubePointsGlass = {
+				new Point3D(1,4,-1), new Point3D(1,4,-0.6),new Point3D(-1,4,-0.6),new Point3D(-1,4,-1),
+					new Point3D(1,5,-1), new Point3D(1,5,-0.6),new Point3D(-1,5,-0.6),new Point3D(-1,5,-1)
+			};
 
 		scene.geometries.add( //
 				
@@ -86,17 +87,67 @@ public class buildOurImage {
 				
 				new Polygon(new Point3D(-1.8,4,1),new Point3D(-1.8,4,-1),new Point3D(-1.8,3,-1), new Point3D(-1.8,3,1))
 				.setEmission(new Color(java.awt.Color.BLACK))
-				.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3).setKr(1))
+				.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3).setKr(1)),
+				
+				// add cube
+				new Polygon(cubePoints[0], cubePoints[1], cubePoints[2],cubePoints[3])
+					.setEmission(new Color(java.awt.Color.BLACK)) // front
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+				
+				new Polygon(cubePoints[4], cubePoints[5], cubePoints[6],cubePoints[7])
+					.setEmission(new Color(java.awt.Color.BLACK)) // back
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+					
+				new Polygon(cubePoints[1], cubePoints[5], cubePoints[6],cubePoints[2])
+					.setEmission(new Color(java.awt.Color.BLACK)) // ceiling
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+				
+				new Polygon(cubePoints[0], cubePoints[4], cubePoints[5],cubePoints[1])
+					.setEmission(new Color(java.awt.Color.BLACK)) // right
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+				
+				new Polygon(cubePoints[2], cubePoints[6], cubePoints[7],cubePoints[3])
+					.setEmission(new Color(java.awt.Color.BLACK)) // left
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+					
+				// add cube glass
+				new Polygon(cubePointsGlass[0], cubePointsGlass[1], cubePointsGlass[2],cubePointsGlass[3])
+					.setEmission(new Color(java.awt.Color.BLACK)) // front
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
+					
+				new Polygon(cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[6],cubePointsGlass[7])
+					.setEmission(new Color(java.awt.Color.BLACK)) // back
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
+						
+				new Polygon(cubePointsGlass[1], cubePointsGlass[5], cubePointsGlass[6],cubePointsGlass[2])
+					.setEmission(new Color(java.awt.Color.BLACK)) // ceiling
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
+					
+				new Polygon(cubePointsGlass[0], cubePointsGlass[4], cubePointsGlass[5],cubePointsGlass[1])
+					.setEmission(new Color(java.awt.Color.BLACK)) // right
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
+					
+				new Polygon(cubePointsGlass[2], cubePointsGlass[6], cubePointsGlass[7],cubePointsGlass[3])
+					.setEmission(new Color(java.awt.Color.BLACK)) // left
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1))
 				);
 				
-//				// add cube
-//				new Polygon(cubepoints[0], cubepoints[1], cubepoints[2],
-//						cubepoints[3])
-//					.setEmission(new Color(java.awt.Color.BLACK))
+//				// add diamond
+//				new Polygon(new Point3D(-0.2,4.5,-0.5), new Point3D(0,4.5,-0.9), new Point3D(0.2, 4.5,-0.5))
+//					.setEmission(new Color(java.awt.Color.YELLOW))
 //					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3))
-//					
-					
+//				
 			
+		// add lights in the cube glass
+		scene.lights.addAll(List.of(
+				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
+				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
+				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
+				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1)
+				));
+		
+		
+		// add lights and lamps
 		for (double i =2.25; i < 6; i= i+0.25) {
 			scene.geometries.add(
 				new Sphere(new Point3D(0, i, 1.5), 0.04)
@@ -123,7 +174,7 @@ public class buildOurImage {
 		
 
 		Render render = new Render() //
-				.setImageWriter(new ImageWriter("ourImage", 1080, 720)) //
+				.setImageWriter(new ImageWriter("ourImage", 1920, 1080)) //
 				.setCamera(camera) //
 				.setRayTracer(new RayTracerBasic(scene));
 		render.renderImage();
