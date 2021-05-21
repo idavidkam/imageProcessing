@@ -1,6 +1,8 @@
 package unittests;
 
+import java.util.Collection;
 import java.util.List;
+
 import org.junit.Test;
 import elements.*;
 import geometries.*;
@@ -25,11 +27,12 @@ public class buildOurImage {
 
 	private Scene scene = new Scene("Test scene ");
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void test() {
 
 		Camera camera = new Camera(new Point3D(0, 2, 0), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
-				.setViewPlaneSize(250, 250).setViewPlaneDistance(102);
+				.setViewPlaneSize(10, 10).setViewPlaneDistance(3);
 		
 		Point3D[] cubePoints = {
 			new Point3D(1,4,-2), new Point3D(1,4,-1),new Point3D(-1,4,-1),new Point3D(-1,4,-2),
@@ -137,17 +140,18 @@ public class buildOurImage {
 					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
 				
 				// add Light home
-					lamp.getLampParts(),lamp1.getLampParts()
+				lamp.getLampParts(),lamp1.getLampParts()
 				);
 			
-		// add lights in the cube glass
-		scene.lights.addAll(List.of(
+		//add lights in the cube glass
+		scene.lights.addAll((Collection<? extends LightSource>) List.of(
 				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
 				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
 				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
 				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
-				lamp.getLightLamp(),lamp1.getLightLamp())
-				);
+				lamp.getLightLamp(),
+				lamp1.getLightLamp()
+				));
 		
 		
 		// add lights and lamps
@@ -177,7 +181,7 @@ public class buildOurImage {
 		
 
 		Render render = new Render() //
-				.setImageWriter(new ImageWriter("ourImage", 1280, 720)) //
+				.setImageWriter(new ImageWriter("ourImage", 1920, 1080)) //
 				.setCamera(camera) //
 				.setRayTracer(new RayTracerBasic(scene));
 		render.renderImage();
