@@ -9,6 +9,7 @@ import renderer.ImageWriter;
 import renderer.RayTracerBasic;
 import renderer.Render;
 import scene.*;
+ 
 
 /**
  * General examination so far. Create an image with some reflection and
@@ -28,7 +29,7 @@ public class buildOurImage {
 	public void test() {
 
 		Camera camera = new Camera(new Point3D(0, 2, 0), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
-				.setViewPlaneSize(10, 10).setViewPlaneDistance(3);
+				.setViewPlaneSize(250, 250).setViewPlaneDistance(102);
 		
 		Point3D[] cubePoints = {
 			new Point3D(1,4,-2), new Point3D(1,4,-1),new Point3D(-1,4,-1),new Point3D(-1,4,-2),
@@ -40,6 +41,10 @@ public class buildOurImage {
 					new Point3D(1,5,-1), new Point3D(1,5,-0.6),new Point3D(-1,5,-0.6),new Point3D(-1,5,-1)
 			};
 
+		Lamp lamp=new Lamp(new Color(java.awt.Color.white),new Color(java.awt.Color.gray), 0.175, 0.05, 
+				new SpotLight(new Color(173, 9, 16), new Point3D(0.5, 4.5, 0.8), new Vector(0,0,-1)), new Vector(0,0,1), new Vector(0,-1,0));
+		Lamp lamp1=new Lamp(new Color(java.awt.Color.white),new Color(java.awt.Color.gray), 0.175, 0.05, 
+				new SpotLight(new Color(173, 9, 16), new Point3D(-0.5, 4.5, 0.8), new Vector(0,0,-1)), new Vector(0,0,1), new Vector(0,-1,0));
 		scene.geometries.add( //
 				
 				// add walls of the room
@@ -62,7 +67,7 @@ public class buildOurImage {
 				new Polygon(new Point3D(2, 2, 2), new Point3D(-2, 2, 2), new Point3D(-2, 6, 2),
 						new Point3D(2, 6, 2)) // ceiling
 					.setEmission(new Color(java.awt.Color.BLACK))
-					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.1)),
 					
 				// add mirrors	
 				new Polygon(new Point3D(0.5,5.8,1),new Point3D(0.5,5.8,-1),new Point3D(1.5,5.8,-1), new Point3D(1.5,5.8,1))
@@ -131,16 +136,8 @@ public class buildOurImage {
 					.setEmission(new Color(java.awt.Color.BLACK)) // left
 					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
 				
-				
 				// add Light home
-				new Triangle(new Point3D(0,4.5,1), new Point3D(0.5,4.5,1.4), new Point3D(1, 4.5,1))
-					.setEmission(new Color(java.awt.Color.GRAY))
-					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
-				
-				// add light sphere
-				new Sphere(new Point3D(0.5,4.5,1), 0.2)
-					.setEmission(new Color(java.awt.Color.YELLOW))
-					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3))
+					lamp.getLampParts(),lamp1.getLampParts()
 				);
 			
 		// add lights in the cube glass
@@ -148,8 +145,9 @@ public class buildOurImage {
 				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
 				new SpotLight(new Color(173, 9, 16), new Point3D(-0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
 				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.1, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
-				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1)
-				));
+				new SpotLight(new Color(173, 9, 16), new Point3D(0.9,4.9, -0.9), new Vector(0,4.4,-0.3)).setKl(1).setKq(1),
+				lamp.getLightLamp(),lamp1.getLightLamp())
+				);
 		
 		
 		// add lights and lamps
@@ -179,7 +177,7 @@ public class buildOurImage {
 		
 
 		Render render = new Render() //
-				.setImageWriter(new ImageWriter("ourImage", 200, 200)) //
+				.setImageWriter(new ImageWriter("ourImage", 1280, 720)) //
 				.setCamera(camera) //
 				.setRayTracer(new RayTracerBasic(scene));
 		render.renderImage();
