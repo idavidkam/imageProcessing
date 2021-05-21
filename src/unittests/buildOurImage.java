@@ -129,14 +129,19 @@ public class buildOurImage {
 					
 				new Polygon(cubePointsGlass[2], cubePointsGlass[6], cubePointsGlass[7],cubePointsGlass[3])
 					.setEmission(new Color(java.awt.Color.BLACK)) // left
-					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1))
-				);
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
 				
-//				// add diamond
-//				new Polygon(new Point3D(-0.2,4.5,-0.5), new Point3D(0,4.5,-0.9), new Point3D(0.2, 4.5,-0.5))
-//					.setEmission(new Color(java.awt.Color.YELLOW))
-//					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3))
-//				
+				
+				// add Light home
+				new Triangle(new Point3D(0,4.5,1), new Point3D(0.5,4.5,1.4), new Point3D(1, 4.5,1))
+					.setEmission(new Color(java.awt.Color.GRAY))
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+				
+				// add light sphere
+				new Sphere(new Point3D(0.5,4.5,1), 0.2)
+					.setEmission(new Color(java.awt.Color.YELLOW))
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3))
+				);
 			
 		// add lights in the cube glass
 		scene.lights.addAll(List.of(
@@ -174,7 +179,7 @@ public class buildOurImage {
 		
 
 		Render render = new Render() //
-				.setImageWriter(new ImageWriter("ourImage", 1920, 1080)) //
+				.setImageWriter(new ImageWriter("ourImage", 200, 200)) //
 				.setCamera(camera) //
 				.setRayTracer(new RayTracerBasic(scene));
 		render.renderImage();
