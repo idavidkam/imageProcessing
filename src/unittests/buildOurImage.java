@@ -1,8 +1,6 @@
 package unittests;
 
-import java.util.Collection;
 import java.util.List;
-
 import org.junit.Test;
 import elements.*;
 import geometries.*;
@@ -27,7 +25,9 @@ public class buildOurImage {
 
 	private Scene scene = new Scene("Test scene ");
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Test for our image 
+	 */
 	@Test
 	public void test() {
 
@@ -44,9 +44,9 @@ public class buildOurImage {
 					new Point3D(1,5,-1), new Point3D(1,5,-0.6),new Point3D(-1,5,-0.6),new Point3D(-1,5,-1)
 			};
 
-		Lamp lamp=new Lamp(new Color(java.awt.Color.white),new Color(java.awt.Color.gray), 0.175, 0.05, 
+		Lamp lamp=new Lamp(new Color(java.awt.Color.white),new Color(java.awt.Color.gray), 0.175, 0.05,0.015625, 
 				new SpotLight(new Color(173, 9, 16), new Point3D(0.5, 4.5, 0.8), new Vector(0,0,-1)), new Vector(0,0,1), new Vector(0,-1,0));
-		Lamp lamp1=new Lamp(new Color(java.awt.Color.white),new Color(java.awt.Color.gray), 0.175, 0.05, 
+		Lamp lamp1=new Lamp(new Color(java.awt.Color.white),new Color(java.awt.Color.gray), 0.175, 0.05,0.015625, 
 				new SpotLight(new Color(173, 9, 16), new Point3D(-0.5, 4.5, 0.8), new Vector(0,0,-1)), new Vector(0,0,1), new Vector(0,-1,0));
 		scene.geometries.add( //
 				
@@ -181,9 +181,21 @@ public class buildOurImage {
 		
 
 		Render render = new Render() //
-				.setImageWriter(new ImageWriter("ourImage", 1920, 1080)) //
 				.setCamera(camera) //
+				.setImageWriter(new ImageWriter("ourImage", 854, 480)) //first image
 				.setRayTracer(new RayTracerBasic(scene));
+		render.renderImage();
+		render.writeToImage();
+		
+		render.setCamera(camera.translationTransformation(new Vector(0, 2.5, 0.4))
+							   .rotationTransformation(-Math.PI/2, 0)
+							   .setViewPlaneSize(10, 6))
+			  .setImageWriter(new ImageWriter("ourImageUp1", 854, 480));//second image
+		render.renderImage();
+		render.writeToImage();
+		
+		render.setCamera(camera.rotationTransformation(Math.PI/2, 2).setViewPlaneSize(6,10))
+		      .setImageWriter(new ImageWriter("ourImageUp2", 854, 480));//third image
 		render.renderImage();
 		render.writeToImage();
 	}
