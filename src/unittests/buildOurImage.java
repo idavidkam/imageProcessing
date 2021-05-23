@@ -1,6 +1,6 @@
 package unittests;
 
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.fail;
 
 import java.util.List;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class buildOurImage {
 	 */
 	@Test
 	public void test() {
-		fail();
+		//fail();
 		Camera camera = new Camera(new Point3D(0, 2, 0), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
 				.setViewPlaneSize(10, 10).setViewPlaneDistance(3);
 		
