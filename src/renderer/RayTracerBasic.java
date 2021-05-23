@@ -82,7 +82,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	private Color calcGlobalEffects(GeoPoint geopoint, Ray ray, int level, double k) {
 		Color color = Color.BLACK;
-		Material material = geopoint.geometry.GetMaterial();
+		Material material = geopoint.geometry.getMaterial();
 		double kr = material.kR, kkr = k * kr;
 		Vector v = ray.getDir();
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
@@ -94,7 +94,7 @@ public class RayTracerBasic extends RayTracerBase {
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
-			var refractedRay = clacRayRefraction(n, v, geopoint.point, nv);
+			var refractedRay = clacRayRefraction(n, v, geopoint.point);
 			GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 			color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
 		}
@@ -116,7 +116,7 @@ public class RayTracerBasic extends RayTracerBase {
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (nv == 0)
 			return Color.BLACK;
-		var material = intersection.geometry.GetMaterial();
+		var material = intersection.geometry.getMaterial();
 		int nShininess = material.nShininess;
 		double kd = material.kD, ks = material.kS;
 		Color color = Color.BLACK;
@@ -155,10 +155,9 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param n  - normal to the point on geometry
 	 * @param v  - camera vector
 	 * @param p  - point on geometry body
-	 * @param nv - equal to n.dotProduct(v)
 	 * @return refracted ray
 	 */
-	private Ray clacRayRefraction(Vector n, Vector v, Point3D p, double nv) {
+	private Ray clacRayRefraction(Vector n, Vector v, Point3D p) {
 		return new Ray(p, v, n);
 	}
 
@@ -216,7 +215,7 @@ public class RayTracerBasic extends RayTracerBase {
 		double lightDistance = light.getDistance(gp.point);
 		for (GeoPoint geopoint : intersections) {
 			if (Util.alignZero(geopoint.point.distance(gp.point) - lightDistance) <= 0
-					&& geopoint.geometry.GetMaterial().kT == 0)
+					&& geopoint.geometry.getMaterial().kT == 0)
 				return false;
 		}
 		return true;
@@ -242,7 +241,7 @@ public class RayTracerBasic extends RayTracerBase {
 		double ktr = 1.0;
 		for (GeoPoint geopoint : intersections) {
 			if (Util.alignZero(geopoint.point.distance(gp.point) - lightDistance) <= 0)
-				ktr *= geopoint.geometry.GetMaterial().kT;
+				ktr *= geopoint.geometry.getMaterial().kT;
 			if (ktr < MIN_CALC_COLOR_K)
 				return 0.0;
 		}

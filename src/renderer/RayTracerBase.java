@@ -9,7 +9,7 @@ import scene.Scene;
 /**
  * An abstract base class responsible for tracking the ray
  * 
- * @author David and matan
+ * @author david and matan
  */
 public abstract class RayTracerBase {
 
