@@ -4,17 +4,33 @@
 package primitives;
 
 /**
- * The class represents the Phong Reflectance Model.
+ * The class represents the factors of Phong Reflectance Model.
  */
 public class Material {
 
 	/**
-	 * @param kD - Diffuse
-	 * @param kS - Specular
-	 * @param kT - transparency
-	 * @param kR - reflection
+	 * represents diffuse factor. 
 	 */
-	public double kD = 0, kS = 0, kT = 0, kR = 0;
+	public double kD = 0;
+	
+	/**
+	 * represents specular factor.
+	 */
+	public double kS = 0;
+
+	/**
+	 * represents transparency factor.
+	 */
+	public double kT = 0;
+
+	/**
+	 * represents reflection factor.
+	 */
+	public double kR = 0;
+
+	/**
+	 * represents nShininess in Phong model
+	 */
 	public int nShininess = 0;
 
 	/**
@@ -27,7 +43,7 @@ public class Material {
 		this.kR = kR;
 		return this;
 	}
-	
+
 	/**
 	 * ------------- setter -----------------
 	 * 

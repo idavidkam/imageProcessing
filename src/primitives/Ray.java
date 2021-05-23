@@ -40,18 +40,6 @@ public class Ray {
 	}
 
 	/**
-	 * return - cross point with the geometry body by getting the length from the
-	 * start of the ray
-	 * 
-	 * @param t length from the start of the ray
-	 * @return point on the ray by get length from the start of the ray
-	 * 
-	 */
-	public Point3D getPoint(double t) {
-		return p0.add(dir.scale(t));
-	}
-
-	/**
 	 * Ray constructor receiving a Point3d value and vector of direction
 	 * 
 	 * @param p0-a  point of ray
@@ -75,6 +63,18 @@ public class Ray {
 		double nv = normal.dotProduct(dir);
 		Vector delta = normal.scale(nv > 0 ? DELTA : -DELTA);
 		this.p0 = p0.add(delta);
+	}
+	
+	/**
+	 * return - cross point with the geometry body by getting the length from the
+	 * start of the ray
+	 * 
+	 * @param t length from the start of the ray
+	 * @return point on the ray by get length from the start of the ray
+	 * 
+	 */
+	public Point3D getPoint(double t) {
+		return p0.add(dir.scale(t));
 	}
 
 	/**

@@ -64,8 +64,6 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the color in this point
 	 */
 	private Color calcColor(GeoPoint closestPoint, Ray ray, int level, double k) {
-		if (closestPoint == null)
-			return scene.background;
 		Color color = closestPoint.geometry.getEmmission().add(calcLocalEffects(closestPoint, ray, k));
 		return 1 == level ? color : color.add(calcGlobalEffects(closestPoint, ray, level, k));
 	}
@@ -88,17 +86,27 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
-			var reflectedRay = clacRayReflection(n, v, geopoint.point, nv);
-			GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
-			color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
+			color = calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), level, kr, kkr);
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
-			var refractedRay = clacRayRefraction(n, v, geopoint.point);
-			GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-			color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
+			color = calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), level, kt, kkt);
 		}
 		return color;
+	}
+
+	/**
+	 * help function to calculate color of reflected or refracted point
+	 * 
+	 * @param ray   - ray from the camera
+	 * @param level -level of Recursion.
+	 * @param kx    - represent the reflection or transparency factor
+	 * @param kkx   - k(the current attenuation level) that multiple in "kx"
+	 * @return the color of reflected or refracted point
+	 */
+	private Color calcGlobalEffects(Ray ray, int level, double kx, double kkx) {
+		GeoPoint gp = findClosestIntersection(ray);
+		return gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx).scale(kx);
 	}
 
 	/**
@@ -152,9 +160,9 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * calculate the refracted ray
 	 * 
-	 * @param n  - normal to the point on geometry
-	 * @param v  - camera vector
-	 * @param p  - point on geometry body
+	 * @param n - normal to the point on geometry
+	 * @param v - camera vector
+	 * @param p - point on geometry body
 	 * @return refracted ray
 	 */
 	private Ray clacRayRefraction(Vector n, Vector v, Point3D p) {
