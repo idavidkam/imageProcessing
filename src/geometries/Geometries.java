@@ -42,11 +42,11 @@ public class Geometries implements Intersectable {
 	}
 
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray,double max) {
 		List<GeoPoint> points = null;
 		if (bodies != null) {
 			for (var body : bodies) {
-				var result = body.findGeoIntersections(ray);
+				var result = body.findGeoIntersections(ray,max);
 				if (result != null)
 					if (points == null)
 						points = new LinkedList<GeoPoint>(result);

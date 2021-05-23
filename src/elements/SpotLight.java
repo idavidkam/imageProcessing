@@ -51,5 +51,5 @@ public class SpotLight extends PointLight {
 		this.narrow = narrow;
 		return this;
 	}
-
+    
 }

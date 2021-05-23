@@ -101,8 +101,8 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray) {
-		var myList = plane.findGeoIntersections(ray);
+	public List<GeoPoint> findGeoIntersections(Ray ray,double max) {
+		var myList = plane.findGeoIntersections(ray,max);
 		if (myList == null)
 			return null;
 		var dir = ray.getDir();

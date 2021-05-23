@@ -49,12 +49,24 @@ public interface Intersectable {
 	}
 
 	/**
-	 * Function for finding intersection points
+	 * Function Return all the intersection Points of the Ray in the Geometry
+	 * in specific distance ( that not bigger than max)
 	 * 
 	 * @param ray - The ray that crosses the body
-	 * @return the points that cut between a ray and body
+	 * @param max - maximum distance of intersection
+	 * @return list of the intersection points
 	 */
-	public List<GeoPoint> findGeoIntersections(Ray ray);
+	public List<GeoPoint> findGeoIntersections(Ray ray,double max);
+
+	/**
+	 * Function for finding all the intersection points of the Ray in the Geometry
+	 * 
+	 * @param ray - The ray that crosses the body
+	 * @return List of The intersect Point , null if there is no intersection point
+	 */
+	default List<GeoPoint> findGeoIntersections(Ray ray) {
+    	return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+	}
 
 	/**
 	 * Function for finding intersection points

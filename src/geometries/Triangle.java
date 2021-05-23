@@ -32,11 +32,11 @@ public class Triangle extends Polygon {
 	}
 
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray, double max) {
 		// find intersections
 		// if the ray inside the plane - return the cross point
 		// if the ray not inside the plane (not cross) - return null
-		var myList = super.getPlane().findGeoIntersections(ray);
+		var myList = super.getPlane().findGeoIntersections(ray, max);
 		if (myList == null)
 			return null;
 

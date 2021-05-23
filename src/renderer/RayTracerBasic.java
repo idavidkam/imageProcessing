@@ -86,11 +86,11 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
-			color = calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), level, kr, kkr);
+			color = color.add(calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), level, kr, kkr));
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
-			color = calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), level, kt, kkt);
+			color = color.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), level, kt, kkt));
 		}
 		return color;
 	}
@@ -216,17 +216,8 @@ public class RayTracerBasic extends RayTracerBase {
 	private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp) {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(gp.point, lightDirection, n);
-		var intersections = scene.geometries.findGeoIntersections(lightRay);
-
-		if (intersections == null)
-			return true;
-		double lightDistance = light.getDistance(gp.point);
-		for (GeoPoint geopoint : intersections) {
-			if (Util.alignZero(geopoint.point.distance(gp.point) - lightDistance) <= 0
-					&& geopoint.geometry.getMaterial().kT == 0)
-				return false;
-		}
-		return true;
+		var intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(gp.point));
+		return intersections == null;
 	}
 
 	/**
@@ -242,14 +233,13 @@ public class RayTracerBasic extends RayTracerBase {
 	private double transparency(LightSource light, Vector l, Vector n, GeoPoint gp) {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(gp.point, lightDirection, n);
-		var intersections = scene.geometries.findGeoIntersections(lightRay);
 		double lightDistance = light.getDistance(gp.point);
+		var intersections = scene.geometries.findGeoIntersections(lightRay, lightDistance);
 		if (intersections == null)
 			return 1.0;
 		double ktr = 1.0;
 		for (GeoPoint geopoint : intersections) {
-			if (Util.alignZero(geopoint.point.distance(gp.point) - lightDistance) <= 0)
-				ktr *= geopoint.geometry.getMaterial().kT;
+			ktr *= geopoint.geometry.getMaterial().kT;
 			if (ktr < MIN_CALC_COLOR_K)
 				return 0.0;
 		}
