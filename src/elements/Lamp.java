@@ -65,10 +65,18 @@ public class Lamp {
                 new Polygon(pCord3,pCord4,pCord4.add(v1.scale(100)),pCord3.add(v1.scale(100))).setEmission(new Color(140,140,140)).setMaterial(lampShadeMaterial));
     }
 
+    /**
+     * gets the lampParts
+     * @return the collection of geometry in lamp 
+     */
     public Geometries getLampParts() {
         return lampParts;
     }
 
+    /**
+     * gets the lightLamp
+     * @return LightSource of lamp
+     */
     public LightSource getLightLamp() {
         return lightLamp;
     }
