@@ -9,10 +9,10 @@ package primitives;
 public class Material {
 
 	/**
-	 * represents diffuse factor. 
+	 * represents diffuse factor.
 	 */
 	public double kD = 0;
-	
+
 	/**
 	 * represents specular factor.
 	 */
@@ -27,6 +27,16 @@ public class Material {
 	 * represents reflection factor.
 	 */
 	public double kR = 0;
+
+	/**
+	 * represents Glossy surfaces factor.
+	 */
+	public double kGS = 0;
+
+	/**
+	 * represents Diffused (Blurry) Glass factor.
+	 */
+	public double kDG = 0;
 
 	/**
 	 * represents nShininess in Phong model
@@ -76,6 +86,28 @@ public class Material {
 		this.kS = kS;
 		return this;
 
+	}
+
+	/**
+	 * ------------- setter -----------------
+	 * 
+	 * @param kGS - Glossy surfaces factor
+	 * @return itself material
+	 */
+	public Material setKgs(double kGS) {
+		this.kGS = kGS;
+		return this;
+	}
+
+	/**
+	 * ------------- setter -----------------
+	 * 
+	 * @param kDG -Diffused (Blurry) Glass factor
+	 * @return itself material
+	 */
+	public Material setKdg(double kDG) {
+		this.kDG = kDG;
+		return this;
 	}
 
 	/**

@@ -24,6 +24,8 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
+	private static final double DISTANSE = 10;
+	private int numOfRays = 1;
 
 	/**
 	 * Ctor - get scene and set it
@@ -33,6 +35,18 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	public RayTracerBasic(Scene scene) {
 		super(scene);
+	}
+
+	/**
+	 * setter numOfRays for beam
+	 * 
+	 * @param numRays - number of rays in beam
+	 * @throws IllegalArgumentException when numRays smaller than one.
+	 */
+	public void setNumOfRays(int numRays) {
+		if (numRays < 1)
+			throw new IllegalArgumentException("the number of rays can't smaller than one!");
+		numOfRays = numRays;
 	}
 
 	@Override
@@ -86,11 +100,13 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
-			color = color.add(calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), level, kr, kkr));
+			double r=Util.alignZero(material.kDG);
+			color = color.add(calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv),n, level, kr, kkr,r));
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
-			color = color.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), level, kt, kkt));
+			double r=Util.alignZero(material.kGS);
+			color = color.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point),n, level, kt, kkt,r));
 		}
 		return color;
 	}
@@ -99,14 +115,22 @@ public class RayTracerBasic extends RayTracerBase {
 	 * help function to calculate color of reflected or refracted point
 	 * 
 	 * @param ray   - ray from the camera
+	 * @param n - vector normal of geometry body in current point
 	 * @param level -level of Recursion.
 	 * @param kx    - represent the reflection or transparency factor
 	 * @param kkx   - k(the current attenuation level) that multiple in "kx"
+	 * @param r - when radius is bigger the impact is more intense
 	 * @return the color of reflected or refracted point
 	 */
-	private Color calcGlobalEffects(Ray ray, int level, double kx, double kkx) {
-		GeoPoint gp = findClosestIntersection(ray);
-		return gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx).scale(kx);
+	private Color calcGlobalEffects(Ray ray,Vector n,int level, double kx, double kkx,double r) {
+		var color = Color.BLACK;
+		var rays = ray.createBeam(n,numOfRays,r,DISTANSE);
+		for(var item :rays) {
+			GeoPoint gp = findClosestIntersection(item);
+			color=color.add(gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx).scale(kx));	
+		}
+		var size=rays.size();
+		return color.add(size>1?color.reduce(rays.size()):color);//return average color by beam
 	}
 
 	/**

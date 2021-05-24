@@ -111,6 +111,21 @@ public class Ray {
 		}
 		return minPoint;
 	}
+	
+	/**
+	 * the function creates beam of rays when radius is bigger our beam spread on
+	 * more area
+	 * 
+	 * @param n - normal vector of the point where beam start
+	 * @param numRays - number of the rays for beam
+	 * @param r - radius of virtual circle
+	 * @param dis - distance between The intersection point to the virtual circle
+	 * @return beam of rays
+	 */
+	public List<Ray> createBeam(Vector n,double numRays,double r,double dis) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public String toString() {
