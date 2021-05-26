@@ -1,6 +1,6 @@
 package unittests;
 
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.fail;
 
 import java.util.List;
 import org.junit.Test;
@@ -32,9 +32,9 @@ public class buildOurImage {
 	 */
 	@Test
 	public void test() {
-		fail();
+		//fail();
 		Camera camera = new Camera(new Point3D(0, 2, 0), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
-				.setViewPlaneSize(10, 10).setViewPlaneDistance(3);
+				.setViewPlaneSize(10,10 ).setViewPlaneDistance(3);
 		
 		Point3D[] cubePoints = {
 			new Point3D(1,4,-2), new Point3D(1,4,-1),new Point3D(-1,4,-1),new Point3D(-1,4,-2),
@@ -68,7 +68,7 @@ public class buildOurImage {
 				new Polygon(new Point3D(2, 2, -2), new Point3D(-2, 2, -2), new Point3D(-2, 6, -2),
 						new Point3D(2, 6, -2)) // floor
 					.setEmission(new Color(java.awt.Color.BLACK))
-					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(0.3).setKgs(2)),
 				new Polygon(new Point3D(2, 2, 2), new Point3D(-2, 2, 2), new Point3D(-2, 6, 2),
 						new Point3D(2, 6, 2)) // ceiling
 					.setEmission(new Color(java.awt.Color.BLACK))
@@ -102,7 +102,7 @@ public class buildOurImage {
 				// add cube
 				new Polygon(cubePoints[0], cubePoints[1], cubePoints[2],cubePoints[3])
 					.setEmission(new Color(java.awt.Color.BLACK)) // front
-					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+					.setMaterial(new Material().setKd(0.3).setKs(0.3).setShininess(100).setKt(0.1)),
 				
 				new Polygon(cubePoints[4], cubePoints[5], cubePoints[6],cubePoints[7])
 					.setEmission(new Color(java.awt.Color.BLACK)) // back
@@ -184,22 +184,22 @@ public class buildOurImage {
 
 		Render render = new Render() //
 				.setCamera(camera) //
-				.setImageWriter(new ImageWriter("ourImage", 854, 480)) //first image
-				.setRayTracer(new RayTracerBasic(scene));
+				.setImageWriter(new ImageWriter("ourImage", 280, 280)) //first image
+				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(80));
 		render.renderImage();
 		render.writeToImage();
 		
-		render.setCamera(camera.translationTransformation(new Vector(0, 2.5, 0.4))
-							   .rotationTransformation(-Math.PI/2, 0)
-							   .setViewPlaneSize(10, 6))
-			  .setImageWriter(new ImageWriter("ourImageUp1", 854, 480));//second image
-		render.renderImage();
-		render.writeToImage();
-		
-		render.setCamera(camera.rotationTransformation(Math.PI/2, 2).setViewPlaneSize(6,10))
-		      .setImageWriter(new ImageWriter("ourImageUp2", 854, 480));//third image
-		render.renderImage();
-		render.writeToImage();
+//		render.setCamera(camera.translationTransformation(new Vector(0, 2.5, 0.4))
+//							   .rotationTransformation(-Math.PI/2, 0)
+//							   .setViewPlaneSize(10, 6))
+//			  .setImageWriter(new ImageWriter("ourImageUp1", 854, 480));//second image
+//		render.renderImage();
+//		render.writeToImage();
+//		
+//		render.setCamera(camera.rotationTransformation(Math.PI/2, 2).setViewPlaneSize(6,10))
+//		      .setImageWriter(new ImageWriter("ourImageUp2", 854, 480));//third image
+//		render.renderImage();
+//		render.writeToImage();
 	}
 
 }

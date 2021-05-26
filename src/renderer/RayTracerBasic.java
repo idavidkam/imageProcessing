@@ -42,11 +42,13 @@ public class RayTracerBasic extends RayTracerBase {
 	 * 
 	 * @param numRays - number of rays in beam
 	 * @throws IllegalArgumentException when numRays smaller than one.
+	 * @return RayTracerBasic itself
 	 */
-	public void setNumOfRays(int numRays) {
+	public RayTracerBasic setNumOfRays(int numRays) {
 		if (numRays < 1)
 			throw new IllegalArgumentException("the number of rays can't smaller than one!");
 		numOfRays = numRays;
+		return this;
 	}
 
 	@Override
@@ -100,13 +102,13 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
-			double r=Util.alignZero(material.kDG);
-			color = color.add(calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv),n, level, kr, kkr,r));
+			color = color.add(
+					calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), n, level, kr, kkr, material.kDG));
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
-			double r=Util.alignZero(material.kGS);
-			color = color.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point),n, level, kt, kkt,r));
+			color = color
+					.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), n, level, kt, kkt, material.kGS));
 		}
 		return color;
 	}
@@ -115,22 +117,22 @@ public class RayTracerBasic extends RayTracerBase {
 	 * help function to calculate color of reflected or refracted point
 	 * 
 	 * @param ray   - ray from the camera
-	 * @param n - vector normal of geometry body in current point
+	 * @param n     - vector normal of geometry body in current point
 	 * @param level -level of Recursion.
 	 * @param kx    - represent the reflection or transparency factor
 	 * @param kkx   - k(the current attenuation level) that multiple in "kx"
-	 * @param r - when radius is bigger the impact is more intense
+	 * @param r     - when radius is bigger the impact is more intense
 	 * @return the color of reflected or refracted point
 	 */
-	private Color calcGlobalEffects(Ray ray,Vector n,int level, double kx, double kkx,double r) {
+	private Color calcGlobalEffects(Ray ray, Vector n, int level, double kx, double kkx, double r) {
 		var color = Color.BLACK;
-		var rays = ray.createBeam(n,numOfRays,r,DISTANSE);
-		for(var item :rays) {
+		var rays = ray.createBeam(n, numOfRays, r, DISTANSE);
+		for (var item : rays) {
 			GeoPoint gp = findClosestIntersection(item);
-			color=color.add(gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx).scale(kx));	
+			color = color.add(gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx).scale(kx));
 		}
-		var size=rays.size();
-		return color.add(size>1?color.reduce(rays.size()):color);//return average color by beam
+		var size = rays.size();
+		return color.add(size > 1 ? color.reduce(rays.size()) : color);// return average color by beam
 	}
 
 	/**

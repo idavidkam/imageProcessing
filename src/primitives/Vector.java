@@ -152,4 +152,34 @@ public class Vector {
 	public Vector normalized() {
 		return new Vector(head).normalize();
 	}
+
+	/**
+	 * calculates normal of "this" vector
+	 * 
+	 * @return vector normal to "this" vector
+	 */
+	public Vector createNormal() {
+		var x = head.getX();
+		var y = head.getY();
+		var z = head.getZ();
+		int min = 1;
+		var minCoor = x > 0 ? x : -x;
+		var absy = y > 0 ? y : -y;
+		if (absy < minCoor) {
+			minCoor = absy;
+			min = 2;
+		}
+		var absz = z > 0 ? z : -z;
+		if (absz < minCoor) {
+			minCoor = absz;
+			min = 3;
+		}
+		if(min==1)
+			return new Vector(0,z,-y).normalize();
+		if(min==2)
+			return new Vector(z,0,-x).normalize();
+		if(min==3)
+			return new Vector(-y,x,0).normalize();
+		return null;
+	}
 }

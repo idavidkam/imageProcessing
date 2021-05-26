@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,7 @@ public class Ray {
 		Vector delta = normal.scale(nv > 0 ? DELTA : -DELTA);
 		this.p0 = p0.add(delta);
 	}
-	
+
 	/**
 	 * return - cross point with the geometry body by getting the length from the
 	 * start of the ray
@@ -111,20 +112,47 @@ public class Ray {
 		}
 		return minPoint;
 	}
-	
+
 	/**
 	 * the function creates beam of rays when radius is bigger our beam spread on
 	 * more area
 	 * 
-	 * @param n - normal vector of the point where beam start
+	 * @param n       - normal vector of the point where beam start
 	 * @param numRays - number of the rays for beam
-	 * @param r - radius of virtual circle
-	 * @param dis - distance between The intersection point to the virtual circle
+	 * @param r       - radius of virtual circle
+	 * @param dis     - distance between The intersection point to the virtual
+	 *                circle
 	 * @return beam of rays
 	 */
-	public List<Ray> createBeam(Vector n,double numRays,double r,double dis) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Ray> createBeam(Vector n, double numRays, double r, double dis) {
+		var rays = new LinkedList<Ray>();
+		rays.add(this);// add main ray
+		if (numRays == 1 || Util.isZero(r))// The feature (glossy surface / diffused glass) is off
+			return rays;
+		var vx = dir.createNormal();
+		var vy = dir.crossProduct(vx);
+		var centerCircle=getPoint(dis);
+		Point3D randomPoint;
+		double x, y, d;
+		double nv = Util.alignZero(n.dotProduct(dir));
+		for (int i = 1; i < numRays; ++i) {
+			x = Math.random() * (2) -1;
+			y = Math.sqrt(1 - x * x);
+			d = Math.random() * (2*r) -r;
+			x = Util.alignZero(x * d);
+			y = Util.alignZero(y * d);
+			randomPoint = centerCircle;
+			if (x != 0)
+				randomPoint = randomPoint.add(vx.scale(x));
+			if (y != 0)
+				randomPoint = randomPoint.add(vy.scale(y));
+			Vector l = randomPoint.subtract(p0);
+			double nt = Util.alignZero(n.dotProduct(l));
+			if (nv * nt > 0) {
+				rays.add(new Ray(p0, l));
+			}
+		}
+		return rays;
 	}
 
 	@Override
