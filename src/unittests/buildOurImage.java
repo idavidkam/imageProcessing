@@ -123,7 +123,7 @@ public class buildOurImage {
 				// add cube glass
 				new Polygon(cubePointsGlass[0], cubePointsGlass[1], cubePointsGlass[2],cubePointsGlass[3])
 					.setEmission(new Color(java.awt.Color.BLACK)) // front
-					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1)),
+					.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(1).setKdg(0.5)),
 					
 				new Polygon(cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[6],cubePointsGlass[7])
 					.setEmission(new Color(java.awt.Color.BLACK)) // back
@@ -185,7 +185,7 @@ public class buildOurImage {
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(new ImageWriter("ourImage", 280, 280)) //first image
-				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(80));
+				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(80)).setMultithreading(3).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 		
