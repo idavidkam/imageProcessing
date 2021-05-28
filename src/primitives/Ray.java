@@ -136,7 +136,7 @@ public class Ray {
 		double x, y, d;
 		double nv = Util.alignZero(n.dotProduct(dir));
 		for (int i = 1; i < numRays; ++i) {
-			x = Math.random() * (2) -1;
+			x = Math.random() * 2.0 -1;
 			y = Math.sqrt(1 - x * x);
 			d = Math.random() * (2*r) -r;
 			x = Util.alignZero(x * d);

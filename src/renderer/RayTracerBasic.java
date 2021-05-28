@@ -103,12 +103,12 @@ public class RayTracerBasic extends RayTracerBase {
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
 			color = color.add(
-					calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), n, level, kr, kkr, material.kDG));
+					calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), n, level, kr, kkr, material.kGS));
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
 			color = color
-					.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), n, level, kt, kkt, material.kGS));
+					.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), n, level, kt, kkt, material.kDG));
 		}
 		return color;
 	}
@@ -129,7 +129,8 @@ public class RayTracerBasic extends RayTracerBase {
 		var rays = ray.createBeam(n, numOfRays, r, DISTANSE);
 		for (var item : rays) {
 			GeoPoint gp = findClosestIntersection(item);
-			color = color.add(gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx).scale(kx));
+			if (gp != null)
+				color = color.add(calcColor(gp, ray, level - 1, kkx).scale(kx));
 		}
 		var size = rays.size();
 		return color.add(size > 1 ? color.reduce(rays.size()) : color);// return average color by beam

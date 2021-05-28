@@ -16,17 +16,18 @@ public class Lamp {
 
     /**
      * constructor. transparency ball that contain a point light/ spot light. and a long wire.
-     * @param color- the color of the light ball
-     * @param lampShadeColor-the color of lamp Shade
-     * @param radius-the radius the light ball
-     * @param radius1- the radius of little ball between the lamp and the wire.
+     * @param color - the color of the light ball
+     * @param lampShadeColor -the color of lamp Shade
+     * @param radius -the radius the light ball
+     * @param radius1 - the radius of little ball between the lamp and the wire.
      * @param diameterWire - diameter of wire
-     * @param lightLamp- the light of the lamp.
+     * @param heightWire - the height of wire
+     * @param lightLamp - the light of the lamp.
      * @param v1 - the direction of the lamp.
      * @param v2 - a vector that vertical to v1.
      * @throws IllegalArgumentException in case the vectors v1 and v2 are not vertical.
      */
-    public Lamp(Color color, Color lampShadeColor, double radius,double radius1,double diameterWire ,SpotLight lightLamp,Vector v1, Vector v2) {
+    public Lamp(Color color, Color lampShadeColor, double radius,double radius1,double diameterWire,double heightWire ,SpotLight lightLamp,Vector v1, Vector v2) {
         this.lightLamp=lightLamp;
 
         if(Util.alignZero(v1.dotProduct(v2))!=0) {//for the lamp will not be warp.
@@ -61,8 +62,8 @@ public class Lamp {
                 new Triangle(p1,p3,p4).setEmission(lampShadeColor).setMaterial(lampShadeMaterial),
                 new Triangle(p1,p2,p5).setEmission(lampShadeColor).setMaterial(lampShadeMaterial),
                 new Triangle(p1,p4,p5).setEmission(lampShadeColor).setMaterial(lampShadeMaterial),
-                new Polygon(pCord1,pCord2,pCord2.add(v1.scale(100)),pCord1.add(v1.scale(100))).setEmission(new Color(140,140,140)).setMaterial(lampShadeMaterial),
-                new Polygon(pCord3,pCord4,pCord4.add(v1.scale(100)),pCord3.add(v1.scale(100))).setEmission(new Color(140,140,140)).setMaterial(lampShadeMaterial));
+                new Polygon(pCord1,pCord2,pCord2.add(v1.scale(heightWire)),pCord1.add(v1.scale(heightWire))).setEmission(new Color(140,140,140)).setMaterial(lampShadeMaterial),
+                new Polygon(pCord3,pCord4,pCord4.add(v1.scale(heightWire)),pCord3.add(v1.scale(heightWire))).setEmission(new Color(140,140,140)).setMaterial(lampShadeMaterial));
     }
 
     /**
