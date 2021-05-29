@@ -131,11 +131,11 @@ public class Camera {
 	 * Moves the camera to a new position the directions do not change (see
 	 * {@link #rotationTransformation(double, int)})
 	 * 
-	 * @param trans - new position to camera by vector "trans".
+	 * @param trans - new position to camera by point "trans".
 	 * @return the camera himself
 	 */
-	public Camera translationTransformation(Vector trans) {
-		p0 = p0.add(trans);
+	public Camera translationTransformation(Point3D trans) {
+		p0 = trans;
 		return this;
 	}
 
