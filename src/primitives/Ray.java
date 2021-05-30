@@ -75,7 +75,11 @@ public class Ray {
 	 * 
 	 */
 	public Point3D getPoint(double t) {
-		return p0.add(dir.scale(t));
+		try {
+			return p0.add(dir.scale(t));			
+		} catch (Exception e) {
+			return p0;
+		}
 	}
 
 	/**
@@ -147,8 +151,8 @@ public class Ray {
 			if (y != 0)
 				randomPoint = randomPoint.add(vy.scale(y));
 			Vector l = randomPoint.subtract(p0);
-			double nt = Util.alignZero(n.dotProduct(l));
-			if (nv * nt > 0) {
+			double nl = Util.alignZero(n.dotProduct(l));
+			if (nv * nl > 0) {
 				rays.add(new Ray(p0, l));
 			}
 		}

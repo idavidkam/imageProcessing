@@ -27,7 +27,7 @@ public class Lamp {
      * @param v2 - a vector that vertical to v1.
      * @throws IllegalArgumentException in case the vectors v1 and v2 are not vertical.
      */
-    public Lamp(Color color, Color lampShadeColor, double radius,double radius1,double diameterWire,double heightWire ,SpotLight lightLamp,Vector v1, Vector v2) {
+    public Lamp(Color color, Color lampShadeColor, double radius,double radius1,double diameterWire,double heightWire ,PointLight lightLamp,Vector v1, Vector v2) {
         this.lightLamp=lightLamp;
 
         if(Util.alignZero(v1.dotProduct(v2))!=0) {//for the lamp will not be warp.
