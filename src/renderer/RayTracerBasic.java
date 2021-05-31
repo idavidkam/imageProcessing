@@ -10,6 +10,7 @@ import primitives.Util;
 import primitives.Vector;
 import scene.Scene;
 import java.lang.Math;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,7 +25,6 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
-	private static final double DISTANSE = 10;
 	private int numOfRays = 1;
 
 	/**
@@ -103,12 +103,12 @@ public class RayTracerBasic extends RayTracerBase {
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
 			color = color.add(
-					calcGlobalEffects(clacRayReflection(n, v, geopoint.point, nv), n, level, kr, kkr, material.kGS));
+					calcGlobalEffect(clacRayReflection(n, v, geopoint.point, nv), n, level, kr, kkr, material.kGS));
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
 			color = color
-					.add(calcGlobalEffects(clacRayRefraction(n, v, geopoint.point), n, level, kt, kkt, material.kDG));
+					.add(calcGlobalEffect(clacRayRefraction(n, v, geopoint.point), n, level, kt, kkt, material.kDG));
 		}
 		return color;
 	}
@@ -124,16 +124,22 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param r     - when radius is bigger the impact is more intense
 	 * @return the color of reflected or refracted point
 	 */
-	private Color calcGlobalEffects(Ray ray, Vector n, int level, double kx, double kkx, double r) {
+	private Color calcGlobalEffect(Ray ray, Vector n, int level, double kx, double kkx, double r) {
 		var color = Color.BLACK;
-		var rays = ray.createBeam(n, numOfRays, r, DISTANSE);
-		for (var item : rays) {
-			GeoPoint gp = findClosestIntersection(item);
-			if (gp != null)
-				color = color.add(calcColor(gp, ray, level - 1, kkx).scale(kx));
+		var points = ray.createBeam(n, numOfRays, r);
+		var p0 = ray.getP0();
+		double nv = Util.alignZero(n.dotProduct(ray.getDir()));
+		for (var item : points) {
+			Vector l = item.subtract(p0);
+			double nl = Util.alignZero(n.dotProduct(l));
+			if (nv * nl > 0) {
+				GeoPoint gp = findClosestIntersection(new Ray(p0, l));
+				if (gp != null)
+					color = color.add(calcColor(gp, ray, level - 1, kkx).scale(kx));
+			}
 		}
-		var size = rays.size();
-		return color.add(size > 1 ? color.reduce(rays.size()) : color);// return average color by beam
+		var size = points.size();
+		return color.add(size > 1 ? color.reduce(size) : color);// return average color by beam
 	}
 
 	/**

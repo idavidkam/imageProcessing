@@ -76,7 +76,7 @@ public class Ray {
 	 */
 	public Point3D getPoint(double t) {
 		try {
-			return p0.add(dir.scale(t));			
+			return p0.add(dir.scale(t));
 		} catch (Exception e) {
 			return p0;
 		}
@@ -124,39 +124,40 @@ public class Ray {
 	 * @param n       - normal vector of the point where beam start
 	 * @param numRays - number of the rays for beam
 	 * @param r       - radius of virtual circle
-	 * @param dis     - distance between The intersection point to the virtual
-	 *                circle
 	 * @return beam of rays
 	 */
-	public List<Ray> createBeam(Vector n, double numRays, double r, double dis) {
-		var rays = new LinkedList<Ray>();
-		rays.add(this);// add main ray
+	public List<Point3D> createBeam(Vector n, double numRays, double r) {
+		var points = new LinkedList<Point3D>();
+		var centerCircle = getPoint(Material.DISTANCE);
+		points.add(centerCircle);// add main point
 		if (numRays == 1 || Util.isZero(r))// The feature (glossy surface / diffused glass) is off
-			return rays;
+			return points;
 		var vx = dir.createNormal();
 		var vy = dir.crossProduct(vx);
-		var centerCircle=getPoint(dis);
 		Point3D randomPoint;
-		double x, y, d;
-		double nv = Util.alignZero(n.dotProduct(dir));
+		double x, y;
 		for (int i = 1; i < numRays; ++i) {
-			x = Math.random() * 2.0 -1;
-			y = Math.sqrt(1 - x * x);
-			d = Math.random() * (2*r) -r;
-			x = Util.alignZero(x * d);
-			y = Util.alignZero(y * d);
 			randomPoint = centerCircle;
-			if (x != 0)
-				randomPoint = randomPoint.add(vx.scale(x));
-			if (y != 0)
-				randomPoint = randomPoint.add(vy.scale(y));
-			Vector l = randomPoint.subtract(p0);
-			double nl = Util.alignZero(n.dotProduct(l));
-			if (nv * nl > 0) {
-				rays.add(new Ray(p0, l));
+			x = Math.random() * (2 * r) - r;
+			y = Math.random() * (2 * r) - r;
+			if (x * x + y * y <= r * r) {
+				if (!Util.isZero(x))
+					randomPoint = randomPoint.add(vx.scale(x));
+				if (!Util.isZero(y))
+					randomPoint = randomPoint.add(vy.scale(y));
 			}
+//			x = Math.random() * 2.0 -1;
+//			y = Math.sqrt(1 - x * x);
+//			d = Math.random() * (2*r) -r;
+//			x = Util.alignZero(x * d);
+//			y = Util.alignZero(y * d);
+//			if (x != 0)
+//				randomPoint = randomPoint.add(vx.scale(x));
+//			if (y != 0)
+//				randomPoint = randomPoint.add(vy.scale(y));
+			points.add(randomPoint);
 		}
-		return rays;
+		return points;
 	}
 
 	@Override

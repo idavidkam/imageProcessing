@@ -27,6 +27,11 @@ public class Material {
 	 * represents reflection factor.
 	 */
 	public double kR = 0;
+	
+	/**
+	 * represents the distance from kDg or kGs
+	 */
+	public static final double DISTANCE = 10;
 
 	/**
 	 * represents Glossy surfaces factor.

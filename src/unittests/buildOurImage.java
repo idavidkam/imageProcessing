@@ -44,12 +44,12 @@ public class buildOurImage {
 				new Point3D(100, 500, -20), new Point3D(-100, 500, -20), new Point3D(-100, 500, -100) };
 
 		Lamp lamp = new Lamp(new Color(java.awt.Color.white), new Color(java.awt.Color.gray), 17.5, 5, 2, 100,
-				new SpotLight(new Color(108, 219, 255), new Point3D(150, 550, 100), new Vector(0, 0, -1)).setKl(0.00005)
-						.setKq(0.0000025),
+				new SpotLight(new Color(108, 219, 255), new Point3D(150, 550, 100), new Vector(0, 0, -1)).setKl(0.0005)
+						.setKq(0.000025),
 				new Vector(0, 0, 1), new Vector(0, -1, 0));
 		Lamp lamp1 = new Lamp(new Color(java.awt.Color.white), new Color(java.awt.Color.gray), 17.5, 5, 2, 100,
 				new SpotLight(new Color(108, 219, 255), new Point3D(-150, 550, 100), new Vector(0, 0, -1))
-						.setKl(0.00005).setKq(0.0000025),
+						.setKl(0.0005).setKq(0.000025),
 				new Vector(0, 0, 1), new Vector(0, -1, 0));
 
 		scene.geometries.add( //
@@ -58,19 +58,19 @@ public class buildOurImage {
 				new Polygon(new Point3D(-200, 600, 200), new Point3D(200, 600, 200), new Point3D(200, 600, -200),
 						new Point3D(-200, 600, -200)) // wall 1
 								.setEmission(new Color(java.awt.Color.BLACK))
-								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 				new Polygon(new Point3D(200, 600, -200), new Point3D(400, 200, -200), new Point3D(400, 200, 200),
 						new Point3D(200, 600, 200)) // wall right
 								.setEmission(new Color(java.awt.Color.BLACK))
-								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 				new Polygon(new Point3D(-200, 600, -200), new Point3D(-400, 200, -200), new Point3D(-400, 200, 200),
 						new Point3D(-200, 600, 200)) // wall left
 								.setEmission(new Color(java.awt.Color.BLACK))
-								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 				new Polygon(new Point3D(400, 200, -200), new Point3D(-400, 200, -200), new Point3D(-200, 600, -200),
 						new Point3D(200, 600, -200)) // floor
 								.setEmission(new Color(java.awt.Color.BLACK)).setMaterial(
-										new Material().setKd(0.5).setKs(0.5).setShininess(100).setKr(0.5).setKgs(0.2)),
+										new Material().setKd(0.9).setKs(0.5).setShininess(100).setKr(0.1).setKgs(0.5)),
 				new Polygon(new Point3D(400, 200, 200), new Point3D(-400, 200, 200), new Point3D(-200, 600, 200),
 						new Point3D(200, 600, 200)) // ceiling
 								.setEmission(new Color(java.awt.Color.BLACK))
@@ -81,19 +81,19 @@ public class buildOurImage {
 				// add mirrors
 				new Polygon(new Point3D(220, 550, 100), new Point3D(220, 550, -100), new Point3D(270, 450, -100),
 						new Point3D(270, 450, 100)).setEmission(new Color(java.awt.Color.BLACK)).setMaterial(
-								new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(1).setKgs(0.2)),
+								new Material().setKd(0.2).setKs(0.3).setShininess(100).setKr(0.8)),
 
 				new Polygon(new Point3D(295, 400, 100), new Point3D(295, 400, -100), new Point3D(345, 300, -100),
 						new Point3D(345, 300, 100)).setEmission(new Color(java.awt.Color.BLACK)).setMaterial(
-								new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(1).setKgs(0.2)),
+								new Material().setKd(0.2).setKs(0.3).setShininess(100).setKr(0.8)),
 
 				new Polygon(new Point3D(-220, 550, 100), new Point3D(-220, 550, -100), new Point3D(-270, 450, -100),
 						new Point3D(-270, 450, 100)).setEmission(new Color(java.awt.Color.BLACK)).setMaterial(
-								new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(1).setKgs(0.2)),
+								new Material().setKd(0.2).setKs(0.3).setShininess(100).setKr(0.8)),
 
 				new Polygon(new Point3D(-295, 400, 100), new Point3D(-295, 400, -100), new Point3D(-345, 300, -100),
 						new Point3D(-345, 300, 100)).setEmission(new Color(java.awt.Color.BLACK)).setMaterial(
-								new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(1).setKgs(0.2)),
+								new Material().setKd(0.2).setKs(0.3).setShininess(100).setKr(0.8)),
 
 				// add cube
 				new Polygon(cubePoints[0], cubePoints[1], cubePoints[2], cubePoints[3])
@@ -119,15 +119,15 @@ public class buildOurImage {
 				// add cube glass
 				new Polygon(cubePointsGlass[0], cubePointsGlass[1], cubePointsGlass[2], cubePointsGlass[3])
 						.setEmission(new Color(10, 10, 10)) // front
-						.setMaterial(new Material().setShininess(100).setKt(1).setKdg(0.001)),
+						.setMaterial(new Material().setShininess(100).setKt(1).setKdg(0.1)),
 
 				new Polygon(cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[6], cubePointsGlass[7])
 						.setEmission(new Color(10, 10, 10)) // back
-						.setMaterial(new Material().setShininess(100).setKt(1)), // .setKdg(0.05)),
+						.setMaterial(new Material().setShininess(100).setKt(1)),
 
 				new Polygon(cubePointsGlass[1], cubePointsGlass[5], cubePointsGlass[6], cubePointsGlass[2])
 						.setEmission(new Color(10, 10, 10)) // ceiling
-						.setMaterial(new Material().setShininess(100).setKt(1).setKdg(0.001)),
+						.setMaterial(new Material().setShininess(100).setKt(1).setKdg(0.1)),
 
 				new Polygon(cubePointsGlass[0], cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[1])
 						.setEmission(new Color(10, 10, 10)) // right
@@ -172,8 +172,8 @@ public class buildOurImage {
 
 		Render render = new Render() //
 				.setCamera(camera) //
-				.setImageWriter(new ImageWriter("ourImage", 854, 480)) // first image
-				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(9)).setMultithreading(4).setDebugPrint();
+				.setImageWriter(new ImageWriter("ourImage", 1280, 720)) // first image
+				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(49)).setMultithreading(6).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}
