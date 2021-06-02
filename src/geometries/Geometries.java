@@ -12,7 +12,7 @@ import primitives.Ray;
  * 
  * @author David and Matan
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 
 	private List<Intersectable> bodies;
 
@@ -32,6 +32,14 @@ public class Geometries implements Intersectable {
 		this.bodies = List.of(geometries);
 	}
 
+	/**
+	 * ------ getter -----
+	 * get all the bodies
+	 */
+	public List<Intersectable> getBudies(){
+		return bodies;
+	}
+	
 	/**
 	 * add bodies to the list of bodies
 	 * 

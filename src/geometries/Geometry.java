@@ -7,7 +7,7 @@ import primitives.*;
  * 
  * @author David and Matan
  */
-public abstract class Geometry implements Intersectable {
+public abstract class Geometry extends Intersectable {
 
 	protected Color emmission = Color.BLACK;
 	private Material material = new Material();

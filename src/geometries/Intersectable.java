@@ -14,9 +14,11 @@ import primitives.*;
  * @author David and Matan
  *
  */
-public interface Intersectable {
+public abstract class Intersectable {
 
-	
+	protected Point3D minBoundary;
+	protected Point3D maxBoundary;
+
 	/**
 	 * represent point and the geometry body
 	 */
@@ -57,7 +59,7 @@ public interface Intersectable {
 	 * @param max - maximum distance of intersection
 	 * @return list of the intersection points
 	 */
-	public List<GeoPoint> findGeoIntersections(Ray ray,double max);
+	public abstract List<GeoPoint> findGeoIntersections(Ray ray,double max);
 
 	/**
 	 * Function for finding all the intersection points of the Ray in the Geometry
@@ -65,7 +67,7 @@ public interface Intersectable {
 	 * @param ray - The ray that crosses the body
 	 * @return List of The intersect Point , null if there is no intersection point
 	 */
-	default List<GeoPoint> findGeoIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
     	return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
 	}
 
@@ -75,9 +77,17 @@ public interface Intersectable {
 	 * @param ray The ray that crosses the body
 	 * @return the points that cut between a ray and body
 	 */
-	default List<Point3D> findIntersections(Ray ray) {
+	public List<Point3D> findIntersections(Ray ray) {
 		var geoList = findGeoIntersections(ray);
 		return geoList == null ? null : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
+	}
+
+	public Point3D getMaxBoundary() {
+		return maxBoundary;
+	}
+
+	public Point3D getMinBoundary() {
+		return minBoundary;
 	}
 
 }

@@ -126,8 +126,8 @@ public class Ray {
 	 * @param r       - radius of virtual circle
 	 * @return beam of rays
 	 */
-	public List<Point3D> createBeam(Vector n, double numRays, double r) {
-		var points = new LinkedList<Point3D>();
+	public List<Ray> createBeam(Vector n, double numRays, double r) {
+		var points = new LinkedList<Ray>();
 		var centerCircle = getPoint(Material.DISTANCE);
 		points.add(centerCircle);// add main point
 		if (numRays == 1 || Util.isZero(r))// The feature (glossy surface / diffused glass) is off
