@@ -16,6 +16,7 @@ import primitives.*;
  */
 public interface Intersectable {
 
+	
 	/**
 	 * represent point and the geometry body
 	 */

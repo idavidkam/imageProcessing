@@ -11,7 +11,7 @@ public abstract class Geometry implements Intersectable {
 
 	protected Color emmission = Color.BLACK;
 	private Material material = new Material();
-
+	
 	/**
 	 * give the color of the body
 	 * 

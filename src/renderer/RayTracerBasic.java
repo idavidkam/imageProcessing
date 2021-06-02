@@ -102,8 +102,7 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
 		double nv = Util.alignZero(n.dotProduct(v));
 		if (kkr > MIN_CALC_COLOR_K) {
-			color = color.add(
-					calcGlobalEffect(clacRayReflection(n, v, geopoint.point, nv), n, level, kr, kkr, material.kGS));
+			color = calcGlobalEffect(clacRayReflection(n, v, geopoint.point, nv), n, level, kr, kkr, material.kGS);
 		}
 		double kt = material.kT, kkt = kt * k;
 		if (kkt > MIN_CALC_COLOR_K) {
