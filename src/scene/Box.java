@@ -31,8 +31,8 @@ public class Box {
 	/**
 	 * Constructor takes the geometries in the scene set minimum value and maximum
 	 * 
-	 * @param lambda     Value for set optimize density of the box
-	 * @param geometries The geometries in the scene
+	 * @param lambda -    Value for set optimize density of the box
+	 * @param geometries - The geometries in the scene
 	 */
 	public Box(int lambda, Geometries geometries) {
 		setMinBox(geometries.getMinBoundary());

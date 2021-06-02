@@ -1,6 +1,6 @@
 package unittests;
 
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.fail;
 
 import java.util.List;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class buildOurImage {
 	 */
 	@Test
 	public void test() {
-		fail();
+		//fail();
 		Camera camera = new Camera(new Point3D(0, 0, 80), new Vector(0, 1, -0.2), new Vector(0, 0.2, 1)) //
 				.setViewPlaneSize(400, 320).setViewPlaneDistance(200);
 
@@ -44,12 +44,12 @@ public class buildOurImage {
 				new Point3D(100, 500, -20), new Point3D(-100, 500, -20), new Point3D(-100, 500, -100) };
 
 		Lamp lamp = new Lamp(new Color(java.awt.Color.white), new Color(java.awt.Color.gray), 17.5, 5, 2, 100,
-				new SpotLight(new Color(108, 219, 255), new Point3D(150, 550, 100), new Vector(0, 0, -1)).setKl(0.5)
-						.setKq(0.05),
+				new SpotLight(new Color(108, 219, 255), new Point3D(150, 550, 100), new Vector(0, 0, -1)).setKl(0.0005)
+						.setKq(0.000025),
 				new Vector(0, 0, 1), new Vector(0, -1, 0));
 		Lamp lamp1 = new Lamp(new Color(java.awt.Color.white), new Color(java.awt.Color.gray), 17.5, 5, 2, 100,
 				new SpotLight(new Color(108, 219, 255), new Point3D(-150, 550, 100), new Vector(0, 0, -1))
-						.setKl(0.5).setKq(0.05),
+						.setKl(0.0005).setKq(0.000025),
 				new Vector(0, 0, 1), new Vector(0, -1, 0));
 
 		scene.geometries.add( //
@@ -57,20 +57,20 @@ public class buildOurImage {
 				// add walls of the room
 				new Polygon(new Point3D(-200, 600, 200), new Point3D(200, 600, 200), new Point3D(200, 600, -200),
 						new Point3D(-200, 600, -200)) // wall 1
-								.setEmission(Color.BLACK)
+								.setEmission(new Color(69, 141, 184))
 								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 				new Polygon(new Point3D(200, 600, -200), new Point3D(400, 200, -200), new Point3D(400, 200, 200),
 						new Point3D(200, 600, 200)) // wall right
-								.setEmission(Color.BLACK)
+								.setEmission(new Color(69, 141, 184))
 								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 				new Polygon(new Point3D(-200, 600, -200), new Point3D(-400, 200, -200), new Point3D(-400, 200, 200),
 						new Point3D(-200, 600, 200)) // wall left
-								.setEmission(Color.BLACK)
+								.setEmission(new Color(69, 141, 184))
 								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 				new Polygon(new Point3D(400, 200, -200), new Point3D(-400, 200, -200), new Point3D(-200, 600, -200),
 						new Point3D(200, 600, -200)) // floor
 								.setEmission(Color.BLACK).setMaterial(
-										new Material().setKd(0.95).setKs(0.5).setShininess(100).setKr(0.05)),//.setKgs(0.5)),
+										new Material().setKd(0.9).setKs(0.5).setShininess(100).setKr(0.1).setKgs(0.5)),
 				new Polygon(new Point3D(400, 200, 200), new Point3D(-400, 200, 200), new Point3D(-200, 600, 200),
 						new Point3D(200, 600, 200)) // ceiling
 								.setEmission(Color.BLACK)
@@ -119,23 +119,23 @@ public class buildOurImage {
 				// add cube glass
 				new Polygon(cubePointsGlass[0], cubePointsGlass[1], cubePointsGlass[2], cubePointsGlass[3])
 						.setEmission(Color.BLACK) // front
-						.setMaterial(new Material().setShininess(100).setKr(0.1).setKt(0.5).setKdg(0.1)),
+						.setMaterial(new Material().setKd(0.1).setShininess(100).setKr(0.1).setKt(0.8).setKdg(0.1)),
 
 				new Polygon(cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[6], cubePointsGlass[7])
 						.setEmission(Color.BLACK) // back
-						.setMaterial(new Material().setShininess(100).setKt(1)),
+						.setMaterial(new Material().setKd(0.1).setShininess(100).setKt(0.8)),
 
 				new Polygon(cubePointsGlass[1], cubePointsGlass[5], cubePointsGlass[6], cubePointsGlass[2])
 						.setEmission(Color.BLACK) // ceiling
-						.setMaterial(new Material().setShininess(100).setKr(0.1).setKt(0.5).setKdg(0.1)),
+						.setMaterial(new Material().setKd(0.1).setShininess(100).setKr(0.1).setKt(0.8).setKdg(0.1)),
 
 				new Polygon(cubePointsGlass[0], cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[1])
 						.setEmission(Color.BLACK) // right
-						.setMaterial(new Material().setShininess(100).setKt(1)),
+						.setMaterial(new Material().setKd(0.1).setShininess(100).setKt(0.8)),
 
 				new Polygon(cubePointsGlass[2], cubePointsGlass[6], cubePointsGlass[7], cubePointsGlass[3])
 						.setEmission(Color.BLACK) // left
-						.setMaterial(new Material().setShininess(100).setKt(1)),
+						.setMaterial(new Material().setKd(0.1).setShininess(100).setKt(0.8)),
 				// add Light home
 				lamp.getLampParts(), lamp1.getLampParts());
 
@@ -171,8 +171,8 @@ public class buildOurImage {
 
 		Render render = new Render() //
 				.setCamera(camera) //
-				.setImageWriter(new ImageWriter("ourImage", 854, 480)) // first image
-				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(16)).setMultithreading(5).setDebugPrint();
+				.setImageWriter(new ImageWriter("ourImage", 200, 200)) // first image
+				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(81)).setMultithreading(5).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}

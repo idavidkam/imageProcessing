@@ -82,12 +82,30 @@ public abstract class Intersectable {
 		return geoList == null ? null : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
 	}
 
+	/**
+	 * -----getter------
+	 * @return the maximum Boundary
+	 */
 	public Point3D getMaxBoundary() {
 		return maxBoundary;
 	}
 
+	/**
+	 * -----getter------
+	 * @return the minimum Boundary
+	 */
 	public Point3D getMinBoundary() {
 		return minBoundary;
 	}
+
+	/**
+	 * set the maximum Boundary for geometry
+	 */
+	//public abstract void setMaxBoundary(Point3D point);
+	
+	/**
+	 * set the minimum Boundary for geometry
+	 */
+	//public abstract void setMinBoundary(Point3D point);
 
 }

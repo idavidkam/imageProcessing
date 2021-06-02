@@ -127,13 +127,13 @@ public class Ray {
 	 * @return beam of rays
 	 */
 	public List<Ray> createBeam(Vector n, double numRays, double r) {
-		var points = new LinkedList<Ray>();
-		var centerCircle = getPoint(Material.DISTANCE);
-		points.add(centerCircle);// add main point
+		var rays = new LinkedList<Ray>();
+		rays.add(this);// add main ray
 		if (numRays == 1 || Util.isZero(r))// The feature (glossy surface / diffused glass) is off
-			return points;
+			return rays;
 		var vx = dir.createNormal();
 		var vy = dir.crossProduct(vx);
+		var centerCircle = getPoint(Material.DISTANCE);
 		Point3D randomPoint;
 		double x, y;
 		for (int i = 1; i < numRays; ++i) {
@@ -146,18 +146,11 @@ public class Ray {
 				if (!Util.isZero(y))
 					randomPoint = randomPoint.add(vy.scale(y));
 			}
-//			x = Math.random() * 2.0 -1;
-//			y = Math.sqrt(1 - x * x);
-//			d = Math.random() * (2*r) -r;
-//			x = Util.alignZero(x * d);
-//			y = Util.alignZero(y * d);
-//			if (x != 0)
-//				randomPoint = randomPoint.add(vx.scale(x));
-//			if (y != 0)
-//				randomPoint = randomPoint.add(vy.scale(y));
-			points.add(randomPoint);
+			Vector l = randomPoint.subtract(p0);
+				rays.add(new Ray(p0, l));
+			
 		}
-		return points;
+		return rays;
 	}
 
 	@Override

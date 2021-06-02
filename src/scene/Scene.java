@@ -40,6 +40,11 @@ public class Scene {
 	public Geometries geometries;
 
 	/**
+	 * the box of all scene
+	 */
+	public Box box;
+	
+	/**
 	 * ctor: get name and build empty body with color black with the name
 	 * 
 	 * @param name - name of the scene (the "empty" body)
