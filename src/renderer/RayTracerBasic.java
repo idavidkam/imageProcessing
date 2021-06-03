@@ -187,7 +187,7 @@ public class RayTracerBasic extends RayTracerBase {
 		var v = ray.getDir();
 		// if is too small stop the recursive
 		if (kkr > MIN_CALC_COLOR_K) {
-			double nv = n.dotProduct(v);
+			double nv = Util.alignZero(n.dotProduct(v));
 			Ray reflectedRay = calcRayReflection(n, v, geopoint.point, nv);
 			color = calcGlobalEffect(color, reflectedRay, n, level, kr, kkr, kgs);
 		}

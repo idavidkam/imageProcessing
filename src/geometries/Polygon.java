@@ -137,4 +137,16 @@ public class Polygon extends Geometry {
 
 		return List.of(new GeoPoint(this, myList.get(0).point));
 	}
+
+	@Override
+	public void setMaxBoundary(Point3D point) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMinBoundary(Point3D point) {
+		// TODO Auto-generated method stub
+		
+	}
 }

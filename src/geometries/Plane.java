@@ -91,4 +91,14 @@ public class Plane extends Geometry {
 		}
 		return null;
 	}
+
+	@Override
+	public void setMaxBoundary(Point3D point) {
+		maxBoundary=new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);		
+	}
+
+	@Override
+	public void setMinBoundary(Point3D point) {
+		minBoundary=new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+	}
 }

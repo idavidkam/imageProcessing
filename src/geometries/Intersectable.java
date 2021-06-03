@@ -100,12 +100,14 @@ public abstract class Intersectable {
 
 	/**
 	 * set the maximum Boundary for geometry
+	 * @param point - point to set for maximum
 	 */
-	//public abstract void setMaxBoundary(Point3D point);
+	public abstract void setMaxBoundary(Point3D point);
 	
 	/**
 	 * set the minimum Boundary for geometry
+	 * @param point - point to set for minimum
 	 */
-	//public abstract void setMinBoundary(Point3D point);
+	public abstract void setMinBoundary(Point3D point);
 
 }

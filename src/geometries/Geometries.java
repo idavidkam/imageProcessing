@@ -5,6 +5,8 @@ package geometries;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import primitives.Point3D;
 import primitives.Ray;
 
 /**
@@ -63,6 +65,18 @@ public class Geometries extends Intersectable {
 			}
 		}
 		return points;
+	}
+
+	@Override
+	public void setMaxBoundary(Point3D point) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMinBoundary(Point3D point) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

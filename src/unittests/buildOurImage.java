@@ -171,8 +171,8 @@ public class buildOurImage {
 
 		Render render = new Render() //
 				.setCamera(camera) //
-				.setImageWriter(new ImageWriter("ourImage", 200, 200)) // first image
-				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(81)).setMultithreading(5).setDebugPrint();
+				.setImageWriter(new ImageWriter("ourImage", 700, 700)) // first image
+				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(16)).setMultithreading(5).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}

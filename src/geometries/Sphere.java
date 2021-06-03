@@ -93,4 +93,16 @@ public class Sphere extends Geometry {
 		}
 		return null;
 	}
+
+	@Override
+	public void setMaxBoundary(Point3D point) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMinBoundary(Point3D point) {
+		// TODO Auto-generated method stub
+		
+	}
 }
