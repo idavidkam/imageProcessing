@@ -172,7 +172,7 @@ public class buildOurImage {
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(new ImageWriter("ourImage", 640, 480)) // first image
-				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(16)).setMultithreading(5).setDebugPrint().setBox(4);
+				.setRayTracer(new RayTracerBasic(scene).setNumOfRays(16).setBox(4)).setMultithreading(5).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}

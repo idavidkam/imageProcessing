@@ -12,6 +12,7 @@ import static primitives.Util.*;
  * @author david and matan
  */
 public class Polygon extends Geometry {
+	private static final double DELTA = 0.1;
 	/**
 	 * List of polygon's vertices
 	 */
@@ -63,7 +64,7 @@ public class Polygon extends Geometry {
 			setMaxBoundary();
 			return; // no need for more tests for a Triangle
 		}
-			
+
 		Vector n = plane.getNormal();
 
 		// Subtracting any subsequent points will throw an IllegalArgumentException
@@ -106,8 +107,8 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray,double max) {
-		var myList = plane.findGeoIntersections(ray,max);
+	public List<GeoPoint> findGeoIntersections(Ray ray, double max) {
+		var myList = plane.findGeoIntersections(ray, max);
 		if (myList == null)
 			return null;
 		var dir = ray.getDir();
@@ -160,7 +161,7 @@ public class Polygon extends Geometry {
 			if (z > maxZ)
 				maxZ = z;
 		}
-		maxBoundary = new Point3D(maxX, maxY, maxZ);
+		maxBoundary = new Point3D(maxX + DELTA, maxY + DELTA, maxZ + DELTA);
 	}
 
 	@Override
@@ -180,6 +181,6 @@ public class Polygon extends Geometry {
 			if (z < minZ)
 				minZ = z;
 		}
-		minBoundary = new Point3D(minX, minY, minZ);
+		minBoundary = new Point3D(minX - DELTA, minY - DELTA, minZ - DELTA);
 	}
 }

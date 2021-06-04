@@ -25,6 +25,8 @@ public class Geometries extends Intersectable {
 	 */
 	public Geometries() {
 		this.bodies = new LinkedList<Intersectable>();
+		minBoundary = new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+		maxBoundary = new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
 	}
 
 	/**

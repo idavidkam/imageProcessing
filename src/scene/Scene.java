@@ -106,7 +106,8 @@ public class Scene {
 	 * set the box
 	 * @param k - Value for set optimize density of the box
 	 */
-	public void setBox(int k) {
+	public Scene setBox(int k) {
 		box = new Box(k, geometries);
+		return this;
 	}
 }

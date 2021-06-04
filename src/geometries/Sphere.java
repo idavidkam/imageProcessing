@@ -44,6 +44,8 @@ public class Sphere extends Geometry {
 	public Sphere(Point3D center, double radius) {
 		this.center = center;
 		this.radius = radius;
+		setMaxBoundary();
+		setMinBoundary();
 	}
 
 	@Override

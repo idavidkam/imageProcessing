@@ -62,6 +62,8 @@ public class Plane extends Geometry {
 		var v2 = p2.subtract(p0);
 		normal = v1.crossProduct(v2).normalize();
 		this.q0 = p0;
+		setMaxBoundary();
+		setMinBoundary();
 	}
 
 	@Override

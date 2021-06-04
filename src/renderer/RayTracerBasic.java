@@ -52,7 +52,7 @@ public class RayTracerBasic extends RayTracerBase {
 		numOfRays = numRays;
 		return this;
 	}
-
+	
 	/**
 	 * set the box for ray trace
 	 * 
