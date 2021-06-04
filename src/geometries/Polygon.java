@@ -58,9 +58,12 @@ public class Polygon extends Geometry {
 		// polygon with this plane.
 		// The plane holds the invariant normal (orthogonal unit) vector to the polygon
 		plane = new Plane(vertices[0], vertices[1], vertices[2]);
-		if (vertices.length == 3)
+		if (vertices.length == 3) {
+			setMinBoundary();
+			setMaxBoundary();
 			return; // no need for more tests for a Triangle
-
+		}
+			
 		Vector n = plane.getNormal();
 
 		// Subtracting any subsequent points will throw an IllegalArgumentException
@@ -88,6 +91,8 @@ public class Polygon extends Geometry {
 			if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
 		}
+		setMinBoundary();
+		setMaxBoundary();
 	}
 
 	@Override
@@ -139,14 +144,42 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	public void setMaxBoundary(Point3D point) {
-		// TODO Auto-generated method stub
-		
+	public void setMaxBoundary() {
+		double maxX = Double.NEGATIVE_INFINITY;
+		double maxY = Double.NEGATIVE_INFINITY;
+		double maxZ = Double.NEGATIVE_INFINITY;
+		double x, y, z;
+		for (Point3D p : vertices) {
+			x = p.getX();
+			y = p.getY();
+			z = p.getZ();
+			if (x > maxX)
+				maxX = x;
+			if (y > maxY)
+				maxY = y;
+			if (z > maxZ)
+				maxZ = z;
+		}
+		maxBoundary = new Point3D(maxX, maxY, maxZ);
 	}
 
 	@Override
-	public void setMinBoundary(Point3D point) {
-		// TODO Auto-generated method stub
-		
+	public void setMinBoundary() {
+		double minX = Double.POSITIVE_INFINITY;
+		double minY = Double.POSITIVE_INFINITY;
+		double minZ = Double.POSITIVE_INFINITY;
+		double x, y, z;
+		for (Point3D p : vertices) {
+			x = p.getX();
+			y = p.getY();
+			z = p.getZ();
+			if (x < minX)
+				minX = x;
+			if (y < minY)
+				minY = y;
+			if (z < minZ)
+				minZ = z;
+		}
+		minBoundary = new Point3D(minX, minY, minZ);
 	}
 }

@@ -16,8 +16,8 @@ import primitives.*;
  */
 public abstract class Intersectable {
 
-	protected Point3D minBoundary;
-	protected Point3D maxBoundary;
+	protected Point3D minBoundary = new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+	protected Point3D maxBoundary = new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
 
 	/**
 	 * represent point and the geometry body
@@ -100,14 +100,12 @@ public abstract class Intersectable {
 
 	/**
 	 * set the maximum Boundary for geometry
-	 * @param point - point to set for maximum
 	 */
-	public abstract void setMaxBoundary(Point3D point);
+	public abstract void setMaxBoundary();
 	
 	/**
 	 * set the minimum Boundary for geometry
-	 * @param point - point to set for minimum
 	 */
-	public abstract void setMinBoundary(Point3D point);
+	public abstract void setMinBoundary();
 
 }

@@ -24,7 +24,6 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * static double for moving the head of shadow ray's
 	 */
-	private static final double DELTA = 0.1;
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
@@ -54,6 +53,19 @@ public class RayTracerBasic extends RayTracerBase {
 		return this;
 	}
 
+	/**
+	 * set the box for ray trace
+	 * 
+	 * @param k - Value for set optimize density of the box
+	 * @return this
+	 */
+	public RayTracerBasic setBox(int k) {
+		if (k < 0)
+			throw new IllegalArgumentException("Box Density can't be a nagitve number\n");
+		scene.setBox(k);
+		return this;
+	}
+
 	@Override
 	public Color traceRay(Ray ray) {
 		GeoPoint closestPoint = findClosestIntersection(ray);
@@ -68,10 +80,28 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return geoPoint of the closest point
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
-		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
-		if (intersections == null)
+//		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
+//		if (intersections == null)
+//			return null;
+//		return ray.findClosestGeoPoint(intersections);
+		
+		List<GeoPoint> releventPoint = scene.geometries.findRelevantIntersections(ray, scene.box, false,
+				Double.POSITIVE_INFINITY);
+		if (releventPoint == null) {
 			return null;
-		return ray.findClosestGeoPoint(intersections);
+		}
+		Point3D head = ray.getP0();
+		double distance, minDistance = Double.MAX_VALUE;
+		GeoPoint pointToReturn = null;
+		for (GeoPoint gPoint : releventPoint) {
+			distance = head.distance(gPoint.point);
+			if (distance < minDistance) {
+				// A point with smaller distance to Camera was found
+				minDistance = distance;
+				pointToReturn = gPoint;
+			}
+		}
+		return pointToReturn;
 
 	}
 
@@ -271,7 +301,8 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(gp.point, lightDirection, n);
 		double lightDistance = light.getDistance(gp.point);
-		var intersections = scene.geometries.findGeoIntersections(lightRay, lightDistance);
+		List<GeoPoint> intersections = scene.geometries.findRelevantIntersections(lightRay, scene.box, true, lightDistance);
+		// var intersections = scene.geometries.findGeoIntersections(lightRay, lightDistance);
 		if (intersections == null)
 			return 1.0;
 		double ktr = 1.0;

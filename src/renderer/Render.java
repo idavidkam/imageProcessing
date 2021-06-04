@@ -210,6 +210,18 @@ public class Render {
 	}
 
 	/**
+	 * set the box for ray trace
+	 * 
+	 * @param k - Value for set optimize density of the box
+	 * @return this
+	 */
+	public Render setBox(int k) {
+		if (k < 0)
+			throw new IllegalArgumentException("Box Density can't be a nagitve number\n");
+		tracer.scene.setBox(k);
+		return this;
+	}
+	/**
 	 * Produce a rendered image file
 	 */
 	public void writeToImage() {

@@ -68,13 +68,13 @@ public class Tube extends Geometry {
 	}
 
 	@Override
-	public void setMaxBoundary(Point3D point) {
+	public void setMaxBoundary() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setMinBoundary(Point3D point) {
+	public void setMinBoundary() {
 		// TODO Auto-generated method stub
 		
 	}

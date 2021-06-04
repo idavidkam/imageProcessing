@@ -93,12 +93,8 @@ public class Plane extends Geometry {
 	}
 
 	@Override
-	public void setMaxBoundary(Point3D point) {
-		maxBoundary=new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);		
-	}
+	public void setMaxBoundary() {} // Already initialized
 
 	@Override
-	public void setMinBoundary(Point3D point) {
-		minBoundary=new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-	}
+	public void setMinBoundary() {} // Already initialized
 }

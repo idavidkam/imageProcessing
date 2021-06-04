@@ -101,4 +101,12 @@ public class Scene {
 		this.geometries = geometries;
 		return this;
 	}
+
+	/**
+	 * set the box
+	 * @param k - Value for set optimize density of the box
+	 */
+	public void setBox(int k) {
+		box = new Box(k, geometries);
+	}
 }

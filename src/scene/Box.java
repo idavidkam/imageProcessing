@@ -31,13 +31,13 @@ public class Box {
 	/**
 	 * Constructor takes the geometries in the scene set minimum value and maximum
 	 * 
-	 * @param lambda -    Value for set optimize density of the box
+	 * @param k          - Value for set optimize density of the box
 	 * @param geometries - The geometries in the scene
 	 */
-	public Box(int lambda, Geometries geometries) {
+	public Box(int k, Geometries geometries) {
 		setMinBox(geometries.getMinBoundary());
 		setMaxBox(geometries.getMaxBoundary());
-		setDensity(geometries.getBudies().size(), lambda);
+		setDensity(geometries.getBudies().size(), k);
 		setVoxelSize();
 		SetMap(geometries);
 	}
@@ -45,13 +45,13 @@ public class Box {
 	/**
 	 * This function calculate the box density using special formula
 	 * 
-	 * @param numGeometries number of geometries in the scene
-	 * @param lambda        Lambda
+	 * @param numGeometries - number of geometries in the scene
+	 * @param k - Value for set optimize density of the box
 	 */
-	private void setDensity(int numGeometries, int lambda) {
+	private void setDensity(int numGeometries, int k) {
 		double boxVolume = (maxX - minX) * (maxY - minY) * (maxZ - minZ);
 		double averageDimensionSize = ((maxX - minX) + (maxY - minY) + (maxZ - minZ)) / 3;
-		boxDensity = (int) (averageDimensionSize * Math.pow((lambda * numGeometries) / boxVolume, 1 / 3d));
+		boxDensity = (int) (averageDimensionSize * Math.pow((k * numGeometries) / boxVolume, 1 / 3.0));
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Box {
 	}
 
 	/**
-	 * This function set the max boundery of the Box
+	 * This function set the max boundary of the Box
 	 * 
 	 * @param max maximum x y z possible in scene
 	 */
@@ -93,11 +93,17 @@ public class Box {
 	 */
 	private void SetMap(Geometries geometries) {
 		map = new HashMap<Voxel, Geometries>();
-		int[] minIndexs, maxIndexs;
+		int[] minIndexs = new int[3], maxIndexs = new int[3];
 		Voxel voxel;
 		for (Intersectable geometry : geometries.getBudies()) {
-			minIndexs = getMInIndexs(geometry.getMinBoundary());
-			maxIndexs = getMaxIndexs(geometry.getMaxBoundary());
+			var min = geometry.getMinBoundary();
+			minIndexs[0] = (int) ((min.getX() - minX) / voxelSizeX);
+			minIndexs[1] = (int) ((min.getY() - minY) / voxelSizeY);
+			minIndexs[2] = (int) ((min.getZ() - minZ) / voxelSizeZ);
+			var max = geometry.getMaxBoundary();
+			maxIndexs[0] = (int) ((max.getX() - minX) / voxelSizeX);
+			maxIndexs[1] = (int) ((max.getY() - minY) / voxelSizeY);
+			maxIndexs[2] = (int) ((max.getZ() - minZ) / voxelSizeZ);
 			for (int x = minIndexs[0]; x <= maxIndexs[0]; x++)
 				for (int y = minIndexs[1]; y <= maxIndexs[1]; y++)
 					for (int z = minIndexs[2]; z <= maxIndexs[2]; z++) {
@@ -110,37 +116,6 @@ public class Box {
 						}
 					}
 		}
-	}
-
-	// ---------------------------------operations-----------------------------------
-	/**
-	 * This function return the maximum indexses for mapping the geometry into
-	 * grid/voxel for specific point
-	 * 
-	 * @param max the maximum point of the geometry
-	 * @return the maximum indexes
-	 */
-	private int[] getMaxIndexs(Point3D max) {
-		int[] maxIndexs = new int[3];
-		maxIndexs[0] = (int) ((max.getX() - minX) / voxelSizeX);
-		maxIndexs[1] = (int) ((max.getY() - minY) / voxelSizeY);
-		maxIndexs[2] = (int) ((max.getZ() - minZ) / voxelSizeZ);
-		return maxIndexs;
-	}
-
-	/**
-	 * This function return the minimum indexses for mapping the geometry into
-	 * grid/voxel for specific point
-	 * 
-	 * @param min the minimum point of the geometry
-	 * @return the minimum indexes
-	 */
-	private int[] getMInIndexs(Point3D min) {
-		int[] minIndexs = new int[3];
-		minIndexs[0] = (int) ((min.getX() - minX) / voxelSizeX);
-		minIndexs[1] = (int) ((min.getY() - minY) / voxelSizeY);
-		minIndexs[2] = (int) ((min.getZ() - minZ) / voxelSizeZ);
-		return minIndexs;
 	}
 
 	/**
@@ -164,8 +139,9 @@ public class Box {
 	/**
 	 * This Function get Ray and check if its intersect our bounding Box . if it
 	 * intersect we return new ray that start at the intersection point else return
-	 * Null * @param ray
+	 * Null.
 	 * 
+	 * @param ray - the ray that we check if it cross the box
 	 * @return Ray the start in the intersection point / null
 	 */
 	public Ray checkIntersection(Ray ray) {
@@ -173,13 +149,13 @@ public class Box {
 		double maxTX = Double.POSITIVE_INFINITY, maxTY = maxTX, maxTZ = maxTX;
 		Vector v = ray.getDir();
 		Point3D headV = v.getHead();
-		Point3D originRay = ray.getP0();
+		Point3D p0Ray = ray.getP0();
 		double rayX = alignZero(headV.getX());
 		double rayY = alignZero(headV.getY());
 		double rayZ = alignZero(headV.getZ());
-		double rayPX = alignZero(originRay.getX());
-		double rayPY = alignZero(originRay.getY());
-		double rayPZ = alignZero(originRay.getZ());
+		double rayPX = alignZero(p0Ray.getX());
+		double rayPY = alignZero(p0Ray.getY());
+		double rayPZ = alignZero(p0Ray.getZ());
 
 		if (rayX == 0 && (rayPX > maxX || rayPX < minX))
 			return null;
@@ -236,9 +212,9 @@ public class Box {
 	}
 
 	/**
-	 * This funct check if the given point inside the Bounding box
+	 * This function check if the given point inside the Bounding box
 	 * 
-	 * @param p Point3D
+	 * @param p - the point that we check if in the box
 	 * @return True/False
 	 */
 	private boolean isPointInTheBox(Point3D p) {
@@ -251,7 +227,7 @@ public class Box {
 	/**
 	 * This function get ray and check if the ray start inside Box
 	 * 
-	 * @param ray Ray
+	 * @param ray - the ray that we check if it start in the box
 	 * @return true/false
 	 */
 	public boolean isRayStartInTheBox(Ray ray) {
@@ -262,9 +238,9 @@ public class Box {
 	 * This function return the geoPoints of intersection on the way of the ray if
 	 * ray doesn't intersect the box it returns null
 	 * 
-	 * @param ray            the Ray the traverse on the box
-	 * @param shadowRaysCase boolean
-	 * @param distance       distance for lightSource distance
+	 * @param ray            - the Ray the traverse on the box
+	 * @param shadowRaysCase - boolean
+	 * @param distance       - the distance from light source
 	 * @return list of intersections
 	 */
 	public List<GeoPoint> findIntersectionsInTheBox(Ray ray, boolean shadowRaysCase, double dis) {
@@ -278,17 +254,18 @@ public class Box {
 	}
 
 	/**
-	 * this function travers over the voxel in ray direction and check for
+	 * this function traverse over the voxel in ray direction and check for
 	 * intersection if intersection found in current voxel we return the current
-	 * points we have else we travese to the next voxel this function uses the
-	 * 3D-DDA algorithm *** case of shadow rays we need to travese all the voxels
-	 * even if we find intersection in current voxel
+	 * points we have else we traverse to the next voxel this function uses the
+	 * 3D-DDA algorithm.
+	 * <li>case of shadow rays we need to traverse all the voxels even if we find
+	 * intersection in current voxel
 	 * 
-	 * @param ray            the Ray the traverse on the box (ray p0 always be in
+	 * @param ray            - the Ray the traverse on the box (ray p0 always be in
 	 *                       the box)
-	 * @param shadowRaysCase boolean
-	 * @param distance       distance for lightsource distance
-	 * @return the relevan intersection points
+	 * @param shadowRaysCase - boolean
+	 * @param distance       - the distance from light source
+	 * @return the relevant intersection points
 	 */
 	public List<GeoPoint> traverseTheBox(Ray ray, boolean shadowRaysCase, double distance) {
 		double[] daltes = calculateDaltes(ray);
@@ -356,50 +333,50 @@ public class Box {
 	}
 
 	/**
-	 * This function calculate the deltas for taversing int the grid
+	 * This function calculate the deltas for traversing in the grid
 	 * 
-	 * @param ray Ray the intersect the box
+	 * @param ray - Ray the intersect the box
 	 * @return array of essential values for 3ddda
 	 */
 	private double[] calculateDaltes(Ray ray) {
 		Vector rayDirection = ray.getDir();
 		Point3D rayHead = rayDirection.getHead();
-		double rayDirectionX = rayHead.getX();
-		double rayDirectionY = rayHead.getY();
-		double rayDirectionZ = rayHead.getZ();
+		double headX = rayHead.getX();
+		double headY = rayHead.getY();
+		double headZ = rayHead.getZ();
 
 		// P0 of the ray it always in the grid
-		Point3D rayOrigin = ray.getP0();
+		Point3D rayP0 = ray.getP0();
 
 		// vector from the min corner of the grid to the P0 of the ray to get the
 		// distance between them for each axis
-		Vector rayOrigBox = rayOrigin.subtract(new Point3D(minX, minY, minZ));
-		double rayOrigBoxX = rayOrigBox.getHead().getX();
-		double rayOrigBoxY = rayOrigBox.getHead().getY();
-		double rayOrigBoxZ = rayOrigBox.getHead().getZ();
+		Vector p0SubMin = rayP0.subtract(new Point3D(minX, minY, minZ));
+		double p0SubMinX = p0SubMin.getHead().getX();
+		double p0SubMinY = p0SubMin.getHead().getY();
+		double p0SubMinZ = p0SubMin.getHead().getZ();
 		double deltaX, deltaY, deltaZ, tX, tY, tZ;
-		if (rayDirectionX < 0) { // Negative direction on the x axis
-			deltaX = -voxelSizeX / rayDirectionX;
-			tX = (Math.floor(rayOrigBoxX / voxelSizeX) * voxelSizeX - rayOrigBoxX) / rayDirectionX;
+		if (headX < 0) { // Negative direction on the x axis
+			deltaX = -voxelSizeX / headX;
+			tX = (Math.floor(p0SubMinX / voxelSizeX) * voxelSizeX - p0SubMinX) / headX;
 		} else { // Positive direction on the x axis
-			deltaX = voxelSizeX / rayDirectionX;
-			tX = (Math.floor(rayOrigBoxX / voxelSizeX + 1) * voxelSizeX - rayOrigBoxX) / rayDirectionX;
+			deltaX = voxelSizeX / headX;
+			tX = (Math.floor(p0SubMinX / voxelSizeX + 1) * voxelSizeX - p0SubMinX) / headX;
 
 		}
-		if (rayDirectionY < 0) { // Negative direction on the y axis
-			deltaY = -voxelSizeY / rayDirectionY;
-			tY = (Math.floor(rayOrigBoxY / voxelSizeY) * voxelSizeY - rayOrigBoxY) / rayDirectionY;
+		if (headY < 0) { // Negative direction on the y axis
+			deltaY = -voxelSizeY / headY;
+			tY = (Math.floor(p0SubMinY / voxelSizeY) * voxelSizeY - p0SubMinY) / headY;
 		} else { // Positive direction on the y axis
-			deltaY = voxelSizeY / rayDirectionY;
-			tY = (Math.floor(rayOrigBoxY / voxelSizeY + 1) * voxelSizeY - rayOrigBoxY) / rayDirectionY;
+			deltaY = voxelSizeY / headY;
+			tY = (Math.floor(p0SubMinY / voxelSizeY + 1) * voxelSizeY - p0SubMinY) / headY;
 
 		}
-		if (rayDirectionZ < 0) { // Negative direction on the z axis
-			deltaZ = -voxelSizeZ / rayDirectionZ;
-			tZ = (Math.floor(rayOrigBoxZ / voxelSizeZ) * voxelSizeZ - rayOrigBoxZ) / rayDirectionZ;
+		if (headZ < 0) { // Negative direction on the z axis
+			deltaZ = -voxelSizeZ / headZ;
+			tZ = (Math.floor(p0SubMinZ / voxelSizeZ) * voxelSizeZ - p0SubMinZ) / headZ;
 		} else { // Positive direction on the z axis
-			deltaZ = voxelSizeZ / rayDirectionZ;
-			tZ = (Math.floor(rayOrigBoxZ / voxelSizeZ + 1) * voxelSizeZ - rayOrigBoxZ) / rayDirectionZ;
+			deltaZ = voxelSizeZ / headZ;
+			tZ = (Math.floor(p0SubMinZ / voxelSizeZ + 1) * voxelSizeZ - p0SubMinZ) / headZ;
 		}
 		return new double[] { deltaX, deltaY, deltaZ, tX, tY, tZ };
 	}
@@ -413,11 +390,11 @@ public class Box {
 		private int z;
 
 		/**
-		 * Constructor of Voxel initilize the indexes of the Voxel
+		 * Constructor of Voxel initialize the indexes of the Voxel
 		 * 
-		 * @param indexX x
-		 * @param indexY y
-		 * @param indexZ z
+		 * @param indexX - x
+		 * @param indexY - y
+		 * @param indexZ - z
 		 */
 		public Voxel(int indexX, int indexY, int indexZ) {
 			x = indexX;
@@ -426,10 +403,10 @@ public class Box {
 		}
 
 		/**
-		 * This function get voxel and list of intersection points if atleast one
-		 * intersection point inside voxel range we return true else retrun false
+		 * This function get voxel and list of intersection points if at least one
+		 * intersection point inside voxel range we return true else return false
 		 * 
-		 * @param voxel         current Voxel
+		 * @param voxel - current Voxel
 		 * @param intersections list of intersection points
 		 * @return True /false
 		 */
@@ -445,7 +422,7 @@ public class Box {
 		 * Function to find for the sent point the appropriate Voxel
 		 * 
 		 * @param point - The point on the geometry
-		 * @return - Returns the voxel that the point inside it
+		 * @return Returns the voxel that the point inside it
 		 */
 		private static Voxel convertPointToVoxel(Point3D point) {
 			int x = (int) ((point.getX() - minX) / voxelSizeX);
