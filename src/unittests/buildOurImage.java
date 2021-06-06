@@ -8,7 +8,6 @@ import elements.*;
 import geometries.*;
 import primitives.*;
 import renderer.ImageWriter;
-import renderer.RayTracerBasic;
 import renderer.RayTracerBox;
 import renderer.Render;
 import scene.*;
@@ -33,8 +32,8 @@ public class buildOurImage {
 	@Test
 	public void test() {
 		//fail();
-		Camera camera = new Camera(new Point3D(0, 0, 80), new Vector(0, 1, -0.2), new Vector(0, 0.2, 1)) //
-				.setViewPlaneSize(400, 320).setViewPlaneDistance(200);
+		Camera camera = new Camera(new Point3D(0, 0, 40), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
+				.setViewPlaneSize(400, 300).setViewPlaneDistance(200);
 
 		Point3D[] cubePoints = { new Point3D(100, 400, -200), new Point3D(100, 400, -100), new Point3D(-100, 400, -100),
 				new Point3D(-100, 400, -200), new Point3D(100, 500, -200), new Point3D(100, 500, -100),
@@ -54,7 +53,6 @@ public class buildOurImage {
 				new Vector(0, 0, 1), new Vector(0, -1, 0));
 
 		scene.geometries.add( //
-
 				// add walls of the room
 				new Polygon(new Point3D(-200, 600, 200), new Point3D(200, 600, 200), new Point3D(200, 600, -200),
 						new Point3D(-200, 600, -200)) // wall 1
@@ -172,8 +170,8 @@ public class buildOurImage {
 
 		Render render = new Render() //
 				.setCamera(camera) //
-				.setImageWriter(new ImageWriter("ourImage", 1280, 720)) // first image
-				.setRayTracer(new RayTracerBox(scene).setBox(4).setNumOfRays(64)).setMultithreading(3).setDebugPrint();
+				.setImageWriter(new ImageWriter("ourImage", 640, 480)) // first image
+				.setRayTracer(new RayTracerBox(scene).setBox(4).setNumOfRays(16)).setMultithreading(3).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}
