@@ -40,20 +40,19 @@ public class Geometries extends Intersectable {
 	}
 
 	/**
-	 * ------ getter -----
-	 * get all the bodies
+	 * ------ getter ----- get all the bodies
 	 */
-	public List<Intersectable> getBudies(){
+	public List<Intersectable> getBudies() {
 		return bodies;
 	}
-	
+
 	/**
 	 * add bodies to the list of bodies
 	 * 
 	 * @param geometries list of bodies to add
 	 */
 	public void add(Intersectable... geometries) {
-		//bodies.addAll(List.of(geometries));
+		// bodies.addAll(List.of(geometries));
 		for (Intersectable intersectable : geometries) {
 			bodies.add(intersectable);
 			lastAdded = intersectable;
@@ -67,10 +66,10 @@ public class Geometries extends Intersectable {
 	 * help of regular grid structure if the box is null that means we call the
 	 * regular find intersection (without acceleration)
 	 * 
-	 * @param ray - Ray that intersect
-	 * @param box - box of the scene
+	 * @param ray            - Ray that intersect
+	 * @param box            - box of the scene
 	 * @param shadowRaysCase - if its shadow ray we traverse always all the way .
-	 * @param dis - distance for find intersection
+	 * @param dis            - distance for find intersection
 	 * @return the relevant point
 	 */
 	public List<GeoPoint> findRelevantIntersections(Ray ray, Box box, boolean shadowRaysCase, double dis) {
@@ -79,13 +78,12 @@ public class Geometries extends Intersectable {
 		return box.findIntersectionsInTheBox(ray, shadowRaysCase, dis);
 	}
 
-	
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray,double max) {
+	public List<GeoPoint> findGeoIntersections(Ray ray, double max) {
 		List<GeoPoint> points = null;
 		if (bodies != null) {
 			for (var body : bodies) {
-				var result = body.findGeoIntersections(ray,max);
+				var result = body.findGeoIntersections(ray, max);
 				if (result != null)
 					if (points == null)
 						points = new LinkedList<GeoPoint>(result);

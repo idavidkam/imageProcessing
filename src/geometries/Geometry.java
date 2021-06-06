@@ -9,7 +9,7 @@ import primitives.*;
  */
 public abstract class Geometry extends Intersectable {
 
-	protected Color emmission = Color.BLACK;
+	protected Color emission = Color.BLACK;
 	private Material material = new Material();
 	
 	/**
@@ -17,18 +17,18 @@ public abstract class Geometry extends Intersectable {
 	 * 
 	 * @return the color of the body
 	 */
-	public Color getEmmission() {
-		return emmission;
+	public Color getEmission() {
+		return emission;
 	}
 
 	/**
-	 * ------ set the emmission ------
+	 * ------ set the emission ------
 	 * 
 	 * @param newColor - get the new color to set
 	 * @return the Geometry itself
 	 */
 	public Geometry setEmission(Color newColor) {
-		emmission = newColor;
+		emission = newColor;
 		return this;
 	}
 
