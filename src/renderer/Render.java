@@ -9,7 +9,7 @@ import java.util.MissingResourceException;
  * Renderer class is responsible for generating pixel color map from a graphic
  * scene, using ImageWriter class
  * 
- * @author Dan
+ * @version 1.0
  *
  */
 public class Render {
@@ -61,9 +61,6 @@ public class Render {
 	 * the Renderer and for follow up its progress.<br/>
 	 * There is a main follow up object and several secondary objects - one in each
 	 * thread.
-	 * 
-	 * @author Dan
-	 *
 	 */
 	private class Pixel {
 		private long maxRows = 0;
