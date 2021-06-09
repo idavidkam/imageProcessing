@@ -46,7 +46,7 @@ public class Box {
 	 * This function calculate the box density using special formula
 	 * 
 	 * @param numGeometries - number of geometries in the scene
-	 * @param k - Value for set optimize density of the box
+	 * @param k             - Value for set optimize density of the box
 	 */
 	private void setDensity(int numGeometries, int k) {
 		double boxVolume = (maxX - minX) * (maxY - minY) * (maxZ - minZ);
@@ -406,7 +406,7 @@ public class Box {
 		 * This function get voxel and list of intersection points if at least one
 		 * intersection point inside voxel range we return true else return false
 		 * 
-		 * @param voxel - current Voxel
+		 * @param voxel         - current Voxel
 		 * @param intersections list of intersection points
 		 * @return True /false
 		 */

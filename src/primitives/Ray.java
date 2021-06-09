@@ -147,8 +147,7 @@ public class Ray {
 					randomPoint = randomPoint.add(vy.scale(y));
 			}
 			Vector l = randomPoint.subtract(p0);
-				rays.add(new Ray(p0, l));
-			
+			rays.add(new Ray(p0, l));
 		}
 		return rays;
 	}

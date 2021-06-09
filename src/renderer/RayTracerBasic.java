@@ -82,7 +82,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param geo - point on geometry body
 	 * @return the color in this point
 	 */
-	protected Color calcColor(GeoPoint closestPoint, Ray ray) {
+	private Color calcColor(GeoPoint closestPoint, Ray ray) {
 		return calcColor(closestPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
 	}
 
@@ -95,7 +95,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param k            - the current attenuation level
 	 * @return the color in this point
 	 */
-	protected Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
+	private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
 		Color color = intersection.geometry.getEmission();
 		color = color.add((calcLocalEffects(intersection, ray, k)));
 		// if is less then 1 we stop the recursion because not effected too much

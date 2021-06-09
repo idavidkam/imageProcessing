@@ -24,7 +24,7 @@ import scene.*;
  */
 public class buildOurImage {
 
-	private Scene scene = new Scene("Test scene ");
+	private Scene scene = new Scene("Test scene ").setBackground(new Color(69, 141, 184));
 
 	/**
 	 * Test for our image
@@ -68,8 +68,8 @@ public class buildOurImage {
 								.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 				new Polygon(new Point3D(400, 200, -200), new Point3D(-400, 200, -200), new Point3D(-200, 600, -200),
 						new Point3D(200, 600, -200)) // floor
-								.setEmission(Color.BLACK).setMaterial(
-										new Material().setKd(0.9).setKs(0.5).setShininess(100)),
+								.setEmission(Color.BLACK)
+								.setMaterial(new Material().setKd(0.4).setKs(0.5).setShininess(100).setKr(0.6).setKgs(0.8)),
 				new Polygon(new Point3D(400, 200, 200), new Point3D(-400, 200, 200), new Point3D(-200, 600, 200),
 						new Point3D(200, 600, 200)) // ceiling
 								.setEmission(new Color(69, 141, 184))
@@ -84,7 +84,7 @@ public class buildOurImage {
 
 				new Polygon(new Point3D(295, 400, 100), new Point3D(295, 400, -100), new Point3D(345, 300, -100),
 						new Point3D(345, 300, 100)).setEmission(Color.BLACK).setMaterial(
-								new Material().setKd(0.2).setKs(0.3).setShininess(100).setKr(1)),
+								new Material().setKs(0.3).setShininess(100).setKr(1)),
 
 				new Polygon(new Point3D(-220, 550, 100), new Point3D(-220, 550, -100), new Point3D(-270, 450, -100),
 						new Point3D(-270, 450, 100)).setEmission(Color.BLACK).setMaterial(
@@ -105,7 +105,7 @@ public class buildOurImage {
 
 				new Polygon(cubePoints[1], cubePoints[5], cubePoints[6], cubePoints[2])
 						.setEmission(Color.BLACK) // ceiling
-						.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKr(0.1).setKgs(0.4)),
+						.setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100)),
 
 				new Polygon(cubePoints[0], cubePoints[4], cubePoints[5], cubePoints[1])
 						.setEmission(Color.BLACK) // right
@@ -118,7 +118,7 @@ public class buildOurImage {
 				// add cube glass
 				new Polygon(cubePointsGlass[0], cubePointsGlass[1], cubePointsGlass[2], cubePointsGlass[3])
 						.setEmission(Color.BLACK) // front
-						.setMaterial(new Material().setKd(0.1).setShininess(100).setKt(0.8).setKdg(0.6)),
+						.setMaterial(new Material().setKd(0.1).setShininess(100).setKt(0.8).setKdg(0.5)),
 
 				new Polygon(cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[6], cubePointsGlass[7])
 						.setEmission(Color.BLACK) // back
@@ -126,7 +126,7 @@ public class buildOurImage {
 
 				new Polygon(cubePointsGlass[1], cubePointsGlass[5], cubePointsGlass[6], cubePointsGlass[2])
 						.setEmission(Color.BLACK) // ceiling
-						.setMaterial(new Material().setKd(0.1).setShininess(100).setKt(0.8).setKdg(0.6)),
+						.setMaterial(new Material().setKd(0.1).setShininess(100).setKt(0.8).setKdg(0.5)),
 
 				new Polygon(cubePointsGlass[0], cubePointsGlass[4], cubePointsGlass[5], cubePointsGlass[1])
 						.setEmission(Color.BLACK) // right
@@ -140,13 +140,13 @@ public class buildOurImage {
 
 		scene.lights.addAll(List.of(
 				new SpotLight(new Color(70, 142, 185), new Point3D(-90, 410, -90), new Vector(0, 4.4, -0.3))
-						.setKl(0.005).setKq(0.005),
+						.setKl(0.0005).setKq(0.0005),
 				new SpotLight(new Color(70, 142, 185), new Point3D(-90, 490, -90), new Vector(0, 4.4, -0.3))
-						.setKl(0.005).setKq(0.005),
+						.setKl(0.0005).setKq(0.0005),
 				new SpotLight(new Color(70, 142, 185), new Point3D(90, 410, -90), new Vector(0, 4.4, -0.3))
-						.setKl(0.005).setKq(0.005),
+						.setKl(0.0005).setKq(0.0005),
 				new SpotLight(new Color(70, 142, 185), new Point3D(90, 490, -90), new Vector(0, 4.4, -0.3))
-						.setKl(0.005).setKq(0.005),
+						.setKl(0.0005).setKq(0.0005),
 				lamp.getLightLamp(), lamp1.getLightLamp()));
 
 		// add lights and lamps
@@ -171,7 +171,7 @@ public class buildOurImage {
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(new ImageWriter("ourImage", 1920, 1080)) // first image
-				.setRayTracer(new RayTracerBox(scene).setBox(4).setNumOfRays(4)).setMultithreading(3).setDebugPrint();
+				.setRayTracer(new RayTracerBox(scene).setBox(4).setNumOfRays(81)).setMultithreading(3).setDebugPrint();
 		render.renderImage();
 		render.writeToImage();
 	}

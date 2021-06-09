@@ -7,7 +7,6 @@ import java.util.List;
 
 import elements.LightSource;
 import geometries.Intersectable.GeoPoint;
-import primitives.Color;
 import primitives.Ray;
 import primitives.Vector;
 import scene.Scene;
@@ -42,13 +41,6 @@ public class RayTracerBox extends RayTracerBasic {
 			throw new IllegalArgumentException("Box Density can't be a nagitve number\n");
 		scene.setBox(k);
 		return this;
-	}
-
-	
-	@Override
-	public Color traceRay(Ray ray) {
-		GeoPoint closestPoint = findClosestIntersection(ray);
-		return closestPoint == null ? scene.background : calcColor(closestPoint, ray);
 	}
 	
 	@Override
