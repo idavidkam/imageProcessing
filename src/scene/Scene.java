@@ -38,11 +38,6 @@ public class Scene {
 	 * list of bodies that create our body
 	 */
 	public Geometries geometries;
-
-	/**
-	 * the box of all scene
-	 */
-	public Box box;
 	
 	/**
 	 * ctor: get name and build empty body with color black with the name
@@ -99,15 +94,6 @@ public class Scene {
 	 */
 	public Scene setGeometries(Geometries geometries) {
 		this.geometries = geometries;
-		return this;
-	}
-
-	/**
-	 * set the box
-	 * @param k - Value for set optimize density of the box
-	 */
-	public Scene setBox(int k) {
-		box = new Box(k, geometries);
 		return this;
 	}
 }
