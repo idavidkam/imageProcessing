@@ -554,11 +554,7 @@ public class TeapotTest {
 			new Point3D(34.8094, 17.1865, -35.0864) //
 	};
 
-	/**
-	 * Produce a scene with a 3D model and render it into a png image
-	 */
-	@Test
-	public void teapot1() {
+	private void intalizeScene() {
 		scene.geometries.add( //
 				new Triangle(pnts[7], pnts[6], pnts[1]).setEmission(color).setMaterial(mat), //
 				new Triangle(pnts[1], pnts[2], pnts[7]).setEmission(color).setMaterial(mat), //
@@ -1555,8 +1551,17 @@ public class TeapotTest {
 		);
 		scene.lights.add(new PointLight(new Color(500, 500, 500), new Point3D(100, 0, -100)) //
 				.setKq(0.000001));
-
-		ImageWriter imageWriter = new ImageWriter("teapot", 800, 800);
+	}
+	
+	public TeapotTest() {
+		intalizeScene();
+	} 
+	/**
+	 * Produce a scene with a 3D model and render it into a png image
+	 */
+	@Test
+	public void teapotWithBoxAndMT() {
+		ImageWriter imageWriter = new ImageWriter("teapotWithBoxAndMT", 800, 800);
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(imageWriter) //
@@ -1566,5 +1571,17 @@ public class TeapotTest {
 		render.printGrid(50, new Color(java.awt.Color.YELLOW));
 		render.writeToImage();
 	}
-
+	
+	@Test
+	public void teapotWithoutBox() {
+		ImageWriter imageWriter = new ImageWriter("teapotWithoutBox", 800, 800);
+		Render render = new Render() //
+				.setCamera(camera) //
+				.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene));
+		render.renderImage();
+		render.printGrid(50, new Color(java.awt.Color.blue));
+		render.writeToImage();
+	}
+	
 }

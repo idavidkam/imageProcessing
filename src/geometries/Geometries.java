@@ -40,7 +40,7 @@ public class Geometries extends Intersectable {
 	}
 
 	/**
-	 * ------ getter ----- get all the bodies
+	 * get all the bodies
 	 */
 	public List<Intersectable> getBudies() {
 		return bodies;
@@ -52,7 +52,6 @@ public class Geometries extends Intersectable {
 	 * @param geometries list of bodies to add
 	 */
 	public void add(Intersectable... geometries) {
-		// bodies.addAll(List.of(geometries));
 		for (Intersectable intersectable : geometries) {
 			bodies.add(intersectable);
 			lastAdded = intersectable;

@@ -16,8 +16,10 @@ import primitives.*;
  */
 public abstract class Intersectable {
 
-	protected Point3D minBoundary = new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-	protected Point3D maxBoundary = new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+	protected Point3D minBoundary = new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
+			Double.NEGATIVE_INFINITY);
+	protected Point3D maxBoundary = new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
+			Double.POSITIVE_INFINITY);
 
 	/**
 	 * represent point and the geometry body
@@ -52,14 +54,14 @@ public abstract class Intersectable {
 	}
 
 	/**
-	 * Function Return all the intersection Points of the Ray in the Geometry
-	 * in specific distance ( that not bigger than max)
+	 * Function Return all the intersection Points of the Ray in the Geometry in
+	 * specific distance ( that not bigger than max)
 	 * 
 	 * @param ray - The ray that crosses the body
 	 * @param max - maximum distance of intersection
 	 * @return list of the intersection points
 	 */
-	public abstract List<GeoPoint> findGeoIntersections(Ray ray,double max);
+	public abstract List<GeoPoint> findGeoIntersections(Ray ray, double max);
 
 	/**
 	 * Function for finding all the intersection points of the Ray in the Geometry
@@ -68,7 +70,7 @@ public abstract class Intersectable {
 	 * @return List of The intersect Point , null if there is no intersection point
 	 */
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
-    	return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+		return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
 	}
 
 	/**
@@ -83,7 +85,8 @@ public abstract class Intersectable {
 	}
 
 	/**
-	 * -----getter------
+	 * get the maximum Boundary
+	 * 
 	 * @return the maximum Boundary
 	 */
 	public Point3D getMaxBoundary() {
@@ -91,7 +94,8 @@ public abstract class Intersectable {
 	}
 
 	/**
-	 * -----getter------
+	 * get the minimum Boundary
+	 * 
 	 * @return the minimum Boundary
 	 */
 	public Point3D getMinBoundary() {
@@ -102,7 +106,7 @@ public abstract class Intersectable {
 	 * set the maximum Boundary for geometry
 	 */
 	public abstract void setMaxBoundary();
-	
+
 	/**
 	 * set the minimum Boundary for geometry
 	 */

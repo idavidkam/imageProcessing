@@ -47,9 +47,13 @@ public class SpotLight extends PointLight {
 		return super.getL(p);
 	}
 
+	/**
+	 * setter for narrow degree 
+	 * @param narrow - narrow degree for spotLight  
+	 * @return spotlight itself
+	 */
 	public SpotLight setNarrowDegree(int narrow) {
 		this.narrow = narrow;
 		return this;
 	}
-    
 }

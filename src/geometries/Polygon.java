@@ -12,7 +12,6 @@ import static primitives.Util.*;
  * @author david and matan
  */
 public class Polygon extends Geometry {
-	private static final double DELTA = 0.1;
 	/**
 	 * List of polygon's vertices
 	 */
@@ -161,7 +160,7 @@ public class Polygon extends Geometry {
 			if (z > maxZ)
 				maxZ = z;
 		}
-		maxBoundary = new Point3D(maxX + DELTA, maxY + DELTA, maxZ + DELTA);
+		maxBoundary = new Point3D(maxX , maxY , maxZ);
 	}
 
 	@Override
@@ -181,6 +180,6 @@ public class Polygon extends Geometry {
 			if (z < minZ)
 				minZ = z;
 		}
-		minBoundary = new Point3D(minX - DELTA, minY - DELTA, minZ - DELTA);
+		minBoundary = new Point3D(minX, minY, minZ);
 	}
 }
