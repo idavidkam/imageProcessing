@@ -46,27 +46,4 @@ public abstract class Util {
 	public static double alignZero(double number) {
 		return getExp(number) < ACCURACY ? 0.0 : number;
 	}
-
-	/**
-	 * Check whether two numbers have the same sign
-	 * 
-	 * @param n1 1st number
-	 * @param n2 2nd number
-	 * @return true if the numbers have the same sign
-	 */
-	public static boolean checkSign(double n1, double n2) {
-		return (n1 < 0 && n2 < 0) || (n1 > 0 && n2 > 0);
-	}
-
-	/**
-	 * Provide a real random number in range between min and max
-	 * 
-	 * @param min
-	 * @param max
-	 * @return the random value
-	 */
-	public static double random(double min, double max) {
-		return Math.random() * (max - min) + min;
-	}
-
 }
